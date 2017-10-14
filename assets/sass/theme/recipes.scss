@@ -1,0 +1,28 @@
+.single-ingredient {
+	margin-bottom: 5px;
+	.measurement {
+		width: 150px;
+		display: inline-block;
+	}
+	.ingredient-title {
+		width: 500px;
+		display: inline-block;
+	}
+	input {
+		width: 100%;
+		line-height: 30px;
+		font-size: 12pt;
+		padding: 0 10px;
+	}
+}
+.single-instruction {
+	margin-bottom: 5px;
+	.step {
+		input {
+			width: 100%;
+			line-height: 30px;
+			font-size: 12pt;
+			padding: 0 10px;
+		}
+	}
+}

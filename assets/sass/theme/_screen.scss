@@ -1,0 +1,331 @@
+$green: #7C9972;
+$orange: #AD5F57;
+$red: #79404E;
+$light: #8482A1;
+$dark: #485069;
+$blue: #E9F4FF;
+
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic|Quicksand');
+
+// Fonts
+@font-face {
+    font-family: "Avenir Next";
+    src: url("assets/fonts/avenir-next.ttc") format("truetype");
+		 // url("fonts/Mayfair.eot?") format("eot"),
+         // url("fonts/Mayfair.woff2") format("woff2"),
+         // url("fonts/Mayfair.woff") format("woff"),
+         // url("fonts/Mayfair.svg#Samplino") format("svg");
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+}
+body {
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-font-smoothing: antialiased !important;
+	-o-font-smoothing: antialiased !important;
+	font-smoothing: antialiased !important;
+	font-family: "BG Reg";
+}
+a {
+	text-decoration: none;
+	color: $dark;
+	&:hover {
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+.outer {
+	/* W3C */
+	display: inline-flex !important;
+    box-pack: center !important;
+    box-align: center !important;
+	/* Safari, Opera, and Chrome */
+	display: -webkit-inline-flex !important;
+	-webkit-box-pack: center !important;
+	-webkit-box-align: center !important;
+	-webkit-align-items: center !important;
+	 /* Firefox */
+	display: -moz-inline-flexbox !important;
+	-moz-box-pack: center !important;
+	-moz-box-align: center !important;
+	-moz-align-items: center !important;
+	height: 100%;
+	width: 100%;
+	align-items: center !important;
+	position: relative;
+	z-index: 2;
+	.inner {
+		margin: auto 0;
+		width: 100%;
+		z-index: 3;
+	}
+}
+.red {
+	color: $red;
+}
+.green {
+	color: $green;
+}
+.orange {
+	color: $orange;
+}
+.wrap {
+	width: 1400px;
+	margin: 0 auto;
+	display: block;
+	.half {
+		article {
+			width: 50%;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+}
+.tagline {
+	font-size: 28pt;
+	text-align: center;
+	line-height: 100px;
+	color: $light;
+	font-family: 'LiSong Pro', serif;
+}
+#top {
+	text-align: center;
+	height: 100vh;
+	position: relative;
+	z-index: 1;
+	img {
+		width: 400px;
+		height: auto;
+		margin: 0 auto;
+		display: block;
+	}
+	&:after {
+		content:"";
+		background: $green;
+		opacity: 0.9;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+	}
+	#instafeed {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		text-align: center;
+		width: 100%;
+		div {
+			width: 25%;
+			height: 500px;
+			display: inline-block;
+			margin: 0 0 -4px 0;
+			box-sizing: border-box;
+		}
+	}
+}
+#about {
+	background: white;
+	position: relative;
+	z-index: 999;
+	@include linear-gradient($blue, white);
+	article {
+		&.copy {
+			font-size: 14pt;
+			line-height: 20pt;
+			color: $light;
+		}
+	}
+}
+.line {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	span {
+		width: 10%;
+		height: 3px;
+		box-sizing: border-box;
+		display: inline-block;
+		vertical-align: top;
+		&:first-child {
+			background: $green;
+		}
+		&:nth-child(2) {
+			background: $orange;
+		}
+		&:nth-child(3) {
+			background: $red;
+		}
+		&:nth-child(4) {
+			background: $light;
+		}
+		&:nth-child(5) {
+			background: $dark;
+		}
+		&:nth-child(6) {
+			background: $green;
+		}
+		&:nth-child(7) {
+			background: $orange;
+		}
+		&:nth-child(8) {
+			background: $red;
+		}
+		&:nth-child(9) {
+			background: $light;
+		}
+		&:last-child {
+			background: $dark;
+		}
+	}
+}
+#listing {
+	background: white;
+	position: relative;
+	z-index: 999;
+	padding: 0 0 50px 0;
+	box-sizing: border-box;
+	.statsWrap {
+		color: $light;
+		font-family: 'LiSong Pro', serif;
+		font-size: 21pt;
+		text-align: right;
+		position: relative;
+		margin-bottom: 50px;
+		.stats {
+			background: white;
+			box-sizing: border-box;
+			padding: 0 25px;
+			display: inline-block;
+			position: relative;
+			z-index: 2;
+			@include transform(translate(0,-20px));
+		}
+	}
+	.recipeWrap {
+		width: 1400px;
+		margin: 0 auto;
+		display: block;
+		.recipe {
+			width: 33.333333%;
+			display: inline-block;
+			box-sizing: border-box;
+			text-align: center;
+			padding: 25px;
+			h3 {
+				margin: 0 auto;
+				font-family: 'LiSong Pro', serif;
+				color: $light;
+				font-size: 14pt;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				font-weight: lighter;
+				letter-spacing: 1px;
+				position: relative;
+				z-index: 9;
+				box-sizing: border-box;
+				width: 300px;
+				@include transition(all 0.5s $authenticMotion);
+			}
+			img {
+				display: block;
+				max-width: 100%;
+				height: auto;
+				margin-bottom: 5px;
+				position: relative;
+				z-index: 10;
+				min-height: 300px;
+				background: grey;
+			}
+			&:hover {
+				color: $dark;
+				h3 {
+					@include transform(translate(0,0));
+					@include transition(all 0.5s $authenticMotion);
+				}
+			}
+		}
+	}
+}
+.recipe-image {
+	width: 40%;
+	display: inline-block;
+	vertical-align: top;
+	img {
+		max-width: 100%;
+		margin: 0 auto;
+		display: block;
+	}
+}
+#recipe {
+	width: 60%;
+	display: inline-block;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: normal;
+	color: $light;
+	vertical-align: top;
+	.recipe-top {
+		h1 {
+			font-family: 'LiSong Pro', serif;
+			font-weight: normal;
+			font-size: 48pt;
+			margin: 0;
+			color: $dark;
+		}
+	}
+	h3 {
+		font-size: 18pt;
+		margin: 50px 0 0;
+		color: $dark;
+		text-transform: uppercase;
+	}
+	.instruction-listing,.ingredient-listing {
+		padding: 0 100px 0 0;
+		box-sizing: border-box;
+		font-size: 14pt;
+		ul {
+			li {
+				margin: 10px 0;
+				.single-measurement {
+					font-weight: bold;
+				}
+				.single-ingredient {
+					font-size: 12pt;
+				}
+			}
+		}
+	}
+}
+footer {
+	#contact {
+		position: fixed;
+		bottom: 25px;
+		right: 25px;
+		width: 50px;
+		height: 50px;
+		@include border-top-radius(50%);
+		@include border-bottom-radius(50%);
+		z-index: 1000;
+		background: white;
+		border: 1px solid $light;
+		color: $light;
+		text-align: center;
+		&:hover {
+			cursor: pointer;
+		}
+		i {
+			line-height: 45px;
+			font-size: 18pt;
+
+		}
+	}
+}

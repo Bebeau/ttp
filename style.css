@@ -1,0 +1,467 @@
+/*!
+Theme Name: The Toasted Post
+Theme URI: http://thetoastedpost.com
+Description: A custom WordPress theme for The Toasted Post
+Version: 1.0
+Author: Kyle Bebeau
+Author URI: http://theinitgroup.com
+*/
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic|Quicksand");
+[data-animation="slideUp"] {
+  display: block;
+  position: relative;
+  -webkit-transform: translate(0, 50%);
+  -moz-transform: translate(0, 50%);
+  -ms-transform: translate(0, 50%);
+  -o-transform: translate(0, 50%);
+  transform: translate(0, 50%);
+  -webkit-transition: -webkit-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: -moz-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform, 1s, cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideUp"].slideIn {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: -webkit-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: -moz-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform, 1s, cubic-bezier(0.4, 0, 0.2, 1); }
+
+[data-animation="slideDown"] {
+  position: relative;
+  opacity: 0;
+  -webkit-transform: translate(0, -50px);
+  -moz-transform: translate(0, -50px);
+  -ms-transform: translate(0, -50px);
+  -o-transform: translate(0, -50px);
+  transform: translate(0, -50px);
+  -webkit-transition: -webkit-transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: -moz-transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideDown"].slideIn {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+[data-animation="slideInLeft"] {
+  position: relative;
+  -webkit-transform: translate(-150%, 0);
+  -moz-transform: translate(-150%, 0);
+  -ms-transform: translate(-150%, 0);
+  -o-transform: translate(-150%, 0);
+  transform: translate(-150%, 0);
+  -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideInLeft"].slideIn {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+
+[data-animation="slideInRight"] {
+  position: relative;
+  -webkit-transform: translate(150%, 0);
+  -moz-transform: translate(150%, 0);
+  -ms-transform: translate(150%, 0);
+  -o-transform: translate(150%, 0);
+  transform: translate(150%, 0);
+  -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideInRight"].slideIn {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0); }
+  40% {
+    -webkit-transform: translateY(-10px); }
+  60% {
+    -webkit-transform: translateY(-5px); } }
+
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0); }
+  40% {
+    -moz-transform: translateY(-10px); }
+  60% {
+    -moz-transform: translateY(-5px); } }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40% {
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+    transform: translateY(-10px); }
+  60% {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@media (max-width: 768px) {
+  [data-animation="slideUp"] {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="textFade"] {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0); }
+  [data-animation="slideDown"] {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideInLeft"] {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0); }
+  [data-animation="slideInRight"] {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url("assets/fonts/avenir-next.ttc") format("truetype"); }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%; }
+
+body {
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  -o-font-smoothing: antialiased !important;
+  font-smoothing: antialiased !important;
+  font-family: "BG Reg"; }
+
+a {
+  text-decoration: none;
+  color: #485069; }
+  a:hover {
+    cursor: pointer;
+    text-decoration: none; }
+
+.outer {
+  /* W3C */
+  display: inline-flex !important;
+  box-pack: center !important;
+  box-align: center !important;
+  /* Safari, Opera, and Chrome */
+  display: -webkit-inline-flex !important;
+  -webkit-box-pack: center !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  /* Firefox */
+  display: -moz-inline-flexbox !important;
+  -moz-box-pack: center !important;
+  -moz-box-align: center !important;
+  -moz-align-items: center !important;
+  height: 100%;
+  width: 100%;
+  align-items: center !important;
+  position: relative;
+  z-index: 2; }
+  .outer .inner {
+    margin: auto 0;
+    width: 100%;
+    z-index: 3; }
+
+.red {
+  color: #79404E; }
+
+.green {
+  color: #7C9972; }
+
+.orange {
+  color: #AD5F57; }
+
+.wrap {
+  width: 1400px;
+  margin: 0 auto;
+  display: block; }
+  .wrap .half article {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle; }
+
+.tagline {
+  font-size: 28pt;
+  text-align: center;
+  line-height: 100px;
+  color: #8482A1;
+  font-family: 'LiSong Pro', serif; }
+
+#top {
+  text-align: center;
+  height: 100vh;
+  position: relative;
+  z-index: 1; }
+  #top img {
+    width: 400px;
+    height: auto;
+    margin: 0 auto;
+    display: block; }
+  #top:after {
+    content: "";
+    background: #7C9972;
+    opacity: 0.9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2; }
+  #top #instafeed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    text-align: center;
+    width: 100%; }
+    #top #instafeed div {
+      width: 25%;
+      height: 500px;
+      display: inline-block;
+      margin: 0 0 -4px 0;
+      box-sizing: border-box; }
+
+#about {
+  background: white;
+  position: relative;
+  z-index: 999;
+  background-color: #E9F4FF;
+  background-image: -webkit-linear-gradient(#E9F4FF, white);
+  background-image: linear-gradient(#E9F4FF, white); }
+  #about article.copy {
+    font-size: 14pt;
+    line-height: 20pt;
+    color: #8482A1; }
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%; }
+  .line span {
+    width: 10%;
+    height: 3px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top; }
+    .line span:first-child {
+      background: #7C9972; }
+    .line span:nth-child(2) {
+      background: #AD5F57; }
+    .line span:nth-child(3) {
+      background: #79404E; }
+    .line span:nth-child(4) {
+      background: #8482A1; }
+    .line span:nth-child(5) {
+      background: #485069; }
+    .line span:nth-child(6) {
+      background: #7C9972; }
+    .line span:nth-child(7) {
+      background: #AD5F57; }
+    .line span:nth-child(8) {
+      background: #79404E; }
+    .line span:nth-child(9) {
+      background: #8482A1; }
+    .line span:last-child {
+      background: #485069; }
+
+#listing {
+  background: white;
+  position: relative;
+  z-index: 999;
+  padding: 0 0 50px 0;
+  box-sizing: border-box; }
+  #listing .statsWrap {
+    color: #8482A1;
+    font-family: 'LiSong Pro', serif;
+    font-size: 21pt;
+    text-align: right;
+    position: relative;
+    margin-bottom: 50px; }
+    #listing .statsWrap .stats {
+      background: white;
+      box-sizing: border-box;
+      padding: 0 25px;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+      -webkit-transform: translate(0, -20px);
+      -moz-transform: translate(0, -20px);
+      -ms-transform: translate(0, -20px);
+      -o-transform: translate(0, -20px);
+      transform: translate(0, -20px); }
+  #listing .recipeWrap {
+    width: 1400px;
+    margin: 0 auto;
+    display: block; }
+    #listing .recipeWrap .recipe {
+      width: 33.333333%;
+      display: inline-block;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 25px; }
+      #listing .recipeWrap .recipe h3 {
+        margin: 0 auto;
+        font-family: 'LiSong Pro', serif;
+        color: #8482A1;
+        font-size: 14pt;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-weight: lighter;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 9;
+        box-sizing: border-box;
+        width: 300px;
+        -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+      #listing .recipeWrap .recipe img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 5px;
+        position: relative;
+        z-index: 10;
+        min-height: 300px;
+        background: grey; }
+      #listing .recipeWrap .recipe:hover {
+        color: #485069; }
+        #listing .recipeWrap .recipe:hover h3 {
+          -webkit-transform: translate(0, 0);
+          -moz-transform: translate(0, 0);
+          -ms-transform: translate(0, 0);
+          -o-transform: translate(0, 0);
+          transform: translate(0, 0);
+          -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.recipe-image {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top; }
+  .recipe-image img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block; }
+
+#recipe {
+  width: 60%;
+  display: inline-block;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: normal;
+  color: #8482A1;
+  vertical-align: top; }
+  #recipe .recipe-top h1 {
+    font-family: 'LiSong Pro', serif;
+    font-weight: normal;
+    font-size: 48pt;
+    margin: 0;
+    color: #485069; }
+  #recipe h3 {
+    font-size: 18pt;
+    margin: 50px 0 0;
+    color: #485069;
+    text-transform: uppercase; }
+  #recipe .instruction-listing, #recipe .ingredient-listing {
+    padding: 0 100px 0 0;
+    box-sizing: border-box;
+    font-size: 14pt; }
+    #recipe .instruction-listing ul li, #recipe .ingredient-listing ul li {
+      margin: 10px 0; }
+      #recipe .instruction-listing ul li .single-measurement, #recipe .ingredient-listing ul li .single-measurement {
+        font-weight: bold; }
+      #recipe .instruction-listing ul li .single-ingredient, #recipe .ingredient-listing ul li .single-ingredient {
+        font-size: 12pt; }
+
+footer #contact {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #8482A1;
+  color: #8482A1;
+  text-align: center; }
+  footer #contact:hover {
+    cursor: pointer; }
+  footer #contact i {
+    line-height: 45px;
+    font-size: 18pt; }
+
+/* Welcome to Compass. Use this file to define print styles.
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
+/* Welcome to Compass. Use this file to write IE specific override styles.
+ * Import this file using the following HTML or equivalent:
+ * <!--[if IE]>
+ *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+ * <![endif]--> */
