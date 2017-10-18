@@ -50,6 +50,7 @@ var init = {
 	onReady: function() {
         init.instafeed();
         init.loadListing();
+        init.modal();
 	},
     instafeed: function() {
         var userFeed = new Instafeed({
@@ -118,6 +119,17 @@ var init = {
             }
         });
     },
+    modal: function() {
+        jQuery('.btn-modal').click(function(e){
+            e.preventDefault();
+            var modal = jQuery(this).attr("data-modal");
+            jQuery('.modal[data-modal="'+modal+'"]').addClass("in");
+        });
+        jQuery('.modal .fa-close').click(function(e){
+            e.preventDefault();
+            jQuery(this).parent().removeClass('in');
+        });
+    }
 };
 
 jQuery(document).ready(function($) {

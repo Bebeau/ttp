@@ -76,42 +76,8 @@ echo '</section>';
 		if (have_posts()) : 
 			echo '<h1 id="listingTitle">All Recipes</h1>';
 			echo '<section id="filter">';
-				echo '<div class="dropdown">';
-					echo '<button class="btn btn-filter"><i class="fa fa-filter"></i> Category</button>';
-					echo '<nav>';
-						$args = array(
-						    'taxonomy' => 'category',
-						    'post_type' => 'recipes',
-						    'hide_empty' => false,
-						);
-						$terms = get_terms($args);
-						foreach($terms as $term) {
-							echo '<a href="'.get_term_link($term->term_taxonomy_id).'">'.$term->name.'</a>';
-						}
-					echo '</nav>';
-				echo '</div>';
-				echo '<div class="dropdown">';
-					echo '<button class="btn btn-filter"><i class="fa fa-filter"></i> Ingredient</button>';
-					echo '<nav>';
-						$args = array(
-							'smallest'                  => 8, 
-							'largest'                   => 22,
-							'unit'                      => 'pt', 
-							'number'                    => 45,  
-							'format'                    => 'flat',
-							'separator'                 => "\n",
-							'orderby'                   => 'name', 
-							'order'                     => 'ASC',
-							'exclude'                   => null, 
-							'include'                   => null, 
-							'link'                      => 'view', 
-							'taxonomy'                  => 'ingredients', 
-							'echo'                      => true,
-							'child_of'                  => null,
-						);
-						wp_tag_cloud( $args );
-					echo '</nav>';
-				echo '</button>';
+				echo '<button class="btn btn-modal" data-modal="categories"><i class="fa fa-filter"></i> Category</button>';
+				echo '<button class="btn btn-modal" data-modal="ingredients"><i class="fa fa-filter"></i> Ingredient</button>';
 			echo '</section>';
 
 			$termID = get_queried_object_id();
@@ -132,6 +98,50 @@ echo '</section>';
 
 	echo '</div>';
 
+echo '</section>';
+
+echo '<section class="modal" data-modal="ingredients">';
+	echo '<i class="fa fa-close"></i>';
+	echo '<div class="outer">';
+		echo '<div class="inner">';
+			echo '<div id="tagCloud">';
+				$args = array(
+					'smallest'                  => 10, 
+					'largest'                   => 36,
+					'unit'                      => 'pt', 
+					'number'                    => 45,  
+					'format'                    => 'flat',
+					'separator'                 => "\n",
+					'orderby'                   => 'name', 
+					'order'                     => 'ASC',
+					'exclude'                   => null, 
+					'include'                   => null, 
+					'link'                      => 'view', 
+					'taxonomy'                  => 'ingredients', 
+					'echo'                      => true,
+					'child_of'                  => null,
+				);
+				wp_tag_cloud($args);
+			echo '</div>';
+		echo '</div>';
+	echo '</div>';
+echo '</section>';
+
+echo '<section class="modal" data-modal="categories">';
+	echo '<i class="fa fa-close"></i>';
+	echo '<div class="outer">';
+		echo '<div class="inner">';
+			$args = array(
+			    'taxonomy' => 'category',
+			    'post_type' => 'recipes',
+			    'hide_empty' => false,
+			);
+			$terms = get_terms($args);
+			foreach($terms as $term) {
+				echo '<a href="'.get_term_link($term->term_taxonomy_id).'">'.$term->name.'</a>';
+			}
+		echo '</div>';
+	echo '</div>';
 echo '</section>';
 
 get_footer(); 
