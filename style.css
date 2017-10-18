@@ -182,8 +182,8 @@ a {
     width: 100%;
     height: 100%; }
     #top #instafeed div {
-      width: 20%;
-      height: 25%;
+      width: 25%;
+      height: 33.3333%;
       display: inline-block;
       margin: 0 0 -4px 0;
       box-sizing: border-box; }
@@ -244,7 +244,8 @@ a {
     font-family: 'LiSong Pro', serif;
     font-size: 21pt;
     text-align: right;
-    position: relative; }
+    position: relative;
+    margin-bottom: 50px; }
     #listing .statsWrap .stats {
       background: white;
       box-sizing: border-box;
@@ -257,6 +258,13 @@ a {
       -ms-transform: translate(0, -20px);
       -o-transform: translate(0, -20px);
       transform: translate(0, -20px); }
+  #listing #listingTitle {
+    float: left;
+    font-family: 'LiSong Pro', serif;
+    font-size: 36pt;
+    font-weight: normal;
+    margin: 0 0 0 20px;
+    color: #8482A1; }
   #listing #filter {
     text-align: right; }
     #listing #filter .dropdown {
@@ -267,8 +275,10 @@ a {
         font-size: 16pt;
         line-height: 60px;
         padding: 0 15px;
-        margin: 0 25px 0 0;
+        margin: 0 20px 30px 0;
         letter-spacing: 1px; }
+        #listing #filter .dropdown .btn-filter:hover {
+          cursor: pointer; }
       #listing #filter .dropdown nav {
         display: none;
         position: fixed;
@@ -280,21 +290,26 @@ a {
         background: #7C9972; }
         #listing #filter .dropdown nav a {
           color: white; }
-  #listing .recipeWrap {
+  #listing #recipeWrap {
     width: 1400px;
     margin: 0 auto;
     display: block; }
-    #listing .recipeWrap .recipe {
+    #listing #recipeWrap:before {
+      content: "";
+      display: block;
+      clear: both; }
+    #listing #recipeWrap .recipe {
       width: 33.333333%;
       display: inline-block;
       box-sizing: border-box;
       text-align: center;
-      padding: 25px; }
-      #listing .recipeWrap .recipe h3 {
+      padding: 0 20px; }
+      #listing #recipeWrap .recipe h3 {
         margin: 0 auto;
         font-family: 'LiSong Pro', serif;
         color: #8482A1;
         font-size: 14pt;
+        line-height: 40px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -303,22 +318,19 @@ a {
         position: relative;
         z-index: 9;
         box-sizing: border-box;
-        width: 300px;
         -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-      #listing .recipeWrap .recipe img {
+      #listing #recipeWrap .recipe article {
         display: block;
         max-width: 100%;
         height: auto;
-        margin-bottom: 5px;
         position: relative;
         z-index: 10;
-        min-height: 300px;
-        background: grey; }
-      #listing .recipeWrap .recipe:hover {
+        min-height: 300px; }
+      #listing #recipeWrap .recipe:hover {
         color: #485069; }
-        #listing .recipeWrap .recipe:hover h3 {
+        #listing #recipeWrap .recipe:hover h3 {
           -webkit-transform: translate(0, 0);
           -moz-transform: translate(0, 0);
           -ms-transform: translate(0, 0);
@@ -327,6 +339,10 @@ a {
           -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    #listing #recipeWrap #ajaxLoad {
+      font-size: 48pt;
+      text-align: center;
+      padding: 25px 0; }
 
 .recipe-image {
   width: 40%;

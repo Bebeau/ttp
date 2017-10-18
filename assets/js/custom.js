@@ -49,6 +49,7 @@ var move = {
 var init = {
 	onReady: function() {
         init.instafeed();
+        init.loadListing();
 	},
     instafeed: function() {
         var userFeed = new Instafeed({
@@ -58,7 +59,7 @@ var init = {
             accessToken: '1936919979.b5a9123.f4492fd6106043a5b33405791d8ff30e',
             resolution: 'standard_resolution',
             template: '<div style="background:url({{image}}) no-repeat scroll center / cover;"></div>',
-            limit: 60,
+            limit: 12,
             sortBy: 'most-liked'
         });
         userFeed.run();
@@ -66,9 +67,9 @@ var init = {
     recipeAjax: function(termID, perPage) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
-                action: 'loadGiveaways',
+                action: 'loadRecipes',
                 termID: termID,
                 pageNumber: ttp.page
             },
@@ -82,15 +83,13 @@ var init = {
                 ttp.page++;
                 if(recipes.length >= 1) {
                     jQuery("#ajaxLoad").remove();
-                    // add data to #blog-listing #content
                     jQuery("#recipeWrap").append(recipes);
-                    // progresively bubble in new posts
-                    recipes.each(function(index) {
-                        jQuery(this).delay(100*index).queue(function(){
-                            jQuery(this).addClass("in").dequeue;
-                        });
-                    });
-                    if(recipes.length !== perPage) {
+                    setTimeout(
+                        function(){
+                            recipes.addClass("slideIn");
+                        }, 500
+                    );
+                    if(recipes.length < perPage) {
                         ttp.loading = true;
                     } else {
                         ttp.loading = false;
@@ -111,10 +110,10 @@ var init = {
         jQuery(window).scroll(function() {
             var totalHeight = (jQuery(window).scrollTop() + jQuery(window).height());
             var contentHeight = (jQuery("#recipeWrap").scrollTop() + jQuery("#recipeWrap").height() - 500);
-            if(!giv.loading && totalHeight > contentHeight) {
-                giv.loading = true;
-                var termID = jQuery('#listing').attr('data-term');
-                var perPage = jQuery('#listing').attr('data-perPage');
+            if(!ttp.loading && totalHeight > contentHeight) {
+                ttp.loading = true;
+                var termID = jQuery('#recipeWrap').attr('data-term');
+                var perPage = jQuery('#recipeWrap').attr('data-perPage');
                 init.recipeAjax(termID, perPage);
             }
         });

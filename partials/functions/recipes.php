@@ -3,7 +3,6 @@
 // create custom post type for recipes
 add_action( 'init', 'init_recipes' );
 function init_recipes() {
-
     $recipe_type_labels = array(
         'name' => _x('Recipes', 'post type general name'),
         'singular_name' => _x('Recipe', 'post type singular name'),
@@ -37,6 +36,7 @@ function init_recipes() {
     register_post_type('recipes', $recipe_type_args);
 }
 // add custom taxonomy for ingredients
+add_action( 'init', 'init_ingredients' );
 function init_ingredients() {
     $labels = array(
         'name' => _x( 'Ingredients', 'taxonomy general name' ),
@@ -61,8 +61,6 @@ function init_ingredients() {
         )
     );
 }
-add_action( 'init', 'init_ingredients' );
-
 // Add custom meta boxes to display recipe specs
 add_action( 'add_meta_boxes', 'recipe_meta_box', 1 );
 function recipe_meta_box( $post ) {
@@ -171,26 +169,6 @@ function setImage() {
         } 
     }
 }
-add_action( 'save_post', 'save_recipe' );
-function save_recipe( $post_id ) {
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-        return;
-    if(isset($_POST['ingredients'])) {
-        $cookinfo = $_POST['ingredients'];
-        $new = array();
-        if (is_array($cookinfo)) {
-            foreach( $cookinfo as $key => $ingredient ) {
-                $new[$key] = $ingredient['ingredient_title'];
-            }
-        }
-        wp_set_post_terms($post_id, $new, 'ingredients', false);
-        update_post_meta($post_id,'ingredients',$cookinfo);
-    }
-    if(isset($_POST['instructions'])) {
-        $instructions = $_POST['instructions'];
-        update_post_meta($post_id,'instructions',$instructions);
-    }
-}
 // ajax response to set order
 add_action('wp_ajax_setOrder', 'setOrder');
 add_action('wp_ajax_nopriv_setOrder', 'setOrder');
@@ -228,6 +206,82 @@ function removeItem() {
         }
     }
     exit;
+}
+// ajax response to save download track
+add_action('wp_ajax_loadRecipes', 'loadRecipes');
+add_action('wp_ajax_nopriv_loadRecipes', 'loadRecipes');
+function loadRecipes() {
+    $termID = (isset($_GET['termID'])) ? $_GET['termID'] : 0;
+    $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
+
+    if($termID !== "0") {
+        $args = array(
+            'paged'         => $pageNumber,
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'id',
+                    'terms' => $termID
+                )
+            )
+        );
+    } else {
+        $args = array(
+            'paged'         => $pageNumber,
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC'
+        );
+    }
+
+    $recipes = new WP_Query($args);
+
+    if ($recipes->have_posts()) :
+    while ($recipes->have_posts()) : $recipes->the_post();
+
+        global $post;
+        echo '<a href="'.get_the_permalink().'" class="recipe" data-animation="slideUp">';
+            $images = get_post_meta($post->ID,'recipe_images',true);
+            if(!empty($images)) {
+                echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+            }
+            the_title("<h3>","</h3>");
+        echo '</a>';
+
+    endwhile;
+    endif;
+
+    wp_reset_query();
+
+    exit;
+}
+// add function to save recipe meta on post save
+add_action( 'save_post', 'save_recipe' );
+function save_recipe( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+        return;
+    if(isset($_POST['ingredients'])) {
+        $cookinfo = $_POST['ingredients'];
+        $new = array();
+        if (is_array($cookinfo)) {
+            foreach( $cookinfo as $key => $ingredient ) {
+                $new[$key] = $ingredient['ingredient_title'];
+            }
+        }
+        wp_set_post_terms($post_id, $new, 'ingredients', false);
+        update_post_meta($post_id,'ingredients',$cookinfo);
+    }
+    if(isset($_POST['instructions'])) {
+        $instructions = $_POST['instructions'];
+        update_post_meta($post_id,'instructions',$instructions);
+    }
 }
 // list ingredients
 function listIngredients($pid) {

@@ -74,6 +74,7 @@ echo '</section>';
 		query_posts( $args );
 
 		if (have_posts()) : 
+			echo '<h1 id="listingTitle">All Recipes</h1>';
 			echo '<section id="filter">';
 				echo '<div class="dropdown">';
 					echo '<button class="btn btn-filter"><i class="fa fa-filter"></i> Category</button>';
@@ -114,11 +115,15 @@ echo '</section>';
 			echo '</section>';
 
 			$termID = get_queried_object_id();
-			echo '<div class="recipeWrap" data-term="'.$termID.'" data-perPage="'.get_option('posts_per_page').'">';
+
+			echo '<div id="recipeWrap" data-term="'.$termID.'" data-perPage="'.get_option('posts_per_page').'">';
 				while (have_posts()) : 
 					the_post();
 					echo '<a href="'.get_the_permalink().'" class="recipe" data-animation="slideUp">';
-						the_post_thumbnail();
+						$images = get_post_meta($post->ID,'recipe_images',true);
+						if(!empty($images)) {
+							echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+						}
 						the_title("<h3>","</h3>");
 					echo '</a>';
 				endwhile;

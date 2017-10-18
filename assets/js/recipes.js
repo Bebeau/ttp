@@ -38,7 +38,7 @@ var recipes = {
 	            // Grabs the attachment selection and creates a JSON representation of the model.
 	            var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 	            // Append selected photo and save to post
-	            jQuery('.photoWrap').append('<article class="photo ui-state-default" data-order="'+key+'"><img src="'+media_attachment.url+'" alt="" /><span class="button button-remove remove-photo">X</span></article>' );
+	            jQuery('.photoWrap').append('<article class="photo ui-state-default" data-order="'+key+'"><img src="'+media_attachment.url+'" alt="" /><div class="remove" data-key="'+key+'"><i class="fa fa-close"></i></div></article>' );
 	            recipes.saveImage(id, media_attachment.url);
 	            // Close the media library frame.
 	        	meta_image_frame.close();
