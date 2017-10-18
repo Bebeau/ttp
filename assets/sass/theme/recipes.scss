@@ -1,3 +1,6 @@
+$orange: #AD5F57;
+$light: #8482A1;
+
 #ingredient-listing, #instruction-listing {
 	.inside {
 		margin: 10px 0 0;
@@ -8,6 +11,28 @@
 		width: 100%;
 		height: 32px;
 		margin: 5px 0;
+	}
+}
+#recipe-rating {
+	.inside {
+		margin: 10px 0 0;
+		text-align: center;
+	}
+	i {
+		font-size: 24pt;
+		margin: 0 5px;
+		&:hover {
+			cursor: pointer;
+		}
+		&.fa-star-o {
+			color: $light;
+			&:hover {
+				color: $orange;
+			}
+		}
+		&.fa-star {
+			color: $orange;
+		}
 	}
 }
 .move {

@@ -88,6 +88,14 @@ function recipe_meta_box( $post ) {
         'side', 
         'low'
     );
+    add_meta_box(
+        'recipe-rating', 
+        'Rating', 
+        'recipe_rating',
+        'recipes', 
+        'side', 
+        'high'
+    );
 }
 function recipe_ingredients() { 
     global $post;
@@ -147,6 +155,18 @@ function recipe_images() {
         }
         echo '<a href="#" class="button upload-image btn-photo">Add Recipe Image</a>';
     echo '</div>';
+}
+function recipe_rating() {
+    global $post;
+    $rating = get_post_meta($post->ID,'recipe_rating',true);
+    echo '<article id="starRating" data-post="'.$post->ID.'">';
+        echo '<i class="fa fa-star-o" data-star="1"></i>';
+        echo '<i class="fa fa-star-o" data-star="2"></i>';
+        echo '<i class="fa fa-star-o" data-star="3"></i>';
+        echo '<i class="fa fa-star-o" data-star="4"></i>';
+        echo '<i class="fa fa-star-o" data-star="5"></i>';
+    echo '</article>';
+    echo '<input type="hidden" name="recipe_rating" id="recipe_rating" value="'.$rating.'" />';
 }
 // ajax response to save download track
 add_action('wp_ajax_setImage', 'setImage');
@@ -261,6 +281,15 @@ function loadRecipes() {
     wp_reset_query();
 
     exit;
+}
+// ajax response to save download track
+add_action('wp_ajax_setRating', 'setRating');
+add_action('wp_ajax_nopriv_setRating', 'setRating');
+function setRating() {
+    // get response variables
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
+    update_post_meta($postID,'recipe_rating',$rating);
 }
 // add function to save recipe meta on post save
 add_action( 'save_post', 'save_recipe' );
