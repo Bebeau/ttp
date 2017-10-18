@@ -1,6 +1,6 @@
 		<footer>
 			<section id="contact">
-				<i class="fa fa-comments-o"></i>
+				<i class="fa fa-envelope-o"></i>
 			</section>
 		</footer>
     

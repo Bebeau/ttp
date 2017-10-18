@@ -1,40 +1,13 @@
 [data-animation="slideUp"] {
 		display: block;
 		position: relative;
-		@include transform(translate(0,50%));
-		@include transition(transform, 1s, $authenticMotion);
-	&.slideIn {
-		@include transform(translate(0,0));
-		@include transition(transform, 1s, $authenticMotion);
-	}
-}
-[data-animation="slideDown"] {
-	position: relative;
-	opacity: 0;
-	@include transform(translate(0,-50px));
-	@include transition(transform, 0.5s, $authenticMotion);
+		opacity: 0;
+		@include transform(translate(0,25%));
+		@include transition(all 0.5s $authenticMotion);
 	&.slideIn {
 		opacity: 1;
 		@include transform(translate(0,0));
-		@include transition(transform 0.5s $authenticMotion);
-	}
-}
-[data-animation="slideInLeft"] {
-	position: relative;
-	@include transform(translate(-150%,0));
-	@include transition(all 1s $authenticMotion);
-	&.slideIn {
-		@include transform(translate(0,0));
-		@include transition(all 1s $authenticMotion);
-	}
-}
-[data-animation="slideInRight"] {
-	position: relative;
-	@include transform(translate(150%,0));
-	@include transition(all 1s $authenticMotion);
-	&.slideIn {
-		@include transform(translate(0,0));
-		@include transition(all 1s $authenticMotion);
+		@include transition(all 0.5s $authenticMotion);
 	}
 }
 @include keyframes(bounce) {
@@ -57,21 +30,5 @@
 		opacity: 1;
 		@include transform(translate(0,0));
 		@include transition(transform 0.5s $authenticMotion);
-	}
-	[data-animation="textFade"] {
-		opacity: 1;
-		@include transform(scale(1));
-		@include transform(translate(0,0));
-	}
-	[data-animation="slideDown"] {
-		opacity: 1;
-		@include transform(translate(0,0));
-		@include transition(transform 0.5s $authenticMotion);
-	}
-	[data-animation="slideInLeft"] {
-		@include transform(translate(0,0));
-	}
-	[data-animation="slideInRight"] {
-		@include transform(translate(0,0));
 	}
 }

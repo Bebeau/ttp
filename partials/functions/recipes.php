@@ -1,34 +1,5 @@
 <?php
 
-/*
-Plugin Name: TTP Recipes
-Plugin URI: http://theinitgroup.com
-Description: This plugin creates custom post types for recipes.
-Author: Kyle Bebeau
-Version: 1.2
-Author URI: http://theinitgroup.com
-*/
-
-// Load all styles and scripts for the site
-add_action( 'wp_enqueue_scripts', 'load_recipe_scripts' );
-function load_recipe_scripts() {
-    global $post;
-    if(is_page_template('templates/form.php')) {
-        // Load custom scripts
-        wp_enqueue_script('jquery_ui', 'https://code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'), null, false);
-        wp_enqueue_style( 'recipe-styles', get_bloginfo('template_directory').'/assets/css/form.css', false, '1.0.0' );
-    }
-    // wp_enqueue_style( 'recipe-pages', plugin_dir_url( __FILE__  ) . 'assets/css/pages.css', false, '1.0.0' );
-}
-// Add admin styles for login page customization
-add_action( 'admin_enqueue_scripts', 'load_recipes_admin_scripts' );
-function load_recipes_admin_scripts() {
-    global $typenow;
-    if( $typenow == 'recipes' ) {
-        wp_enqueue_script('jquery_ui', 'https://code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'), null, true);
-        wp_localize_script( 'my-ajax-request', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
-    }
-}
 // create custom post type for recipes
 add_action( 'init', 'init_recipes' );
 function init_recipes() {
@@ -85,7 +56,8 @@ function init_ingredients() {
         'recipes',
         array(
             'labels' => $labels,
-            'rewrite' => array( 'slug' => 'ingredients' )
+            'rewrite' => array( 'slug' => 'ingredients' ),
+            'public' => false
         )
     );
 }
@@ -97,159 +69,116 @@ function recipe_meta_box( $post ) {
     add_meta_box(
         'ingredient-listing', 
         'Ingredients', 
-        'recpie_ingredients',
+        'recipe_ingredients',
         'recipes', 
         'normal', 
         'low'
     );
     add_meta_box(
         'instruction-listing', 
-        'Step by Step Instructions', 
-        'recpie_instructions',
+        'Instructions', 
+        'recipe_instructions',
         'recipes', 
         'normal', 
         'low'
     );
+    add_meta_box(
+        'recipe-images', 
+        'Images', 
+        'recipe_images',
+        'recipes', 
+        'side', 
+        'low'
+    );
 }
-function recpie_ingredients() { 
+function recipe_ingredients() { 
     global $post;
-    // Use nonce for verification
-    wp_nonce_field( plugin_basename( __FILE__ ), 'ingredients_noncename' );
-
-    //get the saved meta as an arry
     $ingredients = get_post_meta($post->ID,'ingredients', true);
-
-    $c = 0;
-
-    echo '<section id="sortable">';
-        if ( is_array($ingredients) ) {
-            foreach( $ingredients as $ingredient ) {
-                printf( '
-                    <div class="single-ingredient">
-                        <span class="moveable">
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                        </span>
-                        <article class="measurement">
-                            <input type="text" name="ingredients[%1$s][measure]" value="%2$s" placeholder="measurement" />
-                        </article>
-                        -
-                        <article class="ingredient-title">
-                            <input type="text" name="ingredients[%1$s][ingredient_title]" value="%3$s" placeholder="ingredient" />
-                        </article>
-                        <span class="button-remove"><i class="fa fa-close"></i></span>
-                    </div>', 
-                    $c, 
-                    $ingredient['measure'], 
-                    $ingredient['ingredient_title']
-                );
-                $c = $c + 1;
+    if(is_array($ingredients) ) {
+        $count = count($ingredients);
+    } else {
+        $count = 0;
+    }
+    echo '<section id="ingredientListing" class="sortable" data-post="'.$post->ID.'" data-type="ingredients">';
+        if ( !empty($ingredients) && is_array($ingredients) ) {
+            foreach( $ingredients as $key => $ingredient ) {
+                echo '<article class="ingredient" data-order="'.$key.'">';
+                    echo '<div class="move"><i class="fa fa-bars"></i></div>';
+                    echo '<input type="text" class="measurement" name="ingredients['.$key.'][measure]" value="'.$ingredient["measure"].'" placeholder="measurement" />';
+                    echo '<span>-</span>';
+                    echo '<input type="text" class="ingredientTitle" name="ingredients['.$key.'][ingredient_title]" value="'.$ingredient["ingredient_title"].'" placeholder="ingredient" />';
+                    echo '<div class="remove" data-key="'.$key.'"><i class="fa fa-close"></i></div>';
+                echo '</article>';
             }
-        } 
-    echo '</section>'; ?>
-    <span class="add button button-primary button-large">+ <?php _e('Add Ingredient'); ?></span>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            removeBtn = function() {
-                jQuery(".button-remove").on('click', function(e) {
-                    e.preventDefault();
-                    jQuery(this).parent().remove();
-                });
-            }
-            sortable = function() {
-                jQuery( "#sortable" ).sortable({
-                    placeholder: "ui-state-highlight"
-                });
-                jQuery( "#sortable" ).disableSelection();
-            }
-            var count = <?php echo $c; ?>;
-            jQuery(".add").click(function(e) {
-                count = count + 1;
-                e.preventDefault();
-                jQuery('#sortable').append('<div class="single-ingredient"><span class="moveable"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span><article class="measurement"> <input type="text" name="ingredients['+count+'][measure]" value="" placeholder="measurement"/></article> - <article class="ingredient-title"><input type="text" name="ingredients['+count+'][ingredient_title]" value="" placeholder="ingredient" /></article><span class="button-remove"><i class="fa fa-close"></i></span></div>' );
-                removeBtn();
-                sortable();
-            });
-            removeBtn();
-            sortable();
-        });
-    </script>
-<?php }
-
-function recpie_instructions() { 
+        }
+    echo '</section>';
+    echo '<span class="button button-primary button-large btn-ingredient" data-count="'.$count.'">Add Ingredient</span>';
+}
+function recipe_instructions() { 
     global $post;
-    // Use nonce for verification
-    wp_nonce_field( plugin_basename( __FILE__ ), 'instructions_noncename' );
-
-    //get the saved meta as an arry
     $instructions = get_post_meta($post->ID,'instructions', true);
-
-    $c = 0;
-
-    echo '<section id="sortable2">';
-        if ( is_array($instructions) ) {
-            foreach( $instructions as $instruction ) {
-                printf( '
-                    <div class="single-instruction">
-                        <span class="moveable">
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                        </span>
-                        <article class="step">
-                            <input type="text" name="instructions[%1$s][step]" value="%2$s" placeholder="cooking step" />
-                        </article>
-                        <span class="button-remove"><i class="fa fa-close"></i></span>
-                    </div>', 
-                    $c, 
-                    $instruction['step']
-                );
-                $c = $c + 1;
-            }
+    echo '<section id="instructionListing" class="sortable" data-post="'.$post->ID.'" data-type="instructions">';
+    if ( is_array($instructions) && !empty($instructions) ) {
+        foreach( $instructions as $key => $instruction ) {
+            echo '<article class="instruction" data-order="'.$instruction.'">';
+                echo '<div class="move"><i class="fa fa-bars"></i></div>';
+                echo '<input type="text" name="instructions[]" value="'.$instruction.'" placeholder="cooking step" />';
+                echo '<div class="remove" data-key="'.$key.'"><i class="fa fa-close"></i></div>';
+            echo '</article>';
+        }
+    }
+    echo '</section>';
+    echo '<span class="button button-primary button-large btn-instruction">Add Instruction</span>';
+}
+function recipe_images() {
+    global $post;
+    $photos = get_post_meta($post->ID,'recipe_images', true);
+    echo '<div data-post="'.$post->ID.'" data-type="recipe_images">';
+        echo '<p>Use the button below to upload your recipe photos. After upload, you can drag and drop the photos to change the display order.</p>';
+        if ( !empty($photos) ) {
+            echo '<section class="photoWrap sortable" data-post="'.$post->ID.'" data-type="recipe_images">';
+                foreach( $photos as $key => $photo ) {
+                    echo '<article class="photo ui-state-default" data-order="'.$photo.'">';
+                        echo '<img src="'.$photo.'" alt="" />';
+                        echo '<div class="remove" data-key="'.$key.'"><i class="fa fa-close"></i></div>';
+                    echo '</article>';
+                }
+            echo '</section>';
+        } else {
+            echo '<section class="photoWrap sortable" data-post="'.$post->ID.'" data-type="recipe_images"></section>';
+        }
+        echo '<a href="#" class="button upload-image btn-photo">Add Recipe Image</a>';
+    echo '</div>';
+}
+// ajax response to save download track
+add_action('wp_ajax_setImage', 'setImage');
+add_action('wp_ajax_nopriv_setImage', 'setImage');
+function setImage() {
+    // get response variables
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $imageURL = (isset($_GET['fieldVal'])) ? $_GET['fieldVal'] : 0;
+    // get saved photos
+    $photos = get_post_meta($postID, 'recipe_images', true);
+    // save photos
+    if(!empty($imageURL)) {
+        if(!empty($photos)) {
+            $image[] = $imageURL;
+            $photos = array_merge($photos, $image);
+            update_post_meta( $postID, 'recipe_images', $photos);
+        } else {
+            $new[] = $imageURL;
+            update_post_meta( $postID, 'recipe_images', $new);
         } 
-    echo '</section>'; ?>
-    <span class="add_instruction button button-primary button-large">+ <?php _e('Add Step'); ?></span>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            removeInstructions = function() {
-                jQuery(".button-remove").on('click', function(e) {
-                    e.preventDefault();
-                    jQuery(this).parent().remove();
-                });
-            }
-            sortableInstructions = function() {
-                jQuery( "#sortable2" ).sortable({
-                    placeholder: "ui-state-highlight"
-                });
-                jQuery( "#sortable2" ).disableSelection();
-            }
-            var count = <?php echo $c; ?>;
-            jQuery(".add_instruction").click(function(e) {
-                count = count + 1;
-                e.preventDefault();
-                jQuery('#sortable2').append('<div class="single-instruction"><span class="moveable"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span><article class="step"> <input type="text" name="instructions['+count+'][step]" value="" placeholder="cooking step"/></article><span class="button-remove"><i class="fa fa-close"></i></span></div>' );
-                removeInstructions();
-                sortableInstructions();
-            });
-            removeInstructions();
-            sortableInstructions();
-        });
-    </script>
-<?php }
-/* When the post is saved, saves our custom data */
-function dynamic_save_postdata( $post_id ) {
+    }
+}
+add_action( 'save_post', 'save_recipe' );
+function save_recipe( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
         return;
-
-    if ( !isset( $_POST['ingredients_noncename'] ) || !wp_verify_nonce( $_POST['ingredients_noncename'], plugin_basename( __FILE__ ) ) )
-        return;
-
     if(isset($_POST['ingredients'])) {
         $cookinfo = $_POST['ingredients'];
-        //get the saved meta as an arry
         $new = array();
-        if ( is_array($cookinfo) ) {
+        if (is_array($cookinfo)) {
             foreach( $cookinfo as $key => $ingredient ) {
                 $new[$key] = $ingredient['ingredient_title'];
             }
@@ -257,42 +186,48 @@ function dynamic_save_postdata( $post_id ) {
         wp_set_post_terms($post_id, $new, 'ingredients', false);
         update_post_meta($post_id,'ingredients',$cookinfo);
     }
-
-    if ( !isset( $_POST['instructions_noncename'] ) || !wp_verify_nonce( $_POST['instructions_noncename'], plugin_basename( __FILE__ ) ) )
-        return;
-
     if(isset($_POST['instructions'])) {
         $instructions = $_POST['instructions'];
         update_post_meta($post_id,'instructions',$instructions);
     }
+}
+// ajax response to set order
+add_action('wp_ajax_setOrder', 'setOrder');
+add_action('wp_ajax_nopriv_setOrder', 'setOrder');
+function setOrder() {
+    $order = str_replace( array( '[', ']','"' ),'', $_GET['order'] );
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $type = (isset($_GET['type'])) ? $_GET['type'] : 0;
+    if($type == "ingredients") {
+        $ingredients = get_post_meta($postID,'ingredients', true);
+        $reordered = array();
+        foreach($order as $item) {
+            $reordered[$item] = $ingredients[$item];
+        }
+        update_post_meta($postID, $type, $reordered);
+    } else {
+       update_post_meta($postID, $type, $order); 
+    }
+    exit;
+}
+// ajax response to save download track
+add_action('wp_ajax_removeItem', 'removeItem');
+add_action('wp_ajax_nopriv_removeItem', 'removeItem');
+function removeItem() {
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $key = (isset($_GET['key'])) ? $_GET['key'] : 0;
+    $type = (isset($_GET['type'])) ? $_GET['type'] : 0;
 
-    if(isset($_POST['recipePrep_hours'])) {
-        update_post_meta($post_id,'recipePrep_hours',$_POST['recipePrep_hours']);
+    if(isset($key)) {
+        $array = get_post_meta($postID, $type, true );
+        if(count($array) > 1) {
+            unset($array[$key]);
+            update_post_meta($postID, $type, $array);
+        } else {
+            update_post_meta($postID, $type, "");
+        }
     }
-    if(isset($_POST['recipePrep_minutes'])) {
-        $prepMin = sprintf("%02d", $_POST['recipePrep_minutes']);
-        update_post_meta($post_id,'recipePrep_minutes',$prepMin);
-    }
-    if(isset($_POST['recipeTime_hours'])) {
-        update_post_meta($post_id,'recipeTime_hours',$_POST['recipeTime_hours']);
-    }
-    if(isset($_POST['recipeTime_minutes'])) {
-        $timeMin = sprintf("%02d", $_POST['recipeTime_minutes']);
-        update_post_meta($post_id,'recipeTime_minutes',$timeMin);
-    }
-    if(isset($_POST['recipeServing'])) {
-        update_post_meta($post_id,'recipeServing',$_POST['recipeServing']);
-    }
-
-    if(isset($_POST['firstname'])) {
-        update_post_meta($post_id,'recipeFirstName',$_POST['firstname']);
-    }
-    if(isset($_POST['lastname'])) {
-        update_post_meta($post_id,'recipeLastName',$_POST['lastname']);
-    }
-    if(isset($_POST['emailaddress'])) {
-        update_post_meta($post_id,'recipeEmailaddress',$_POST['emailaddress']);
-    }
+    exit;
 }
 // list ingredients
 function listIngredients($pid) {
@@ -322,104 +257,33 @@ function listInstructions($pid) {
     echo '<div class="instruction-listing">';
         echo '<h3>Instructions</h3>';
         if(!empty($instructions)) {
-            echo '<ul>';
+            echo '<ol>';
                 foreach( $instructions as $instruction ) {
-                    printf( '
-                            <li class="instruction">
-                                <span class="single-instruction">%1$s</span>
-                            </li>', 
-                        $instruction['step']
-                    );
+                    echo '<li class="instruction">';
+                        echo '<span class="single-instruction">'.$instruction.'</span>';
+                    echo '</li>';
                 }
-            echo '</ul>';
+            echo '</ol>';
         } else {
             echo '<p class="alert">There are no instructions listed for this recipe.</p>';
         }
     echo '</div>';
 }
-// add feature image attachment
-function uploadFeatureImage($id, $image) {
-    if(isset($image)) {
-        $uploaddir = wp_upload_dir();
-        $file = $image;
-        $uploadfile = $uploaddir['path'] . '/' . basename( $file["name"] );
-
-        move_uploaded_file( $file["tmp_name"], $uploadfile );
-        $filename = basename( $uploadfile );
-
-        $wp_filetype = wp_check_filetype(basename($filename), null );
-
-        $attachment = array(
-            'post_mime_type' => $wp_filetype['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-            'post_content' => '',
-            'post_status' => 'inherit'
-        );
-        $attach_id = wp_insert_attachment( $attachment, $uploadfile );
-        update_post_meta($id,'_thumbnail_id',$attach_id);
-        set_post_thumbnail( $id, $attach_id );
-    }
+// add social share to single recipes/posts/pages
+function socialShare() {
+    global $post;
+    $images = get_post_meta($post->ID, 'recipe_images', true);
+    $random = rand(0,count($images));
+    echo '<section id="socialShare">';
+        echo '<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u='.get_permalink().'" class="facebook">';
+            echo '<i class="fa fa-facebook"></i>';
+        echo '</a>';
+        echo '<a class="twitter" target="_blank" href="http://twitter.com/share?url='.get_permalink().'&text=Check out this '.get_the_title().' recipe! Good food = good mood. Gotta feed the people. - &via=thetoastedpost">';
+            echo '<i class="fa fa-twitter"></i>';
+        echo '</a>';
+        echo '<a target="_blank" href="http://pinterest.com/pin/create/button/?url='.get_permalink().'&media='.$images[$random].'&description='.strip_tags(get_the_excerpt()).'" class="pinterest" count-layout="horizontal">';
+            echo '<i class="fa fa-pinterest"></i>';
+        echo '</a>';
+    echo '</section>';
 }
-// add submission to MailChimp
-function AddtoMailchimp($firstname, $lastname, $emailaddress) {
-    require_once 'templates/includes/MCAPI.class.php';
-    require_once 'templates/includes/config.ini.php';
-
-    // Prep array to send to MailChimp
-    $merge_vars = array(
-        'FNAME'        => $firstname,
-        'LNAME'        => $lastname,
-        'EMAIL'        => $emailaddress,
-        'GROUPINGS' => array(
-                0 => array(
-                    'name' => "Source",
-                    'groups' => "Recipes"
-                )
-            )
-    );
-    // Capture lead
-    $api = new MCAPI($api);
-    $retval = $api->listSubscribe($list_id,$emailaddress,$merge_vars ,'HTML',false,true,true);
-    $retval;
-    // Backup capture
-    $api2 = new MCAPI($api2);
-    $retval2 = $api2->listSubscribe($list_id2,$emailaddress,$merge_vars ,'HTML',false,true,true);
-    $retval2;
-}
-add_filter( 'wp_mail_content_type', 'set_recipes_content_type' );
-function set_recipes_content_type( $content_type ) {
-    return 'text/html';
-}
-// send thank you to user
-function sendThankYou($emailaddress) {
-
-    add_filter( 'wp_mail_content_type', 'set_recipes_content_type' );
-
-    $facebook = get_option('facebook');
-    $twitter = get_option('twitter');
-    $instagram = get_option('instagram');
-    $pinterest = get_option('pinterest');
-    $youtube = get_option('youtube');
-
-    $recipeListingURL = site_url('recipes-listing');
-
-    ob_start();
-    $subject2 = "Thank You For Submitting Your Recipe!";
-    require("templates/includes/emails/thankyou.php");
-    $body2 = ob_get_clean();
-
-    // construct email header.
-    $headers2 = array(
-        'From' => 'homeandfamilytv@gmail.com'. "\r\n",
-        'To' => $emailaddress. "\r\n",
-        'MIME-Version'  => '1.0\r\n'."\r\n",
-        'Content-Type'  => 'text/html'."\r\n",
-        'charset'       => 'UTF-8'
-    );
-
-    wp_mail( $emailaddress, $subject2, $body2, $headers2 );
-
-    remove_filter( 'wp_mail_content_type', 'set_recipes_content_type' );
-}
-
 ?>

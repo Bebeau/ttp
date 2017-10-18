@@ -6,89 +6,29 @@ Version: 1.0
 Author: Kyle Bebeau
 Author URI: http://theinitgroup.com
 */
-@import url("https://fonts.googleapis.com/css?family=Didact+Gothic|Quicksand");
+@import url("https://fonts.googleapis.com/css?family=Arsenal");
 [data-animation="slideUp"] {
   display: block;
   position: relative;
-  -webkit-transform: translate(0, 50%);
-  -moz-transform: translate(0, 50%);
-  -ms-transform: translate(0, 50%);
-  -o-transform: translate(0, 50%);
-  transform: translate(0, 50%);
-  -webkit-transition: -webkit-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: -moz-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
-  transition: transform, 1s, cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="slideUp"].slideIn {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    -webkit-transition: -webkit-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: -moz-transform, 1s, cubic-bezier(0.4, 0, 0.2, 1);
-    transition: transform, 1s, cubic-bezier(0.4, 0, 0.2, 1); }
-
-[data-animation="slideDown"] {
-  position: relative;
   opacity: 0;
-  -webkit-transform: translate(0, -50px);
-  -moz-transform: translate(0, -50px);
-  -ms-transform: translate(0, -50px);
-  -o-transform: translate(0, -50px);
-  transform: translate(0, -50px);
-  -webkit-transition: -webkit-transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: -moz-transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1);
-  transition: transform, 0.5s, cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="slideDown"].slideIn {
+  -webkit-transform: translate(0, 25%);
+  -moz-transform: translate(0, 25%);
+  -ms-transform: translate(0, 25%);
+  -o-transform: translate(0, 25%);
+  transform: translate(0, 25%);
+  -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-animation="slideUp"].slideIn {
     opacity: 1;
     -webkit-transform: translate(0, 0);
     -moz-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
-    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-
-[data-animation="slideInLeft"] {
-  position: relative;
-  -webkit-transform: translate(-150%, 0);
-  -moz-transform: translate(-150%, 0);
-  -ms-transform: translate(-150%, 0);
-  -o-transform: translate(-150%, 0);
-  transform: translate(-150%, 0);
-  -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="slideInLeft"].slideIn {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
-
-[data-animation="slideInRight"] {
-  position: relative;
-  -webkit-transform: translate(150%, 0);
-  -moz-transform: translate(150%, 0);
-  -ms-transform: translate(150%, 0);
-  -o-transform: translate(150%, 0);
-  transform: translate(150%, 0);
-  -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="slideInRight"].slideIn {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
 @-webkit-keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
@@ -136,45 +76,7 @@ Author URI: http://theinitgroup.com
     transform: translate(0, 0);
     -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="textFade"] {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0); }
-  [data-animation="slideDown"] {
-    opacity: 1;
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-  [data-animation="slideInLeft"] {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0); }
-  [data-animation="slideInRight"] {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0); } }
-
-@font-face {
-  font-family: "Avenir Next";
-  src: url("assets/fonts/avenir-next.ttc") format("truetype"); }
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); } }
 
 html, body {
   margin: 0;
@@ -187,7 +89,7 @@ body {
   -moz-font-smoothing: antialiased !important;
   -o-font-smoothing: antialiased !important;
   font-smoothing: antialiased !important;
-  font-family: "BG Reg"; }
+  font-family: "Arsenal", sans-serif; }
 
 a {
   text-decoration: none;
@@ -195,6 +97,11 @@ a {
   a:hover {
     cursor: pointer;
     text-decoration: none; }
+
+.btn {
+  font-family: 'LiSong Pro', serif;
+  background: #7C9972;
+  color: white; }
 
 .outer {
   /* W3C */
@@ -272,10 +179,11 @@ a {
     left: 0;
     z-index: 1;
     text-align: center;
-    width: 100%; }
+    width: 100%;
+    height: 100%; }
     #top #instafeed div {
-      width: 25%;
-      height: 500px;
+      width: 20%;
+      height: 25%;
       display: inline-block;
       margin: 0 0 -4px 0;
       box-sizing: border-box; }
@@ -336,8 +244,7 @@ a {
     font-family: 'LiSong Pro', serif;
     font-size: 21pt;
     text-align: right;
-    position: relative;
-    margin-bottom: 50px; }
+    position: relative; }
     #listing .statsWrap .stats {
       background: white;
       box-sizing: border-box;
@@ -350,6 +257,29 @@ a {
       -ms-transform: translate(0, -20px);
       -o-transform: translate(0, -20px);
       transform: translate(0, -20px); }
+  #listing #filter {
+    text-align: right; }
+    #listing #filter .dropdown {
+      display: inline-block; }
+      #listing #filter .dropdown .btn-filter {
+        border: none;
+        box-shadow: none;
+        font-size: 16pt;
+        line-height: 60px;
+        padding: 0 15px;
+        margin: 0 25px 0 0;
+        letter-spacing: 1px; }
+      #listing #filter .dropdown nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        background: #7C9972; }
+        #listing #filter .dropdown nav a {
+          color: white; }
   #listing .recipeWrap {
     width: 1400px;
     margin: 0 auto;
@@ -408,13 +338,11 @@ a {
     display: block; }
 
 #recipe {
-  width: 60%;
-  display: inline-block;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Arsenal', sans-serif;
   font-weight: normal;
   color: #8482A1;
   vertical-align: top; }
-  #recipe .recipe-top h1 {
+  #recipe h1 {
     font-family: 'LiSong Pro', serif;
     font-weight: normal;
     font-size: 48pt;

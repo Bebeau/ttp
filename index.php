@@ -74,7 +74,47 @@ echo '</section>';
 		query_posts( $args );
 
 		if (have_posts()) : 
-			echo '<div class="recipeWrap">';
+			echo '<section id="filter">';
+				echo '<div class="dropdown">';
+					echo '<button class="btn btn-filter"><i class="fa fa-filter"></i> Category</button>';
+					echo '<nav>';
+						$args = array(
+						    'taxonomy' => 'category',
+						    'post_type' => 'recipes',
+						    'hide_empty' => false,
+						);
+						$terms = get_terms($args);
+						foreach($terms as $term) {
+							echo '<a href="'.get_term_link($term->term_taxonomy_id).'">'.$term->name.'</a>';
+						}
+					echo '</nav>';
+				echo '</div>';
+				echo '<div class="dropdown">';
+					echo '<button class="btn btn-filter"><i class="fa fa-filter"></i> Ingredient</button>';
+					echo '<nav>';
+						$args = array(
+							'smallest'                  => 8, 
+							'largest'                   => 22,
+							'unit'                      => 'pt', 
+							'number'                    => 45,  
+							'format'                    => 'flat',
+							'separator'                 => "\n",
+							'orderby'                   => 'name', 
+							'order'                     => 'ASC',
+							'exclude'                   => null, 
+							'include'                   => null, 
+							'link'                      => 'view', 
+							'taxonomy'                  => 'ingredients', 
+							'echo'                      => true,
+							'child_of'                  => null,
+						);
+						wp_tag_cloud( $args );
+					echo '</nav>';
+				echo '</button>';
+			echo '</section>';
+
+			$termID = get_queried_object_id();
+			echo '<div class="recipeWrap" data-term="'.$termID.'" data-perPage="'.get_option('posts_per_page').'">';
 				while (have_posts()) : 
 					the_post();
 					echo '<a href="'.get_the_permalink().'" class="recipe" data-animation="slideUp">';

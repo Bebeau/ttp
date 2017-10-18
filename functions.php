@@ -5,17 +5,26 @@ add_filter('show_admin_bar', '__return_false');
 // Load all styles and scripts for the site
 if (!function_exists( 'load_custom_scripts' ) ) {
 	function load_custom_scripts() {
-		// Styles
+		// Load style
 		wp_enqueue_style( 'Style CSS', get_bloginfo( 'template_url' ) . '/style.css', false, '', 'all' );
-
 		// Load default Wordpress jQuery
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', ("http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"), false, '', false);
 		wp_enqueue_script('jquery');
-
-		// Load custom scripts
+		// Load fontawesome
 		wp_enqueue_script('fontawesome', 'https://use.fontawesome.com/771a83773c.js', array('jquery'), null, true);
-		wp_enqueue_script('custom', get_bloginfo( 'template_url' ) . '/assets/js/custom.min.js', array('jquery'), null, true);
+    // Registers and enqueues the required javascript.
+    wp_enqueue_media();
+    wp_enqueue_script('custom', get_bloginfo( 'template_url' ).'/assets/js/custom.min.js', array('jquery'), null, true);
+    wp_localize_script('custom', 'ttp',
+        array(
+          'ajaxurl' => admin_url('admin-ajax.php'),
+          'page' => 2,
+          'loading' => false,
+          'email_nonce' => wp_create_nonce('ttp_email_ajax_nonce')
+        )
+    );
+    wp_enqueue_script('custom');
 
 	}
 }
@@ -24,11 +33,38 @@ add_action( 'wp_print_styles', 'load_custom_scripts' );
 // Add admin styles for login page customization
 add_action( 'admin_enqueue_scripts', 'load_admin_scripts' );
 function load_admin_scripts() {
+    // Load fontawesome
+    wp_enqueue_script('fontawesome', 'https://use.fontawesome.com/771a83773c.js', array('jquery'), null, true);
+    wp_enqueue_script('jquery-ui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', array('jquery'), null, true);
+    // load custom admin recipe styles
     wp_enqueue_style( 'admin-styles', get_bloginfo( 'template_url' ) . '/assets/css/recipes.css', false, '', 'all' );
+    // Registers and enqueues the required javascript.
+    wp_enqueue_media();
+    wp_enqueue_script('admin-js', get_bloginfo( 'template_url' ).'/assets/js/recipes.min.js', array('jquery'), null, true);
+    wp_localize_script('admin-js', 'ttp',
+        array(
+          'ajaxurl' => admin_url('admin-ajax.php'),
+          'ingredients_nonce' => wp_create_nonce('ttp_ingredients_nonce'),
+          'instructions_nonce' => wp_create_nonce('ttp_instructions_nonce')
+        )
+    );
+    wp_enqueue_script('admin-js');
 }
 
+// remove WordPress admin menu items
+function remove_menus(){
+  remove_menu_page( 'edit.php' );
+  // remove_menu_page( 'edit.php?post_type=page' );
+  remove_menu_page( 'edit-comments.php' );
+  // remove_menu_page( 'tools.php' );
+  // remove_menu_page( 'users.php' );
+  remove_menu_page( 'plugins.php' );
+}
+add_action( 'admin_menu', 'remove_menus' );
+
 // Thumbnail Support
-add_theme_support( 'post-thumbnails', array('post', 'recipes', 'page') );
+add_theme_support( 'post-thumbnails', array('post', 'page') );
+
 // Load widget areas
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
@@ -40,6 +76,7 @@ if ( function_exists('register_sidebar') ) {
 		'after_title' => '</h3>',
 	));
 }
+
 // Register Navigation Menu Areas
 add_action( 'INiT', 'register_my_menus' );
 function register_my_menu() {

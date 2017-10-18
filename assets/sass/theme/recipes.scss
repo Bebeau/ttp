@@ -1,28 +1,117 @@
-.single-ingredient {
-	margin-bottom: 5px;
-	.measurement {
-		width: 150px;
-		display: inline-block;
+#ingredient-listing, #instruction-listing {
+	.inside {
+		margin: 10px 0 0;
 	}
-	.ingredient-title {
-		width: 500px;
-		display: inline-block;
-	}
-	input {
+	.ui-state-highlight {
+		border: 1px dashed grey;
+		display: block;
 		width: 100%;
-		line-height: 30px;
-		font-size: 12pt;
-		padding: 0 10px;
+		height: 32px;
+		margin: 5px 0;
 	}
 }
-.single-instruction {
-	margin-bottom: 5px;
-	.step {
-		input {
-			width: 100%;
-			line-height: 30px;
-			font-size: 12pt;
-			padding: 0 10px;
+.move {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: white;
+	background: lighten(black,75%);
+	text-align: center;
+	i {
+		font-size: 14pt;
+		line-height: 24pt;
+		vertical-align: top;
+	}
+	&:hover {
+		cursor: move;
+	}
+}
+.remove {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;
+	background: lighten(red,25%);
+	text-align: center;
+	i {
+		font-size: 14pt;
+		line-height: 24pt;
+		vertical-align: top;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+#ingredientListing {
+	input {
+		line-height: 30px;
+		box-shadow: none;
+		padding: 0 5px;
+		margin: 0;
+		box-sizing: border-box;
+		&.measurement {
+			width: 22%;
+			padding: 0 5px 0 37px;
+		}
+		&.ingredientTitle {
+			width: 75%;
+		}
+	}
+	span {
+		width: 3%;
+		box-sizing: border-box;
+		text-align: center;
+		display: inline-block;
+	}
+	.ingredient {
+		margin: 5px 0;
+		position: relative;
+	}
+}
+#instructionListing {
+	input {
+		line-height: 30px;
+		box-shadow: none;
+		width: 100%;
+		padding: 0 5px 0 37px;
+		margin: 0;
+	}
+	.instruction {
+		margin: 5px 0;
+		position: relative;
+	}
+}
+.btn-instruction, .btn-ingredient, .btn-photo {
+	margin-top: 5px !important;
+	width: 100%;
+	text-align: center;
+}
+#recipe-images {
+	.inside {
+		margin: 10px 0 0;
+	}
+	.ui-state-highlight {
+		border: 1px dashed grey;
+		display: block;
+		width: 100%;
+		height: 200px;
+		margin: 5px 0;
+	}
+}
+.photoWrap {
+	.photo {
+		position: relative;
+		max-width: 100%;
+		img {
+			max-width: 100%;
+			height: auto;
+			&:hover {
+				cursor: move;
+			}
 		}
 	}
 }
