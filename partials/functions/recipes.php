@@ -158,15 +158,20 @@ function recipe_images() {
 }
 function recipe_rating() {
     global $post;
-    $rating = get_post_meta($post->ID,'recipe_rating',true);
+    $ratings = get_post_meta($post->ID,'recipe_rating',true);
+    if(!empty($ratings)) {
+        $averageRating = array_sum($ratings) / count($ratings);
+    } else {
+        $averageRating = 0;
+    }
     echo '<article id="starRating" data-post="'.$post->ID.'">';
-        echo '<i class="fa fa-star-o" data-star="1"></i>';
-        echo '<i class="fa fa-star-o" data-star="2"></i>';
-        echo '<i class="fa fa-star-o" data-star="3"></i>';
-        echo '<i class="fa fa-star-o" data-star="4"></i>';
-        echo '<i class="fa fa-star-o" data-star="5"></i>';
+        echo '<i class="fa fa-star" data-star="1"></i>';
+        echo '<i class="fa fa-star" data-star="2"></i>';
+        echo '<i class="fa fa-star" data-star="3"></i>';
+        echo '<i class="fa fa-star" data-star="4"></i>';
+        echo '<i class="fa fa-star" data-star="5"></i>';
     echo '</article>';
-    echo '<input type="hidden" name="recipe_rating" id="recipe_rating" value="'.$rating.'" />';
+    echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.round($averageRating, 0, PHP_ROUND_HALF_UP).'" />';
 }
 // ajax response to save download track
 add_action('wp_ajax_setImage', 'setImage');
@@ -228,11 +233,12 @@ function removeItem() {
     exit;
 }
 // ajax response to save download track
-add_action('wp_ajax_loadRecipes', 'loadRecipes');
-add_action('wp_ajax_nopriv_loadRecipes', 'loadRecipes');
-function loadRecipes() {
+add_action('wp_ajax_loadListing', 'loadListing');
+add_action('wp_ajax_nopriv_loadListing', 'loadListing');
+function loadListing() {
     $termID = (isset($_GET['termID'])) ? $_GET['termID'] : 0;
     $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
+    $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
 
     if($termID !== "0") {
         $args = array(
@@ -264,18 +270,92 @@ function loadRecipes() {
     $recipes = new WP_Query($args);
 
     if ($recipes->have_posts()) :
+    $count++;
     while ($recipes->have_posts()) : $recipes->the_post();
 
         global $post;
-        echo '<a href="'.get_the_permalink().'" class="recipe" data-animation="slideUp">';
+        echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
             $images = get_post_meta($post->ID,'recipe_images',true);
             if(!empty($images)) {
                 echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
             }
-            the_title("<h3>","</h3>");
+            the_title("<h3>&bull; <span>","</span> &bull;</h3>");
         echo '</a>';
-
+        if($count > 5) {
+            $count = 1;
+        }
     endwhile;
+    endif;
+
+    wp_reset_query();
+
+    exit;
+}
+// ajax response to save download track
+add_action('wp_ajax_loadRecipe', 'loadRecipe');
+add_action('wp_ajax_nopriv_loadRecipe', 'loadRecipe');
+function loadRecipe() {
+
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+
+    $args = array(
+            'p' => $postID,
+            'post_type' => 'recipes'
+        );
+
+    $recipe = new WP_Query($args);
+
+    if ($recipe->have_posts()) :
+
+        echo '<section id="recipeWrap">';
+
+        while ($recipe->have_posts()) : $recipe->the_post();
+
+        global $post;
+
+            $images = get_post_meta($post->ID, 'recipe_images', true);
+            $count = 0;
+            echo '<div id="recipeImages">';
+                foreach($images as $image) {
+                    if($count === 0) {
+                        echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
+                    } else {
+                        echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
+                    }
+                    $count++;
+                }
+                get_template_part( 'partials/theme/listing', 'related' );
+
+                $recipe->reset_postdata();
+                
+            echo '</div>';
+
+            echo '<div id="recipeCopy">';
+
+                the_title('<h1>','</h1>');
+                echo '<span class="line">';
+                    echo '<span></span>';
+                    echo '<span></span>';
+                    echo '<span></span>';
+                    echo '<span></span>';
+                    echo '<span></span>';
+                echo '</span>';
+
+                recipe_rating();
+                
+                echo '<div class="copy">';
+                    the_content();
+                    listIngredients($post->ID);
+                    listInstructions($post->ID);
+                    socialShare();
+                echo '</div>';
+
+            echo '</div>';
+        
+        endwhile;
+
+        echo '</section>';
+
     endif;
 
     wp_reset_query();
@@ -289,7 +369,21 @@ function setRating() {
     // get response variables
     $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
     $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
-    update_post_meta($postID,'recipe_rating',$rating);
+
+    $ratings = get_post_meta($postID, 'recipe_rating', true);
+
+    if(!empty($rating)) {
+        if(!empty($ratings)) {
+            $new[] = $rating;
+            $recipe_ratings = array_merge($ratings, $new);
+            update_post_meta($postID,'recipe_rating',$recipe_ratings);
+        } else {
+            $new[] = $rating;
+            update_post_meta($postID,'recipe_rating',$new);
+        }
+    }
+
+    exit;
 }
 // add function to save recipe meta on post save
 add_action( 'save_post', 'save_recipe' );
@@ -356,15 +450,16 @@ function listInstructions($pid) {
 function socialShare() {
     global $post;
     $images = get_post_meta($post->ID, 'recipe_images', true);
-    $random = rand(0,count($images));
+    $random = rand(0,count($images)-1);
     echo '<section id="socialShare">';
+        echo '<h4>Feed The People.</h4>';
         echo '<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u='.get_permalink().'" class="facebook">';
             echo '<i class="fa fa-facebook"></i>';
         echo '</a>';
-        echo '<a class="twitter" target="_blank" href="http://twitter.com/share?url='.get_permalink().'&text=Check out this '.get_the_title().' recipe! Good food = good mood. Gotta feed the people. - &via=thetoastedpost">';
+        echo '<a class="twitter" target="_blank" href="http://twitter.com/share?url='.get_permalink().'&text='.get_the_title().' because good food = good mood. Gotta feed the people. - &via=thetoastedpost">';
             echo '<i class="fa fa-twitter"></i>';
         echo '</a>';
-        echo '<a target="_blank" href="http://pinterest.com/pin/create/button/?url='.get_permalink().'&media='.$images[$random].'&description='.strip_tags(get_the_excerpt()).'" class="pinterest" count-layout="horizontal">';
+        echo '<a target="_blank" href="http://pinterest.com/pin/create/button/?url='.get_permalink().'&media='.$images[$random].'&description='.strip_tags(get_the_title()).'" class="pinterest" count-layout="horizontal">';
             echo '<i class="fa fa-pinterest"></i>';
         echo '</a>';
     echo '</section>';

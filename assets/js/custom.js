@@ -51,6 +51,9 @@ var init = {
         init.instafeed();
         init.loadListing();
         init.modal();
+        init.thumbnail();
+        init.starRating();
+        init.recipeModal();
 	},
     instafeed: function() {
         var userFeed = new Instafeed({
@@ -65,18 +68,19 @@ var init = {
         });
         userFeed.run();
     },
-    recipeAjax: function(termID, perPage) {
+    recipeAjax: function(termID, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
             data: {
-                action: 'loadRecipes',
+                action: 'loadListing',
                 termID: termID,
+                count: count,
                 pageNumber: ttp.page
             },
             dataType: "html",
             beforeSend : function(){
-                jQuery("#recipeWrap").append('<div id="ajaxLoad"><i class="fa fa-spinner fa-spin"></i></div>');
+                jQuery("#listingWrap").append('<div id="ajaxLoad"><i class="fa fa-spinner fa-spin"></i></div>');
             },
             success : function(data){
                 var recipes = jQuery(data);
@@ -84,7 +88,7 @@ var init = {
                 ttp.page++;
                 if(recipes.length >= 1) {
                     jQuery("#ajaxLoad").remove();
-                    jQuery("#recipeWrap").append(recipes);
+                    jQuery("#listingWrap").append(recipes);
                     setTimeout(
                         function(){
                             recipes.addClass("slideIn");
@@ -110,12 +114,13 @@ var init = {
     loadListing: function() {
         jQuery(window).scroll(function() {
             var totalHeight = (jQuery(window).scrollTop() + jQuery(window).height());
-            var contentHeight = (jQuery("#recipeWrap").scrollTop() + jQuery("#recipeWrap").height() - 500);
+            var contentHeight = (jQuery("#listingWrap").scrollTop() + jQuery("#listingWrap").height() - 500);
             if(!ttp.loading && totalHeight > contentHeight) {
                 ttp.loading = true;
-                var termID = jQuery('#recipeWrap').attr('data-term');
-                var perPage = jQuery('#recipeWrap').attr('data-perPage');
-                init.recipeAjax(termID, perPage);
+                var termID = jQuery('#listingWrap').attr('data-term');
+                var perPage = jQuery('#listingWrap').attr('data-perPage');
+                var count = jQuery('#listingWrap a:last-child').attr("data-color").replace('color','');
+                init.recipeAjax(termID, perPage, count);
             }
         });
     },
@@ -123,12 +128,93 @@ var init = {
         jQuery('.btn-modal').click(function(e){
             e.preventDefault();
             var modal = jQuery(this).attr("data-modal");
+            jQuery('body').addClass("stop");
+            jQuery('#bodyWrap').addClass("out");
             jQuery('.modal[data-modal="'+modal+'"]').addClass("in");
         });
         jQuery('.modal .fa-close').click(function(e){
             e.preventDefault();
             jQuery(this).parent().removeClass('in');
+            jQuery('#bodyWrap').removeClass("out");
+            jQuery('body').removeClass("stop");
+            setTimeout(
+                function(){
+                    jQuery('.modal #recipeWrap').remove();
+                }, 500
+            );
         });
+    },
+    recipeModalAjax: function(postID) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "GET",
+            data: {
+                postID: postID,
+                action: 'loadRecipe'
+            },
+            dataType: "html",
+            success : function(data){
+                jQuery(".single-recipes").append(data);
+                jQuery('#bodyWrap').addClass("out");
+                jQuery('.single-recipes').addClass("in");
+                setTimeout(
+                    function(){
+                        jQuery(".recipeLoad").remove();
+                    }, 500
+                );
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                jQuery(".recipeLoad").remove();
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+    },
+    recipeModal: function() {
+        jQuery(document).on("click",'.recipe',function(e){
+            e.preventDefault();
+            jQuery('body').addClass("stop");
+            jQuery("article",this).append('<div class="recipeLoad"><i class="fa fa-spinner fa-spin"></i></div>');
+            jQuery('.recipeLoad').addClass("in");
+            var postID = jQuery(this).attr("data-post");
+            init.recipeModalAjax(postID);
+        });
+    },
+    thumbnail: function() {
+        jQuery(document).on("click",'.thumbnail',function(){
+            var feature = jQuery('.featureImage img').attr("src");
+            var image = jQuery(this).attr("data-image");
+            jQuery('.featureImage img').attr("src", image);
+            jQuery(this).attr("data-image", feature);
+            jQuery("span",this).css('background','url('+feature+') no-repeat scroll center / cover');
+        });
+    },
+    saveRating: function(postID, rating) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "GET",
+            data: {
+                action: 'setRating',
+                postID: postID,
+                rating: rating
+            },
+            dataType: 'html',
+            error : function(jqXHR, textStatus, errorThrown) {
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+    },
+    starRating: function() {
+        jQuery('#starRating i').click(function(e){
+            e.preventDefault();
+            var postID = jQuery('#starRating').attr("data-post");
+            var rating = jQuery(this).attr("data-star");
+            jQuery('#starRating .fa-star').removeClass("active");
+            jQuery(this).addClass("active").prevAll().addClass("active");
+            jQuery('#recipe_rating').val(rating);
+            init.saveRating(postID,rating);
+        });
+        var rating = jQuery('#recipe_rating').val();
+        jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
     }
 };
 

@@ -5,6 +5,10 @@ $light: #8482A1;
 $dark: #485069;
 $blue: #E9F4FF;
 
+$facebook: #3b5998;
+$twitter: #00aced;
+$pinterest: #C92228;
+
 @import url('https://fonts.googleapis.com/css?family=Arsenal');
 
 html, body {
@@ -19,6 +23,9 @@ body {
 	-o-font-smoothing: antialiased !important;
 	font-smoothing: antialiased !important;
 	font-family: "Arsenal", sans-serif;
+	&.stop {
+		overflow: hidden;
+	}
 }
 a {
 	text-decoration: none;
@@ -71,6 +78,14 @@ a {
 .orange {
 	color: $orange;
 }
+#bodyWrap {
+	@include transform(scale(1)translate(0,0));
+	@include transition(all 0.5s $authenticMotion);
+	&.out {
+		@include transform(scale(0.8)translate(0,-100px));
+		@include transition(all 0.5s $authenticMotion);
+	}
+}
 .wrap {
 	width: 1400px;
 	margin: 0 auto;
@@ -80,6 +95,11 @@ a {
 			width: 50%;
 			display: inline-block;
 			vertical-align: middle;
+			box-sizing: border-box;
+			padding: 0 50px;
+			&:first-child {
+				text-align: center;
+			}
 		}
 	}
 }
@@ -133,7 +153,7 @@ a {
 	background: white;
 	position: relative;
 	z-index: 999;
-	@include linear-gradient($blue, white);
+	background: linear-gradient($blue, white);
 	article {
 		&.copy {
 			font-size: 14pt;
@@ -232,7 +252,7 @@ a {
 			}
 		}
 	}
-	#recipeWrap {
+	#listingWrap {
 		width: 1400px;
 		margin: 0 auto;
 		display: block;
@@ -246,22 +266,29 @@ a {
 			display: inline-block;
 			box-sizing: border-box;
 			text-align: center;
-			padding: 0 20px;
+			padding: 0 20px 20px;
 			h3 {
 				margin: 0 auto;
 				font-family: 'LiSong Pro', serif;
-				color: $light;
-				font-size: 14pt;
+				color: white;
+				font-size: 12pt;
 				line-height: 40px;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				font-weight: lighter;
-				letter-spacing: 1px;
+				font-weight: normal;
 				position: relative;
 				z-index: 9;
-				box-sizing: border-box;
+				color: white;
 				@include transition(all 0.5s $authenticMotion);
+				span {
+					text-transform: uppercase;
+					letter-spacing: 1.5px;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					box-sizing: border-box;
+					display: inline-block;
+					max-width: 80%;
+					vertical-align: middle;
+				}
 			}
 			article {
 				display: block;
@@ -269,7 +296,73 @@ a {
 				height: auto;
 				position: relative;
 				z-index: 10;
-				min-height: 300px;
+				height: 300px;
+				line-height: 300px;
+				.recipeLoad {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					width: 100%;
+					color: white;
+					opacity: 0;
+					@include transition(all 0.5s $authenticMotion);
+					&.in {
+						opacity: 1;
+						@include transition(all 0.5s $authenticMotion);
+					}
+				}
+			}
+			&[data-color="color1"] {
+				h3 {
+					color: $green;
+				}
+				article {
+					.recipeLoad {
+						background: rgba(124,153,114,0.8);
+					}
+				}
+			}
+			&[data-color="color2"] {
+				h3 {
+					color: $orange;
+				}
+				article {
+					.recipeLoad {
+						background: rgba(173,95,87,0.8);
+					}
+				}
+			}
+			&[data-color="color3"] {
+				h3 {
+					color: $red;
+				}
+				article {
+					.recipeLoad {
+						background: rgba(121,64,78,0.8);
+					}
+				}
+			}
+			&[data-color="color4"] {
+				h3 {
+					color: $light;
+				}
+				article {
+					.recipeLoad {
+						background: rgba(132,130,161,0.8);
+					}
+				}
+			}
+			&[data-color="color5"] {
+				h3 {
+					color: $dark;
+				}
+				article {
+					.recipeLoad {
+						background: rgba(72,80,105,0.8);
+					}
+				}
 			}
 			&:hover {
 				color: $dark;
@@ -303,15 +396,21 @@ a {
 	&.in {
 		@include transform(translate(0,0));
 		@include transition(all 0.5s $authenticMotion);
+		.fa-close {
+			@include transform(rotate(180deg));
+			@include transition(all 0.75s $authenticMotion);
+		}
 	}
 	.fa-close {
 		color: white;
 		font-size: 24pt;
-		color: darken($green, 10%);
+		color: rgba(0,0,0,0.25);
 		position: absolute;
 		top: 25px;
 		right: 25px;
 		z-index: 9999;
+		@include transform(rotate(0deg));
+		@include transition(all 0.75s $authenticMotion);
 		&:hover {
 			cursor: pointer;
 		}
@@ -329,47 +428,191 @@ a {
 		width: 50%;
 		margin: 0 auto;
 	}
-}
-.recipe-image {
-	width: 40%;
-	display: inline-block;
-	vertical-align: top;
-	img {
-		max-width: 100%;
-		margin: 0 auto;
-		display: block;
+	&[data-modal="contact"] {
+		background: $light;
+	}
+	&.single-recipes {
+		overflow: scroll;
+		text-align: left;
+		@include transform(translate(0,100%));
+		background: white;
+		&.in {
+			@include transform(translate(0,0));
+			.fa-close {
+				@include transform(rotate(-180deg));
+				@include transition(all 0.75s $authenticMotion);
+			}
+		}
 	}
 }
-#recipe {
-	font-family: 'Arsenal', sans-serif;
-	font-weight: normal;
-	color: $light;
-	vertical-align: top;
-	h1 {
-		font-family: 'LiSong Pro', serif;
-		font-weight: normal;
-		font-size: 48pt;
-		margin: 0;
-		color: $dark;
-	}
-	h3 {
-		font-size: 18pt;
-		margin: 50px 0 0;
-		color: $dark;
-		text-transform: uppercase;
-	}
-	.instruction-listing,.ingredient-listing {
-		padding: 0 100px 0 0;
+#recipeWrap {
+	margin: 50px auto;
+	#recipeImages {
+		width: 40%;
 		box-sizing: border-box;
-		font-size: 14pt;
-		ul {
-			li {
-				margin: 10px 0;
-				.single-measurement {
-					font-weight: bold;
+		display: inline-block;
+		text-align: center;
+		padding-left: 50px;
+		article {
+			width: 33.333333%;
+			height: 200px;
+			display: inline-block;
+			box-sizing: border-box;
+			padding: 10px;
+			&.thumbnail {
+				span {
+					display: block;
+					width: 100%;
+					height: 200px;
 				}
-				.single-ingredient {
-					font-size: 12pt;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			&:first-child {
+				width: 100%;
+				height: auto;
+				display: block;
+				padding: 0 10px;
+				img {
+					max-width: 100%;
+				}
+			}
+		}
+		#relatedRecipes {
+			font-family: 'LiSong Pro', serif;
+			margin-top: 50px;
+			h2 {
+				font-family: 'LiSong Pro', serif;
+				font-size: 28pt;
+				font-weight: normal;
+				color: $light;
+				margin: 0;
+				line-height: 80px;
+			}
+			h3 {
+				margin: 0 auto;
+				font-family: 'LiSong Pro', serif;
+				color: $light;
+				font-size: 14pt;
+				line-height: 40px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				font-weight: lighter;
+				letter-spacing: 1px;
+				position: relative;
+				z-index: 9;
+				box-sizing: border-box;
+				@include transition(all 0.5s $authenticMotion);
+			}
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+	#recipeCopy {
+		width: 60%;
+		box-sizing: border-box;
+		font-family: 'Arsenal', sans-serif;
+		font-weight: normal;
+		color: $light;
+		vertical-align: top;
+		display: inline-block;
+		padding-left: 50px;
+		position: relative;
+		h1 {
+			font-family: 'LiSong Pro', serif;
+			font-weight: normal;
+			font-size: 36pt;
+			margin: 0 0 15px;
+			box-sizing: border-box;
+			padding-right: 50px;
+			color: $dark;
+		}
+		.line {
+			position: relative;
+			span {
+				width: 20%;
+			}
+		}
+		#starRating {
+			margin-bottom: 35px;
+			i {
+				font-size: 24pt;
+				margin: 0 5px;
+				&:hover {
+					cursor: pointer;
+				}
+				&:first-child {
+					margin-left: 0;
+				}
+				&.fa-star {
+					color: lighten($light, 35%);
+					&.active {
+						color: $orange;
+					}
+				}
+			}
+		}
+		.copy {
+			box-sizing: border-box;
+			padding: 0 50px 0 0;
+			p {
+				font-size: 16pt;
+				line-height: 21pt;
+			}
+			h3 {
+				font-size: 18pt;
+				margin: 50px 0 0;
+				color: $dark;
+				text-transform: uppercase;
+			}
+		}
+		.instruction-listing,.ingredient-listing {
+			padding: 0 100px 0 0;
+			box-sizing: border-box;
+			font-size: 16pt;
+			h3 {
+				letter-spacing: 1px;
+			}
+			ul, ol {
+				li {
+					margin: 10px 0;
+				}
+			}
+		}
+		#socialShare {
+			text-align: center;
+			margin-top: 50px;
+			h4 {
+				font-family: 'LiSong Pro', serif;
+				font-size: 21pt;
+				line-height: 60px;
+				font-weight: normal;
+				margin: 0;
+			}
+			a {
+				width: 50px;
+				height: 50px;
+				line-height: 45px;
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 5px;
+				background: url('assets/images/ring.svg') no-repeat scroll center / cover;
+				i {
+					font-size: 18pt;
+					color: $light;
+					vertical-align: middle;
+					&.fa-facebook {
+						color: $facebook;
+					}
+					&.fa-twitter {
+						color: $twitter;
+					}
+					&.fa-pinterest {
+						color: $pinterest;
+					}
 				}
 			}
 		}

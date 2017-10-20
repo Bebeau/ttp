@@ -1,3 +1,5 @@
+var ajaxurl = ttp.ajaxurl;
+
 var recipes = {
 	onReady: function() {
         recipes.addInputs();
@@ -124,34 +126,9 @@ var recipes = {
 		});
 		jQuery( ".sortable" ).disableSelection();
     },
-    saveRating: function(postID, rating) {
-        jQuery.ajax({
-            url: ajaxurl,
-            type: "GET",
-            data: {
-                action: 'setRating',
-                postID: postID,
-                rating: rating
-            },
-            dataType: 'html',
-            error : function(jqXHR, textStatus, errorThrown) {
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
-            }
-        });
-    },
     starRating: function() {
-        jQuery('#starRating i').click(function(e){
-            e.preventDefault();
-            var postID = jQuery('#starRating').attr("data-post");
-            var rating = jQuery(this).attr("data-star");
-            jQuery('#starRating .fa-star').removeClass("fa-star").addClass("fa-star-o");
-            jQuery(this).removeClass("fa-star-o").addClass("fa-star");
-            jQuery(this).prevAll().removeClass("fa-star-o").addClass("fa-star");
-            jQuery('#recipe_rating').val(rating);
-            recipes.saveRating(postID,rating);
-        });
         var rating = jQuery('#recipe_rating').val();
-        jQuery('#starRating i[data-star="'+rating+'"]').removeClass("fa-star-o").addClass("fa-star").prevAll().removeClass("fa-star-o").addClass("fa-star");
+        jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
     }
 };
 jQuery(document).ready(function($) {

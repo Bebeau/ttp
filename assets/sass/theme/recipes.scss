@@ -21,17 +21,14 @@ $light: #8482A1;
 	i {
 		font-size: 24pt;
 		margin: 0 5px;
-		&:hover {
-			cursor: pointer;
-		}
-		&.fa-star-o {
-			color: $light;
-			&:hover {
-				color: $orange;
-			}
+		&:first-child {
+			margin-left: 0;
 		}
 		&.fa-star {
-			color: $orange;
+			color: lighten($light, 35%);
+			&.active {
+				color: $orange;
+			}
 		}
 	}
 }

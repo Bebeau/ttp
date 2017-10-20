@@ -92,12 +92,14 @@
     
 </head>
 
-<body>
-
-<header>
-</header>
+<body <?php body_class();?>>
 
 <?php 
+
+echo '<div id="bodyWrap">';
+
+echo '<header></header>';
+
 if(is_front_page()) { ?>
 	<section id="top" class="outer" data-parallax='{"y" : 500, "smoothness": 1}'>
 		<?php
