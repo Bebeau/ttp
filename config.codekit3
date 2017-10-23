@@ -1256,6 +1256,18 @@
 		"oAP": "\/assets\/videos\/ttp_intro.mp4",
 		"oF": 0
 		},
+	"\/assets\/videos\/ttp_intro.ogv": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/videos\/ttp_intro.ogv",
+		"oF": 0
+		},
+	"\/assets\/videos\/ttp_intro.webm": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/videos\/ttp_intro.webm",
+		"oF": 0
+		},
 	"\/category.php": {
 		"ft": 8192,
 		"oA": 2,

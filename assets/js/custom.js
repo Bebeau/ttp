@@ -150,6 +150,7 @@ var init = {
         });
         jQuery('.modal .fa-close').click(function(e){
             e.preventDefault();
+            jQuery('.recipe').removeClass("clicked");
             jQuery(this).parent().removeClass('in');
             jQuery('#bodyWrap').removeClass("out");
             jQuery('body').removeClass("stop");
@@ -157,7 +158,6 @@ var init = {
             setTimeout(
                 function(){
                     jQuery('.modal #recipeWrap').remove();
-                    jQuery('.recipe').removeClass("clicked");
                 }, 500
             );
         });
@@ -173,6 +173,7 @@ var init = {
             dataType: "html",
             success : function(data){
                 window.history.pushState({path:urlPath},'',urlPath);
+                jQuery('.recipe').removeClass("clicked");
                 jQuery(".single-recipes").append(data);
                 init.dishPics();
                 jQuery('#bodyWrap').addClass("out");
@@ -193,6 +194,9 @@ var init = {
     recipeModal: function() {
         jQuery(document).on("click",'.recipe',function(e){
             e.preventDefault();
+            var postID = jQuery(this).attr("data-post");
+            var urlPath = jQuery(this).attr("href");
+
             if(jQuery(this).hasClass("clicked")) {
                 jQuery('body').addClass("stop");
             } else {
@@ -204,10 +208,23 @@ var init = {
                         jQuery('.recipeLoad').addClass("in");
                     }, 5
                 );
-                var postID = jQuery(this).attr("data-post");
-                var urlPath = jQuery(this).attr("href");
                 init.recipeAjax(postID, urlPath);
             }
+        });
+        jQuery(document).on("click",'.related',function(e){
+            e.preventDefault();
+            var postID = jQuery(this).attr("data-post");
+            var urlPath = jQuery(this).attr("href");
+
+            jQuery('.single-recipes').removeClass('in');
+            jQuery('#bodyWrap').removeClass("out");
+            window.history.pushState({path:siteurl},'',siteurl);
+            setTimeout(
+                function(){
+                    jQuery('.modal #recipeWrap').remove();
+                    init.recipeAjax(postID, urlPath);
+                }, 500
+            );
         });
     },
     thumbnail: function() {

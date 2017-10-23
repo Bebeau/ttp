@@ -37,7 +37,7 @@
 
 				$related->the_post();
 
-				echo '<a href="'.get_the_permalink().'" class="recipe">';
+				echo '<a href="'.get_the_permalink().'" data-post="'.$post->ID.'" class="related">';
 					$images = get_post_meta($post->ID,'recipe_images',true);
 					if(!empty($images)) {
 						echo '<img class="image" src="'.$images[0].'" alt="" />';
