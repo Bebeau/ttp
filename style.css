@@ -231,11 +231,76 @@ a {
   background: white;
   position: relative;
   z-index: 999;
-  background: linear-gradient(#E9F4FF, white); }
-  #about article.copy {
-    font-size: 14pt;
-    line-height: 20pt;
-    color: #8482A1; }
+  background: linear-gradient(#E9F4FF, white);
+  text-align: center; }
+  #about #introVideo {
+    position: relative;
+    width: auto;
+    display: inline-block;
+    margin-bottom: 150px; }
+    #about #introVideo i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -50px 0 0 -50px;
+      font-size: 28pt;
+      color: white;
+      border: 2px solid white;
+      background: #7C9972;
+      width: 100px;
+      height: 100px;
+      line-height: 95px;
+      text-align: center;
+      display: block;
+      text-align: center;
+      box-sizing: border-box;
+      padding-left: 5px;
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      border-bottom-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      #about #introVideo i.fa-pause {
+        padding-left: 0;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    #about #introVideo video {
+      margin: 0 auto;
+      width: 1076px;
+      display: block; }
+      #about #introVideo video:hover {
+        cursor: pointer; }
+    #about #introVideo.playing i {
+      -webkit-transform: scale(0);
+      -moz-transform: scale(0);
+      -ms-transform: scale(0);
+      -o-transform: scale(0);
+      transform: scale(0);
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    #about #introVideo.playing:hover i.fa-pause {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .line {
   position: absolute;

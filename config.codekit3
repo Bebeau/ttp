@@ -1250,6 +1250,16 @@
 		"oS": 0,
 		"uL": 1
 		},
+	"\/assets\/videos\/poster.jpg": {
+		"ft": 16384,
+		"iS": 627784,
+		"oA": 0,
+		"oAP": "\/assets\/videos\/poster.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/assets\/videos\/ttp_intro.mp4": {
 		"ft": 8192,
 		"oA": 2,

@@ -56,7 +56,19 @@ var init = {
         init.starRatingClick();
         init.recipeModal();
         init.categoryClick();
+        init.videoClick();
 	},
+    videoClick: function() {
+        jQuery('#introVideo video').click(function(){
+            if(jQuery('#introVideo').hasClass("playing")) {
+                jQuery('#introVideo').removeClass("playing");
+                jQuery(this)[0].pause();
+            } else {
+                jQuery('#introVideo').addClass("playing");
+                jQuery(this)[0].play();
+            }
+        });
+    },
     instafeed: function() {
         var userFeed = new Instafeed({
             get: 'user',
