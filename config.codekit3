@@ -21,12 +21,6 @@
 		"oAP": "\/404.php",
 		"oF": 0
 		},
-	"\/archive.php": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/archive.php",
-		"oF": 0
-		},
 	"\/assets\/css\/recipes.css": {
 		"aP": 1,
 		"bl": 0,
@@ -1256,6 +1250,24 @@
 		"oS": 0,
 		"uL": 1
 		},
+	"\/assets\/videos\/ttp_intro.mp4": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/videos\/ttp_intro.mp4",
+		"oF": 0
+		},
+	"\/category.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/category.php",
+		"oF": 0
+		},
+	"\/footer-single.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/footer-single.php",
+		"oF": 0
+		},
 	"\/footer.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -1266,6 +1278,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/functions.php",
+		"oF": 0
+		},
+	"\/header-single.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/header-single.php",
 		"oF": 0
 		},
 	"\/header.php": {
@@ -1336,6 +1354,12 @@
 		"oAP": "\/style.css",
 		"oF": 0,
 		"oS": 0
+		},
+	"\/taxonomy-ingredients-cayenne.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/taxonomy-ingredients-cayenne.php",
+		"oF": 0
 		}
 	},
 "hooks": [

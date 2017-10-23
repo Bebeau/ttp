@@ -292,6 +292,62 @@ function loadListing() {
     exit;
 }
 // ajax response to save download track
+add_action('wp_ajax_loadFilter', 'loadFilter');
+add_action('wp_ajax_nopriv_loadFilter', 'loadFilter');
+function loadFilter() {
+    $termID = (isset($_GET['termID'])) ? $_GET['termID'] : 0;
+    $termType = (isset($_GET['termType'])) ? $_GET['termType'] : 0;
+
+    if($termID === "0") {
+        $args = array(
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC'
+        );
+    } else {
+        $args = array(
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => $termType,
+                    'field' => 'id',
+                    'terms' => $termID
+                )
+            )
+        );
+    }
+
+    $recipes = new WP_Query($args);
+
+    if ($recipes->have_posts()) :
+    $count = 1;
+    while ($recipes->have_posts()) : $recipes->the_post();
+
+        global $post;
+        echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
+            $images = get_post_meta($post->ID,'recipe_images',true);
+            if(!empty($images)) {
+                echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+            }
+            the_title("<h3>&bull; <span>","</span> &bull;</h3>");
+        echo '</a>';
+        if($count > 5) {
+            $count = 1;
+        }
+    endwhile;
+    endif;
+
+    wp_reset_query();
+
+    exit;
+}
+// ajax response to save download track
 add_action('wp_ajax_loadRecipe', 'loadRecipe');
 add_action('wp_ajax_nopriv_loadRecipe', 'loadRecipe');
 function loadRecipe() {
@@ -348,6 +404,8 @@ function loadRecipe() {
                     listIngredients($post->ID);
                     listInstructions($post->ID);
                     socialShare();
+                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
+                    echo '<div id="dishpics"></div>';
                 echo '</div>';
 
             echo '</div>';

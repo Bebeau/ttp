@@ -6,6 +6,7 @@ if (!/wp-admin/.test(window.location.href)) {
 (function(){var e;e=function(){function e(e,t){var n,r;this.options={target:"instafeed",get:"popular",resolution:"thumbnail",sortBy:"none",links:!0,mock:!1,useHttp:!1};if(typeof e=="object")for(n in e)r=e[n],this.options[n]=r;this.context=t!=null?t:this,this.unique=this._genKey()}return e.prototype.hasNext=function(){return typeof this.context.nextUrl=="string"&&this.context.nextUrl.length>0},e.prototype.next=function(){return this.hasNext()?this.run(this.context.nextUrl):!1},e.prototype.run=function(t){var n,r,i;if(typeof this.options.clientId!="string"&&typeof this.options.accessToken!="string")throw new Error("Missing clientId or accessToken.");if(typeof this.options.accessToken!="string"&&typeof this.options.clientId!="string")throw new Error("Missing clientId or accessToken.");return this.options.before!=null&&typeof this.options.before=="function"&&this.options.before.call(this),typeof document!="undefined"&&document!==null&&(i=document.createElement("script"),i.id="instafeed-fetcher",i.src=t||this._buildUrl(),n=document.getElementsByTagName("head"),n[0].appendChild(i),r="instafeedCache"+this.unique,window[r]=new e(this.options,this),window[r].unique=this.unique),!0},e.prototype.parse=function(e){var t,n,r,i,s,o,u,a,f,l,c,h,p,d,v,m,g,y,b,w,E,S,x,T,N,C,k,L,A,O,M,_,D;if(typeof e!="object"){if(this.options.error!=null&&typeof this.options.error=="function")return this.options.error.call(this,"Invalid JSON data"),!1;throw new Error("Invalid JSON response")}if(e.meta.code!==200){if(this.options.error!=null&&typeof this.options.error=="function")return this.options.error.call(this,e.meta.error_message),!1;throw new Error("Error from Instagram: "+e.meta.error_message)}if(e.data.length===0){if(this.options.error!=null&&typeof this.options.error=="function")return this.options.error.call(this,"No images were returned from Instagram"),!1;throw new Error("No images were returned from Instagram")}this.options.success!=null&&typeof this.options.success=="function"&&this.options.success.call(this,e),this.context.nextUrl="",e.pagination!=null&&(this.context.nextUrl=e.pagination.next_url);if(this.options.sortBy!=="none"){this.options.sortBy==="random"?M=["","random"]:M=this.options.sortBy.split("-"),O=M[0]==="least"?!0:!1;switch(M[1]){case"random":e.data.sort(function(){return.5-Math.random()});break;case"recent":e.data=this._sortBy(e.data,"created_time",O);break;case"liked":e.data=this._sortBy(e.data,"likes.count",O);break;case"commented":e.data=this._sortBy(e.data,"comments.count",O);break;default:throw new Error("Invalid option for sortBy: '"+this.options.sortBy+"'.")}}if(typeof document!="undefined"&&document!==null&&this.options.mock===!1){m=e.data,A=parseInt(this.options.limit,10),this.options.limit!=null&&m.length>A&&(m=m.slice(0,A)),u=document.createDocumentFragment(),this.options.filter!=null&&typeof this.options.filter=="function"&&(m=this._filter(m,this.options.filter));if(this.options.template!=null&&typeof this.options.template=="string"){f="",d="",w="",D=document.createElement("div");for(c=0,N=m.length;c<N;c++){h=m[c],p=h.images[this.options.resolution];if(typeof p!="object")throw o="No image found for resolution: "+this.options.resolution+".",new Error(o);E=p.width,y=p.height,b="square",E>y&&(b="landscape"),E<y&&(b="portrait"),v=p.url,l=window.location.protocol.indexOf("http")>=0,l&&!this.options.useHttp&&(v=v.replace(/https?:\/\//,"//")),d=this._makeTemplate(this.options.template,{model:h,id:h.id,link:h.link,type:h.type,image:v,width:E,height:y,orientation:b,caption:this._getObjectProperty(h,"caption.text"),likes:h.likes.count,comments:h.comments.count,location:this._getObjectProperty(h,"location.name")}),f+=d}D.innerHTML=f,i=[],r=0,n=D.childNodes.length;while(r<n)i.push(D.childNodes[r]),r+=1;for(x=0,C=i.length;x<C;x++)L=i[x],u.appendChild(L)}else for(T=0,k=m.length;T<k;T++){h=m[T],g=document.createElement("img"),p=h.images[this.options.resolution];if(typeof p!="object")throw o="No image found for resolution: "+this.options.resolution+".",new Error(o);v=p.url,l=window.location.protocol.indexOf("http")>=0,l&&!this.options.useHttp&&(v=v.replace(/https?:\/\//,"//")),g.src=v,this.options.links===!0?(t=document.createElement("a"),t.href=h.link,t.appendChild(g),u.appendChild(t)):u.appendChild(g)}_=this.options.target,typeof _=="string"&&(_=document.getElementById(_));if(_==null)throw o='No element with id="'+this.options.target+'" on page.',new Error(o);_.appendChild(u),a=document.getElementsByTagName("head")[0],a.removeChild(document.getElementById("instafeed-fetcher")),S="instafeedCache"+this.unique,window[S]=void 0;try{delete window[S]}catch(P){s=P}}return this.options.after!=null&&typeof this.options.after=="function"&&this.options.after.call(this),!0},e.prototype._buildUrl=function(){var e,t,n;e="https://api.instagram.com/v1";switch(this.options.get){case"popular":t="media/popular";break;case"tagged":if(!this.options.tagName)throw new Error("No tag name specified. Use the 'tagName' option.");t="tags/"+this.options.tagName+"/media/recent";break;case"location":if(!this.options.locationId)throw new Error("No location specified. Use the 'locationId' option.");t="locations/"+this.options.locationId+"/media/recent";break;case"user":if(!this.options.userId)throw new Error("No user specified. Use the 'userId' option.");t="users/"+this.options.userId+"/media/recent";break;default:throw new Error("Invalid option for get: '"+this.options.get+"'.")}return n=e+"/"+t,this.options.accessToken!=null?n+="?access_token="+this.options.accessToken:n+="?client_id="+this.options.clientId,this.options.limit!=null&&(n+="&count="+this.options.limit),n+="&callback=instafeedCache"+this.unique+".parse",n},e.prototype._genKey=function(){var e;return e=function(){return((1+Math.random())*65536|0).toString(16).substring(1)},""+e()+e()+e()+e()},e.prototype._makeTemplate=function(e,t){var n,r,i,s,o;r=/(?:\{{2})([\w\[\]\.]+)(?:\}{2})/,n=e;while(r.test(n))s=n.match(r)[1],o=(i=this._getObjectProperty(t,s))!=null?i:"",n=n.replace(r,""+o);return n},e.prototype._getObjectProperty=function(e,t){var n,r;t=t.replace(/\[(\w+)\]/g,".$1"),r=t.split(".");while(r.length){n=r.shift();if(!(e!=null&&n in e))return null;e=e[n]}return e},e.prototype._sortBy=function(e,t,n){var r;return r=function(e,r){var i,s;return i=this._getObjectProperty(e,t),s=this._getObjectProperty(r,t),n?i>s?1:-1:i<s?1:-1},e.sort(r.bind(this)),e},e.prototype._filter=function(e,t){var n,r,i,s,o;n=[],r=function(e){if(t(e))return n.push(e)};for(i=0,o=e.length;i<o;i++)s=e[i],r(s);return n},e}(),function(e,t){return typeof define=="function"&&define.amd?define([],t):typeof module=="object"&&module.exports?module.exports=t():e.Instafeed=t()}(this,function(){return e})}).call(this);
 
 var ajaxurl = ttp.ajaxurl;
+var siteurl = ttp.siteurl;
 
 var move = {
     onMove: function() {
@@ -52,8 +53,9 @@ var init = {
         init.loadListing();
         init.modal();
         init.thumbnail();
-        init.starRating();
+        init.starRatingClick();
         init.recipeModal();
+        init.categoryClick();
 	},
     instafeed: function() {
         var userFeed = new Instafeed({
@@ -68,7 +70,21 @@ var init = {
         });
         userFeed.run();
     },
-    recipeAjax: function(termID, perPage, count) {
+    dishPics: function() {
+        var feed = new Instafeed({
+            get: 'tagged',
+            target: 'dishpics',
+            tagName: 'dishpics',
+            clientId: 'b5a9123e62b24e26bc01dc76ec2b213d',
+            accessToken: '1936919979.b5a9123.f4492fd6106043a5b33405791d8ff30e',
+            resolution: 'standard_resolution',
+            template: '<div class="pic"><a href="{{link}}" style="background:url({{image}}) no-repeat scroll center / cover;"></a></div>',
+            limit: 6,
+            sortBy: 'random'
+        });
+        feed.run();
+    },
+    listingAjax: function(termID, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
@@ -120,7 +136,7 @@ var init = {
                 var termID = jQuery('#listingWrap').attr('data-term');
                 var perPage = jQuery('#listingWrap').attr('data-perPage');
                 var count = jQuery('#listingWrap a:last-child').attr("data-color").replace('color','');
-                init.recipeAjax(termID, perPage, count);
+                init.listingAjax(termID, perPage, count);
             }
         });
     },
@@ -137,14 +153,16 @@ var init = {
             jQuery(this).parent().removeClass('in');
             jQuery('#bodyWrap').removeClass("out");
             jQuery('body').removeClass("stop");
+            window.history.pushState({path:siteurl},'',siteurl);
             setTimeout(
                 function(){
                     jQuery('.modal #recipeWrap').remove();
+                    jQuery('.recipe').removeClass("clicked");
                 }, 500
             );
         });
     },
-    recipeModalAjax: function(postID) {
+    recipeAjax: function(postID, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
@@ -154,9 +172,12 @@ var init = {
             },
             dataType: "html",
             success : function(data){
+                window.history.pushState({path:urlPath},'',urlPath);
                 jQuery(".single-recipes").append(data);
+                init.dishPics();
                 jQuery('#bodyWrap').addClass("out");
                 jQuery('.single-recipes').addClass("in");
+                init.starRating();
                 setTimeout(
                     function(){
                         jQuery(".recipeLoad").remove();
@@ -172,11 +193,21 @@ var init = {
     recipeModal: function() {
         jQuery(document).on("click",'.recipe',function(e){
             e.preventDefault();
-            jQuery('body').addClass("stop");
-            jQuery("article",this).append('<div class="recipeLoad"><i class="fa fa-spinner fa-spin"></i></div>');
-            jQuery('.recipeLoad').addClass("in");
-            var postID = jQuery(this).attr("data-post");
-            init.recipeModalAjax(postID);
+            if(jQuery(this).hasClass("clicked")) {
+                jQuery('body').addClass("stop");
+            } else {
+                jQuery(this).addClass("clicked");
+                jQuery('body').addClass("stop");
+                jQuery("article",this).append('<div class="recipeLoad"><i class="fa fa-spinner fa-spin"></i></div>');
+                setTimeout(
+                    function(){
+                        jQuery('.recipeLoad').addClass("in");
+                    }, 5
+                );
+                var postID = jQuery(this).attr("data-post");
+                var urlPath = jQuery(this).attr("href");
+                init.recipeAjax(postID, urlPath);
+            }
         });
     },
     thumbnail: function() {
@@ -204,7 +235,11 @@ var init = {
         });
     },
     starRating: function() {
-        jQuery('#starRating i').click(function(e){
+        var rating = jQuery('#recipe_rating').val();
+        jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
+    },
+    starRatingClick: function() {
+        jQuery(document).on("click",'#starRating i',function(e){
             e.preventDefault();
             var postID = jQuery('#starRating').attr("data-post");
             var rating = jQuery(this).attr("data-star");
@@ -213,8 +248,72 @@ var init = {
             jQuery('#recipe_rating').val(rating);
             init.saveRating(postID,rating);
         });
-        var rating = jQuery('#recipe_rating').val();
-        jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
+    },
+    filterAjax: function(termID, termType, termName, urlPath) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "GET",
+            data: {
+                termID: termID,
+                termType: termType,
+                action: 'loadFilter'
+            },
+            dataType: "html",
+            success : function(data){
+                var recipes = jQuery(data);
+
+                jQuery('.modal').removeClass('in');
+                jQuery('#bodyWrap').removeClass("out");
+                jQuery('body').removeClass("stop");
+                window.history.pushState({path:urlPath},'',urlPath);
+
+                jQuery("#listingWrap a").removeClass("slideIn");
+                jQuery("#listingWrap").attr("data-term", termID);
+
+                jQuery('#listingTitle').html(termName);
+                jQuery("#listingWrap").html(recipes);
+
+                setTimeout(
+                    function(){
+                        jQuery('html,body').animate({
+                           scrollTop: jQuery("#listing").offset().top - 40
+                        }, 1000);
+                        recipes.addClass("slideIn"); 
+                    }, 500
+                );
+            },
+            complete: function() {
+                setTimeout(
+                    function(){
+                        ttp.page = 2;
+                        ttp.loading = false;
+                        init.loadListing();
+                    }, 500
+                );
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                jQuery(".recipeLoad").remove();
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+    },
+    categoryClick: function() {
+        jQuery('.modal[data-modal="category"] a').click(function(e){
+            e.preventDefault();
+            var termID = jQuery(this).attr("data-term");
+            var termName = jQuery(this).html();
+            var termType = "category";
+            var urlPath = jQuery(this).attr("href");
+            init.filterAjax(termID, termType, termName, urlPath);
+        });
+        jQuery('.modal[data-modal="ingredients"] a').click(function(e){
+            e.preventDefault();
+            var termID = jQuery(this).attr("data-term");
+            var termName = jQuery(this).html();
+            var termType = "ingredients";
+            var urlPath = jQuery(this).attr("href");
+            init.filterAjax(termID, termType, termName, urlPath);
+        });
     }
 };
 
