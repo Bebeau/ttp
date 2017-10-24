@@ -93,9 +93,3 @@
 </head>
 
 <body <?php body_class();?>>
-
-<?php 
-
-echo '<div id="bodyWrap" class="out">';
-
-echo '<header></header>';

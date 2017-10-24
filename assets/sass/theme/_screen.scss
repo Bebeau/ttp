@@ -492,6 +492,86 @@ a {
 	}
 	&[data-modal="contact"] {
 		background: $light;
+		text-align: left;
+		.half {
+			display: inline-block;
+			width: 50%;
+			height: 100%;
+			box-sizing: border-box;
+			vertical-align: top;
+			&.image {
+				background: url('assets/images/tiki.jpg') no-repeat scroll center / cover;
+			}
+		}
+		form {
+			width: 400px;
+			margin: 0 auto;
+			h1 {
+			    font-family: 'LiSong Pro', serif;
+			    font-size: 36pt;
+			    font-weight: normal;
+			    margin: 0;
+			    letter-spacing: 1px;
+			}
+			p {
+				margin: 5px 0 25px;
+				a {
+					color: $blue;
+				}
+			}
+			.field {
+				margin: 0 0 10px;
+			}
+			label {
+				display: block;
+				text-transform: uppercase;
+				font-size: 10pt;
+				line-height: 24px;
+				letter-spacing: 1px;
+			}
+			input {
+				display: block;
+				width: 100%;
+				border: none;
+				background: darken($light,5%);
+				color: white;
+				line-height: 40px;
+				padding: 0 15px;
+				font-size: 16pt;
+				box-sizing: border-box;
+			}
+			textarea {
+				font-size: 14pt;
+				display: block;
+				width: 100%;
+				min-height: 150px;
+				max-width: 100%;
+				min-width: 100%;
+				border: none;
+				background: darken($light,5%);
+				color: white;
+				padding: 15px;
+				box-sizing: border-box;
+			}
+			input,textarea {
+				&:focus {
+					outline: none;
+				}
+			}
+			button {
+				background: $dark;
+				color: white;
+				border: none;
+				float: right;
+				font-family: 'LiSong Pro', serif;
+			    box-shadow: none;
+			    font-size: 16pt;
+			    line-height: 60px;
+			    padding: 0 25px;
+			    margin: 10px 0 0;
+			    letter-spacing: 1px;
+			}
+		}
 	}
 	&.single-recipes {
 		overflow: scroll;

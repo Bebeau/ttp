@@ -81,6 +81,16 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
+	"\/assets\/images\/tiki.jpg": {
+		"ft": 16384,
+		"iS": 0,
+		"oA": 0,
+		"oAP": "\/assets\/images\/tiki.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/assets\/images\/tiki.png": {
 		"ft": 32768,
 		"iS": 624964,
@@ -1330,12 +1340,6 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/partials\/functions\/recipes.php",
-		"oF": 0
-		},
-	"\/partials\/theme\/listing-related.php": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/partials\/theme\/listing-related.php",
 		"oF": 0
 		},
 	"\/screenshot.png": {

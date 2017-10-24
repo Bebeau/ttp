@@ -65,55 +65,57 @@
 
 	echo '<section class="modal single-recipes in">';
 		echo '<i class="fa fa-close"></i>';
+		
 		if (have_posts()) :
 
-			echo '<section id="recipeWrap">'; 
+	        echo '<section id="recipeWrap">';
 
-			while (have_posts()) : the_post();
+	        while (have_posts()) : the_post();
 
-				$images = get_post_meta($post->ID, 'recipe_images', true);
-				$count = 0;
-		        echo '<div id="recipeImages">';
-		        	foreach($images as $image) {
-		        		if($count === 0) {
-		        			echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
-		        		} else {
-		        			echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
-		        		}
-		        		$count++;
-		        	}
-		        	// get_template_part( 'partials/theme/listing', 'related' );
-		        echo '</div>';
+	            $images = get_post_meta($post->ID, 'recipe_images', true);
+	            $count = 0;
+	            echo '<div id="recipeImages">';
+	                foreach($images as $image) {
+	                    if($count === 0) {
+	                        echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
+	                    } else {
+	                        echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
+	                    }
+	                    $count++;
+	                }
+	                relatedRecipe();
+	            echo '</div>';
 
-				echo '<div id="recipeCopy">';
+	            echo '<div id="recipeCopy">';
 
-					the_title('<h1>','</h1>');
-					echo '<span class="line">';
-						echo '<span></span>';
-						echo '<span></span>';
-						echo '<span></span>';
-						echo '<span></span>';
-						echo '<span></span>';
-					echo '</span>';
+	                the_title('<h1>','</h1>');
+	                echo '<span class="line">';
+	                    echo '<span></span>';
+	                    echo '<span></span>';
+	                    echo '<span></span>';
+	                    echo '<span></span>';
+	                    echo '<span></span>';
+	                echo '</span>';
 
-					recipe_rating();
-					
-					echo '<div class="copy">';
-						the_content();
-						listIngredients($post->ID);
-						listInstructions($post->ID);
-						socialShare();
-						echo '<h4 id="dishpicsTitle">#dishpics</h4>';
-						echo '<div id="dishpics"></div>';
-					echo '</div>';
+	                recipe_rating();
+	                
+	                echo '<div class="copy">';
+	                    the_content();
+	                    listIngredients($post->ID);
+	                    listInstructions($post->ID);
+	                    socialShare();
+	                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
+	                    echo '<div id="dishpics"></div>';
+	                echo '</div>';
 
-			    echo '</div>';
-			
-			endwhile;
+	            echo '</div>';
+	        
+	        endwhile;
 
-			echo '</section>';
+	        echo '</section>';
 
-		endif;
+	    endif;
+
 	echo '</section>';
     
 	echo '</body>';

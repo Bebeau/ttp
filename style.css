@@ -542,7 +542,73 @@ a {
     width: 50%;
     margin: 0 auto; }
   .modal[data-modal="contact"] {
-    background: #8482A1; }
+    background: #8482A1;
+    text-align: left; }
+    .modal[data-modal="contact"] .half {
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      box-sizing: border-box;
+      vertical-align: top; }
+      .modal[data-modal="contact"] .half.image {
+        background: url("assets/images/tiki.jpg") no-repeat scroll center/cover; }
+    .modal[data-modal="contact"] form {
+      width: 400px;
+      margin: 0 auto; }
+      .modal[data-modal="contact"] form h1 {
+        font-family: 'LiSong Pro', serif;
+        font-size: 36pt;
+        font-weight: normal;
+        margin: 0;
+        letter-spacing: 1px; }
+      .modal[data-modal="contact"] form p {
+        margin: 5px 0 25px; }
+        .modal[data-modal="contact"] form p a {
+          color: #E9F4FF; }
+      .modal[data-modal="contact"] form .field {
+        margin: 0 0 10px; }
+      .modal[data-modal="contact"] form label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 10pt;
+        line-height: 24px;
+        letter-spacing: 1px; }
+      .modal[data-modal="contact"] form input {
+        display: block;
+        width: 100%;
+        border: none;
+        background: #767396;
+        color: white;
+        line-height: 40px;
+        padding: 0 15px;
+        font-size: 16pt;
+        box-sizing: border-box; }
+      .modal[data-modal="contact"] form textarea {
+        font-size: 14pt;
+        display: block;
+        width: 100%;
+        min-height: 150px;
+        max-width: 100%;
+        min-width: 100%;
+        border: none;
+        background: #767396;
+        color: white;
+        padding: 15px;
+        box-sizing: border-box; }
+      .modal[data-modal="contact"] form input:focus, .modal[data-modal="contact"] form textarea:focus {
+        outline: none; }
+      .modal[data-modal="contact"] form button {
+        background: #485069;
+        color: white;
+        border: none;
+        float: right;
+        font-family: 'LiSong Pro', serif;
+        box-shadow: none;
+        font-size: 16pt;
+        line-height: 60px;
+        padding: 0 25px;
+        margin: 10px 0 0;
+        letter-spacing: 1px; }
   .modal.single-recipes {
     overflow: scroll;
     text-align: left;
