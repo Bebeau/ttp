@@ -102,13 +102,14 @@ var init = {
         });
         feed.run();
     },
-    listingAjax: function(termID, perPage, count) {
+    listingAjax: function(categories, ingredients, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
             data: {
                 action: 'loadListing',
-                termID: termID,
+                categories: categories,
+                ingredients: ingredients,
                 count: count,
                 pageNumber: ttp.page
             },
@@ -151,10 +152,11 @@ var init = {
             var contentHeight = (jQuery("#listingWrap").scrollTop() + jQuery("#listingWrap").height() - 500);
             if(!ttp.loading && totalHeight > contentHeight) {
                 ttp.loading = true;
-                var termID = jQuery('#listingWrap').attr('data-term');
+                var categories = jQuery('#listingWrap').attr('data-cat');
+                var ingredients = jQuery('#listingWrap').attr('data-tag');
                 var perPage = jQuery('#listingWrap').attr('data-perPage');
                 var count = jQuery('#listingWrap a:last-child').attr("data-color").replace('color','');
-                init.listingAjax(termID, perPage, count);
+                init.listingAjax(categories, ingredients, perPage, count);
             }
         });
     },
@@ -288,13 +290,13 @@ var init = {
             init.saveRating(postID,rating);
         });
     },
-    filterAjax: function(termID, termType, termName, urlPath) {
+    filterAjax: function(categories, ingredients, termName, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
             data: {
-                termID: termID,
-                termType: termType,
+                categories: categories,
+                ingredients: ingredients,
                 action: 'loadFilter'
             },
             dataType: "html",
@@ -307,7 +309,8 @@ var init = {
                 window.history.pushState({path:urlPath},'',urlPath);
 
                 jQuery("#listingWrap a").removeClass("slideIn");
-                jQuery("#listingWrap").attr("data-term", termID);
+                jQuery("#listingWrap").attr("data-cat", categories);
+                jQuery("#listingWrap").attr("data-tag", ingredients);
 
                 jQuery('#listingTitle').html(termName);
                 jQuery("#listingWrap").html(recipes);
@@ -337,21 +340,51 @@ var init = {
         });
     },
     categoryClick: function() {
-        jQuery('.modal[data-modal="category"] a').click(function(e){
+        jQuery('.modal[data-modal="ingredients"] a, .modal[data-modal="category"] a').click(function(e){
             e.preventDefault();
-            var termID = jQuery(this).attr("data-term");
-            var termName = jQuery(this).html();
-            var termType = "category";
-            var urlPath = jQuery(this).attr("href");
-            init.filterAjax(termID, termType, termName, urlPath);
+            if(jQuery(this).hasClass("clicked")) {
+                jQuery(this).removeClass("clicked");
+            } else {
+                jQuery(this).addClass("clicked");
+            }
         });
-        jQuery('.modal[data-modal="ingredients"] a').click(function(e){
+        jQuery('.btn-filter').click(function(e){
             e.preventDefault();
-            var termID = jQuery(this).attr("data-term");
-            var termName = jQuery(this).html();
-            var termType = "ingredients";
-            var urlPath = jQuery(this).attr("href");
-            init.filterAjax(termID, termType, termName, urlPath);
+            jQuery(this).html('<i class="fa fa-spinner fa-spin"></i>');
+            if(jQuery('.modal a').hasClass("clicked")) {
+                var categories = [];
+                jQuery('.modal[data-modal="category"] a.clicked').each(function(){
+                    categories.push(jQuery(this).attr("data-term"));
+                });
+                var ingredients = [];
+                jQuery('.modal[data-modal="ingredients"] a.clicked').each(function(){
+                    ingredients.push(jQuery(this).parent().attr("data-term"));
+                });
+                if(categories.length !== 0 && ingredients.length !== 0) {
+                    var termName = 'Categories / Ingredients';
+                } else {
+                    if(categories.length !== 0) {
+                        var termName = 'Categories';
+                    }
+                    if(ingredients.length !== 0) {
+                        var termName = 'Ingredients';
+                    }
+                }
+                var termType = "category";
+                var urlPath = jQuery(this).attr("href");
+            } else {
+                var categories = 0;
+                var ingredients = 0;
+                var termName = "All Recipes";
+                var termType = "recipes";
+                var urlPath = siteurl;
+            }
+            init.filterAjax(categories, ingredients, termName, urlPath);
+            setTimeout(
+                function(){
+                    jQuery('.btn-filter').html("Filter");
+                }, 500
+            );
         });
     }
 };

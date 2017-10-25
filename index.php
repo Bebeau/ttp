@@ -44,9 +44,8 @@ get_header(); ?>
 					echo '<button class="btn btn-modal" data-modal="ingredients"><i class="fa fa-filter"></i> Ingredient</button>';
 				echo '</section>';
 
-				$termID = get_queried_object_id();
 				$count = 1;
-				echo '<div id="listingWrap" data-term="'.$termID.'" data-perPage="'.get_option('posts_per_page').'">';
+				echo '<div id="listingWrap" data-cat="" data-tag="" data-perPage="'.get_option('posts_per_page').'">';
 					while (have_posts()) : 
 						the_post();
 						echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';

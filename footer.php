@@ -16,23 +16,23 @@
 			echo '<div class="outer">';
 				echo '<div class="inner">';
 					echo '<form method="GET" id="contactForm">';
-						echo '<h1>Contact</h1>';
-						echo '<p>We would love to hear from you. Please fill out the form below or send an email to <a href="mailto:info@thetoastedpost.com">info@thetoastedpost.com</a>.</p>';
+						echo '<h3 class="modalTitle">Let&#39;s Chat</h3>';
+						echo '<p>Our purpose is to Feed The People. Feed the people both literally and figuratively with food and knowledge to create a community of optimal health. And that means sharing, uniting, and working together! So if you want to tell your story, collaborate on a project or just send us some feedback, don’t be shy...</p>';
 						echo '<div class="field">';
 							echo '<label for="firstname">First Name</label>';
-							echo '<input type="text" name="firstname" id="firstname" />';
+							echo '<input type="text" name="firstname" id="firstname" placeholder="Jane" />';
 						echo '</div>';
 						echo '<div class="field">';
 							echo '<label for="lastname">Last Name</label>';
-							echo '<input type="text" name="lastname" id="lastname" />';
+							echo '<input type="text" name="lastname" id="lastname" placeholder="Doe" />';
 						echo '</div>';
 						echo '<div class="field">';
 							echo '<label for="emailaddress">Email Address</label>';
-							echo '<input type="email" name="emailaddress" id="emailaddress" />';
+							echo '<input type="email" name="emailaddress" id="emailaddress" placeholder="email@address.."/>';
 						echo '</div>';
 						echo '<div class="field">';
 							echo '<label for="message">Friendly Message</label>';
-							echo '<textarea type="text"></textarea>';
+							echo '<textarea type="text" placeholder="What&#39;s up?"></textarea>';
 						echo '</div>';
 						echo '<button type="submit">Send Message</button>';
 					echo '</form>';
@@ -43,38 +43,39 @@
 
 	echo '<section class="modal" data-modal="ingredients">';
 		echo '<i class="fa fa-close"></i>';
-		echo '<div class="outer">';
-			echo '<div class="inner">';
-				echo '<div id="tagCloud">';
-					$args = array(
-						'smallest'                  => 10, 
-						'largest'                   => 36,
-						'unit'                      => 'pt', 
-						'number'                    => 45,  
-						'format'                    => 'array',
-						'separator'                 => "\n",
-						'orderby'                   => 'name', 
-						'order'                     => 'ASC',
-						'exclude'                   => null, 
-						'include'                   => null, 
-						'link'                      => 'view', 
-						'taxonomy'                  => 'ingredients', 
-						'echo'                      => true,
-						'child_of'                  => null,
-					);
-					$tags = wp_tag_cloud($args);
-					if(!empty($tags)) {
-						$total = count($tags);
-						$count = 1;
-						foreach($tags as $tag) {
-							$term = get_term_by('name',$tag, 'ingredients');
-							echo '<a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a>';
-							if($count !== $total) {
-								echo ' &bull; ';
+		echo '<div class="half image">';
+		echo '</div>';
+		echo '<div class="half">';
+			echo '<div class="outer">';
+				echo '<div class="inner">';
+					echo '<div class="modalCopy">';
+						echo '<h3 class="modalTitle">Ingredients</h3>';
+						echo '<p>Select the ingredients you wish to cook with from the listing below and click filter to see what recipes we have for you.</p>';
+						$args = array(
+							'smallest'                  => 12, 
+							'largest'                   => 36,
+							'unit'                      => 'pt', 
+							'number'                    => 45,  
+							'format'                    => 'array',
+							'separator'                 => "\n",
+							'orderby'                   => 'name', 
+							'order'                     => 'ASC',
+							'exclude'                   => null, 
+							'include'                   => null, 
+							'link'                      => 'view', 
+							'taxonomy'                  => 'ingredients', 
+							'echo'                      => true,
+							'child_of'                  => null,
+						);
+						$tags = wp_tag_cloud($args);
+						if(!empty($tags)) {
+							foreach($tags as $tag) {
+								$term = get_term_by('name',$tag, 'ingredients');
+								echo '<span data-term="'.$term->term_taxonomy_id.'">'.$tag.'</span>';
 							}
-							$count++;
+							echo '<button class="btn btn-filter">Filter</button>';
 						}
-					}
+					echo '</div>';
 				echo '</div>';
 			echo '</div>';
 		echo '</div>';
@@ -82,29 +83,102 @@
 
 	echo '<section class="modal" data-modal="category">';
 		echo '<i class="fa fa-close"></i>';
-		echo '<div class="outer">';
-			echo '<div class="inner">';
-				$args = array(
-				    'taxonomy' => 'category',
-				    'post_type' => 'recipes',
-				    'hide_empty' => false,
-				);
-				$terms = get_terms($args);
-				if(!empty($terms)) {
-					echo '<a href="'.get_site_url().'" data-term="0">All Recipes</a>';
-					foreach($terms as $term) {
-						if($term->count > 0) { 
-							echo '<a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a>';
+		echo '<div class="half image">';
+		echo '</div>';
+		echo '<div class="half">';
+			echo '<div class="outer">';
+				echo '<div class="inner">';
+					echo '<div class="modalCopy">';
+						echo '<h3 class="modalTitle">Categories</h3>';
+						echo '<p>Select a category below to view specific types of recipes.</p>';
+						$args = array(
+						    'taxonomy' => 'category',
+						    'post_type' => 'recipes',
+						    'hide_empty' => true,
+						);
+						$terms = get_terms($args);
+						if(!empty($terms)) {
+							$totalTerms = count($terms);
+							$count = 1;
+							foreach($terms as $term) {
+								if($term->count > 0) { 
+									echo ' <span><a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a></span>';
+									if($count !== $totalTerms) {
+										echo ' &bull;</span>';
+									} else {
+										echo '</span>';
+									}
+									$count++;
+								}
+							}
+							echo '<button class="btn btn-filter">Filter</button>';
 						}
-					}
-				}
+					echo '</div>';
+				echo '</div>';
 			echo '</div>';
 		echo '</div>';
 	echo '</section>';
 
-	echo '<section class="modal single-recipes">';
-		echo '<i class="fa fa-close"></i>';
-	echo '</section>';
+	if(is_singular('recipes')) {
+		echo '<section class="modal single-recipes in">';
+			echo '<i class="fa fa-close"></i>';
+			
+			if (have_posts()) :
+
+		        echo '<section id="recipeWrap">';
+
+		        while (have_posts()) : the_post();
+
+		            $images = get_post_meta($post->ID, 'recipe_images', true);
+		            $count = 0;
+		            echo '<div id="recipeImages">';
+		                foreach($images as $image) {
+		                    if($count === 0) {
+		                        echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
+		                    } else {
+		                        echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
+		                    }
+		                    $count++;
+		                }
+		                relatedRecipe();
+		            echo '</div>';
+
+		            echo '<div id="recipeCopy">';
+
+		                the_title('<h1>','</h1>');
+		                echo '<span class="line">';
+		                    echo '<span></span>';
+		                    echo '<span></span>';
+		                    echo '<span></span>';
+		                    echo '<span></span>';
+		                    echo '<span></span>';
+		                echo '</span>';
+
+		                recipe_rating();
+		                
+		                echo '<div class="copy">';
+		                    the_content();
+		                    listIngredients($post->ID);
+		                    listInstructions($post->ID);
+		                    socialShare();
+		                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
+		                    echo '<div id="dishpics"></div>';
+		                echo '</div>';
+
+		            echo '</div>';
+		        
+		        endwhile;
+
+		        echo '</section>';
+
+		    endif;
+
+		echo '</section>';
+	} else {
+		echo '<section class="modal single-recipes">';
+			echo '<i class="fa fa-close"></i>';
+		echo '</section>';
+	}
     
 	echo '</body>';
 echo '</html>';

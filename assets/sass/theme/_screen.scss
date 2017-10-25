@@ -306,7 +306,7 @@ a {
 			box-shadow: none;
 			font-size: 16pt;
 			line-height: 60px;
-			padding: 0 15px;
+			padding: 0 25px;
 			margin: 0 20px 30px 0;
 			letter-spacing: 1px;
 			&:hover {
@@ -438,6 +438,7 @@ a {
 			font-size: 48pt;
 			text-align: center;
 			padding: 25px 0;
+			color: lighten($light,35%);
 		}
 	}
 }
@@ -480,25 +481,105 @@ a {
 	a {
 		color: white;
 	}
-	&[data-modal="category"] {
-		a {
-			display: block;
-			font-size: 24pt;
-		}
+	.half {
+		display: inline-block;
+		width: 50%;
+		height: 100%;
+		box-sizing: border-box;
+		vertical-align: top;
 	}
-	#tagCloud {
+	.modalTitle {
+	    font-family: 'LiSong Pro', serif;
+	    font-size: 36pt;
+	    font-weight: normal;
+	    margin: 0;
+	    letter-spacing: 1px;
+	    text-align: left;
+	}
+	.modalCopy {
 		width: 50%;
 		margin: 0 auto;
+		p {
+			text-align: left;
+			margin: 5px 0 25px;
+			letter-spacing: 0.5px;
+			line-height: 16pt;
+			color: darken(white,10%);
+		}
+	}
+	&[data-modal="category"] {
+		span {
+			display: inline-block;
+			font-size: 21pt;
+			text-align: left;
+			color: $red;
+			@include transition(all 0.3s $authenticMotion);
+			a {
+				color: darken($green,25%);
+				&.clicked {
+					color: $blue;
+					@include transition(all 0.3s $authenticMotion);
+					&:hover {
+						color: $blue;
+					}
+				}
+				&:hover {
+					color: darken($green,15%);
+					@include transition(all 0.3s $authenticMotion);
+				}
+			}
+		}
+		.half {
+			&.image {
+				background: url('assets/images/tiki2.jpg') no-repeat scroll top right / cover;
+			}
+		}
+	}
+	&[data-modal="ingredients"] {
+		.half {
+			&.image {
+				background: url('assets/images/tiki3.jpg') no-repeat scroll center / cover;
+			}
+		}
+		span {
+			color: $red;
+			display: inline-block;
+			padding: 0 5px;
+		}
+		a {
+			color: darken($green,25%);
+			@include transition(all 0.3s $authenticMotion);
+			&.clicked {
+				color: $blue;
+				@include transition(all 0.3s $authenticMotion);
+				&:hover {
+					color: $blue;
+				}
+			}
+			&:hover {
+				color: darken($green,15%);
+				@include transition(all 0.3s $authenticMotion);
+			}
+		}
+	}
+	.btn-filter {
+		display: block;
+		border: none;
+	    box-shadow: none;
+	    font-size: 16pt;
+	    line-height: 60px;
+	    padding: 0 25px;
+	    margin: 25px auto 0;
+	    letter-spacing: 1px;
+	    background: $red;
+	    &:hover {
+	    	cursor: pointer;
+	    }
 	}
 	&[data-modal="contact"] {
 		background: $light;
 		text-align: left;
 		.half {
-			display: inline-block;
-			width: 50%;
-			height: 100%;
-			box-sizing: border-box;
-			vertical-align: top;
 			&.image {
 				background: url('assets/images/tiki.jpg') no-repeat scroll center / cover;
 			}
@@ -506,19 +587,6 @@ a {
 		form {
 			width: 400px;
 			margin: 0 auto;
-			h1 {
-			    font-family: 'LiSong Pro', serif;
-			    font-size: 36pt;
-			    font-weight: normal;
-			    margin: 0;
-			    letter-spacing: 1px;
-			}
-			p {
-				margin: 5px 0 25px;
-				a {
-					color: $blue;
-				}
-			}
 			.field {
 				margin: 0 0 10px;
 			}
@@ -536,8 +604,8 @@ a {
 				background: darken($light,5%);
 				color: white;
 				line-height: 40px;
-				padding: 0 15px;
-				font-size: 16pt;
+				padding: 0 10px;
+				font-size: 14pt;
 				box-sizing: border-box;
 			}
 			textarea {
@@ -550,16 +618,19 @@ a {
 				border: none;
 				background: darken($light,5%);
 				color: white;
-				padding: 15px;
+				padding: 10px;
 				box-sizing: border-box;
 			}
 			input,textarea {
 				&:focus {
 					outline: none;
 				}
+				&::placeholder {
+					color: lighten($light,5%);
+				}
 			}
 			button {
-				background: $dark;
+				background: $green;
 				color: white;
 				border: none;
 				float: right;

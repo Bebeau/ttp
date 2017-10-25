@@ -236,11 +236,23 @@ function removeItem() {
 add_action('wp_ajax_loadListing', 'loadListing');
 add_action('wp_ajax_nopriv_loadListing', 'loadListing');
 function loadListing() {
-    $termID = (isset($_GET['termID'])) ? $_GET['termID'] : 0;
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
+    $catArray = explode( ',', $categories );
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : "";
+    $tagArray = explode( ',', $ingredients );
     $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
     $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
 
-    if($termID !== "0") {
+    if(empty(array_filter($catArray)) && empty(array_filter($tagArray)) ) {
+        $args = array(
+            'paged'         => $pageNumber,
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC'
+        );
+    } elseif(empty(array_filter($tagArray)) && !empty(array_filter($catArray)) ) {
         $args = array(
             'paged'         => $pageNumber,
             'posts_per_page'=> get_option('posts_per_page'),
@@ -252,7 +264,25 @@ function loadListing() {
                 array(
                     'taxonomy' => 'category',
                     'field' => 'id',
-                    'terms' => $termID
+                    'terms' => $catArray,
+                    'operator' => 'IN'
+                )
+            )
+        );
+    } elseif(empty(array_filter($catArray)) && !empty(array_filter($tagArray)) ) {
+        $args = array(
+            'paged'         => $pageNumber,
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'ingredients',
+                    'field' => 'id',
+                    'terms' => $tagArray,
+                    'operator' => 'IN'
                 )
             )
         );
@@ -263,7 +293,22 @@ function loadListing() {
             'post_type'     => 'recipes',
             'post_status'   => 'publish',
             'orderby'       => 'date',
-            'order'         => 'DESC'
+            'order'         => 'DESC',
+            'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'id',
+                    'terms' => $catArray,
+                    'operator' => 'IN'
+                ),
+                array(
+                    'taxonomy' => 'ingredients',
+                    'field' => 'id',
+                    'terms' => $tagArray,
+                    'operator' => 'IN'
+                )
+            )
         );
     }
 
@@ -295,16 +340,48 @@ function loadListing() {
 add_action('wp_ajax_loadFilter', 'loadFilter');
 add_action('wp_ajax_nopriv_loadFilter', 'loadFilter');
 function loadFilter() {
-    $termID = (isset($_GET['termID'])) ? $_GET['termID'] : 0;
-    $termType = (isset($_GET['termType'])) ? $_GET['termType'] : 0;
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : 0;
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : 0;
 
-    if($termID === "0") {
+    if(empty($categories) && empty($ingredients)) {
         $args = array(
             'posts_per_page'=> get_option('posts_per_page'),
             'post_type'     => 'recipes',
             'post_status'   => 'publish',
             'orderby'       => 'date',
             'order'         => 'DESC'
+        );
+    } elseif(empty($ingredients) && !empty($categories)) {
+        $args = array(
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'id',
+                    'terms' => $categories,
+                    'operator' => 'IN'
+                )
+            )
+        );
+    } elseif(empty($categories) && !empty($ingredients)) {
+        $args = array(
+            'posts_per_page'=> get_option('posts_per_page'),
+            'post_type'     => 'recipes',
+            'post_status'   => 'publish',
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'ingredients',
+                    'field' => 'id',
+                    'terms' => $ingredients,
+                    'operator' => 'IN'
+                )
+            )
         );
     } else {
         $args = array(
@@ -314,10 +391,18 @@ function loadFilter() {
             'orderby'       => 'date',
             'order'         => 'DESC',
             'tax_query' => array(
+                'relation' => 'AND',
                 array(
-                    'taxonomy' => $termType,
+                    'taxonomy' => 'category',
                     'field' => 'id',
-                    'terms' => $termID
+                    'terms' => $categories,
+                    'operator' => 'IN'
+                ),
+                array(
+                    'taxonomy' => 'ingredients',
+                    'field' => 'id',
+                    'terms' => $ingredients,
+                    'operator' => 'IN'
                 )
             )
         );

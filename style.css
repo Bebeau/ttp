@@ -374,7 +374,7 @@ a {
       box-shadow: none;
       font-size: 16pt;
       line-height: 60px;
-      padding: 0 15px;
+      padding: 0 25px;
       margin: 0 20px 30px 0;
       letter-spacing: 1px; }
       #listing #filter .btn-modal:hover {
@@ -475,7 +475,8 @@ a {
     #listing #listingWrap #ajaxLoad {
       font-size: 48pt;
       text-align: center;
-      padding: 25px 0; }
+      padding: 25px 0;
+      color: #e8e8ee; }
 
 .modal {
   position: fixed;
@@ -535,36 +536,95 @@ a {
       cursor: pointer; }
   .modal a {
     color: white; }
-  .modal[data-modal="category"] a {
-    display: block;
-    font-size: 24pt; }
-  .modal #tagCloud {
+  .modal .half {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    vertical-align: top; }
+  .modal .modalTitle {
+    font-family: 'LiSong Pro', serif;
+    font-size: 36pt;
+    font-weight: normal;
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: left; }
+  .modal .modalCopy {
     width: 50%;
     margin: 0 auto; }
+    .modal .modalCopy p {
+      text-align: left;
+      margin: 5px 0 25px;
+      letter-spacing: 0.5px;
+      line-height: 16pt;
+      color: #e6e5e5; }
+  .modal[data-modal="category"] span {
+    display: inline-block;
+    font-size: 21pt;
+    text-align: left;
+    color: #79404E;
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .modal[data-modal="category"] span a {
+      color: #40513b; }
+      .modal[data-modal="category"] span a.clicked {
+        color: #E9F4FF;
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .modal[data-modal="category"] span a.clicked:hover {
+          color: #E9F4FF; }
+      .modal[data-modal="category"] span a:hover {
+        color: #586f50;
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .modal[data-modal="category"] .half.image {
+    background: url("assets/images/tiki2.jpg") no-repeat scroll top right/cover; }
+  .modal[data-modal="ingredients"] .half.image {
+    background: url("assets/images/tiki3.jpg") no-repeat scroll center/cover; }
+  .modal[data-modal="ingredients"] span {
+    color: #79404E;
+    display: inline-block;
+    padding: 0 5px; }
+  .modal[data-modal="ingredients"] a {
+    color: #40513b;
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .modal[data-modal="ingredients"] a.clicked {
+      color: #E9F4FF;
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      .modal[data-modal="ingredients"] a.clicked:hover {
+        color: #E9F4FF; }
+    .modal[data-modal="ingredients"] a:hover {
+      color: #586f50;
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .modal .btn-filter {
+    display: block;
+    border: none;
+    box-shadow: none;
+    font-size: 16pt;
+    line-height: 60px;
+    padding: 0 25px;
+    margin: 25px auto 0;
+    letter-spacing: 1px;
+    background: #79404E; }
+    .modal .btn-filter:hover {
+      cursor: pointer; }
   .modal[data-modal="contact"] {
     background: #8482A1;
     text-align: left; }
-    .modal[data-modal="contact"] .half {
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      box-sizing: border-box;
-      vertical-align: top; }
-      .modal[data-modal="contact"] .half.image {
-        background: url("assets/images/tiki.jpg") no-repeat scroll center/cover; }
+    .modal[data-modal="contact"] .half.image {
+      background: url("assets/images/tiki.jpg") no-repeat scroll center/cover; }
     .modal[data-modal="contact"] form {
       width: 400px;
       margin: 0 auto; }
-      .modal[data-modal="contact"] form h1 {
-        font-family: 'LiSong Pro', serif;
-        font-size: 36pt;
-        font-weight: normal;
-        margin: 0;
-        letter-spacing: 1px; }
-      .modal[data-modal="contact"] form p {
-        margin: 5px 0 25px; }
-        .modal[data-modal="contact"] form p a {
-          color: #E9F4FF; }
       .modal[data-modal="contact"] form .field {
         margin: 0 0 10px; }
       .modal[data-modal="contact"] form label {
@@ -580,8 +640,8 @@ a {
         background: #767396;
         color: white;
         line-height: 40px;
-        padding: 0 15px;
-        font-size: 16pt;
+        padding: 0 10px;
+        font-size: 14pt;
         box-sizing: border-box; }
       .modal[data-modal="contact"] form textarea {
         font-size: 14pt;
@@ -593,12 +653,14 @@ a {
         border: none;
         background: #767396;
         color: white;
-        padding: 15px;
+        padding: 10px;
         box-sizing: border-box; }
       .modal[data-modal="contact"] form input:focus, .modal[data-modal="contact"] form textarea:focus {
         outline: none; }
+      .modal[data-modal="contact"] form input::placeholder, .modal[data-modal="contact"] form textarea::placeholder {
+        color: #9291ac; }
       .modal[data-modal="contact"] form button {
-        background: #485069;
+        background: #7C9972;
         color: white;
         border: none;
         float: right;
