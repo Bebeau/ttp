@@ -365,8 +365,18 @@ a {
     font-family: 'LiSong Pro', serif;
     font-size: 36pt;
     font-weight: normal;
-    margin: 0 0 0 20px;
+    margin: 0 0 15px 20px;
     color: #8482A1; }
+    #listing #listingTitle span {
+      box-sizing: border-box;
+      padding-left: 10px;
+      display: block;
+      text-transform: lowercase;
+      font-size: 12pt;
+      color: #afaec2;
+      line-height: 14pt; }
+      #listing #listingTitle span:first-child {
+        margin-top: 5px; }
   #listing #filter {
     text-align: right; }
     #listing #filter .btn-modal {

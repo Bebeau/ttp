@@ -290,7 +290,7 @@ var init = {
             init.saveRating(postID,rating);
         });
     },
-    filterAjax: function(categories, ingredients, termName, urlPath) {
+    filterAjax: function(categories, catNames, ingredients, tagNames, termName, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
@@ -313,6 +313,15 @@ var init = {
                 jQuery("#listingWrap").attr("data-tag", ingredients);
 
                 jQuery('#listingTitle').html(termName);
+                if(catNames.length !== 0 && termName === "Categories") {
+                    jQuery('#listingTitle').append('<span class="catNames">( '+catNames+' )</span>');
+                }
+                if(tagNames.length !== 0 && termName === "Ingredients") {
+                    jQuery('#listingTitle').append('<span class="tagNames">( '+tagNames+' )</span>');
+                }
+                if(tagNames.length !== 0 && catNames.length !== 0) {
+                    jQuery('#listingTitle').append('<span class="catNames">categories&bull;'+catNames+'</span><span class="tagNames">ingredients&bull;'+tagNames+'</span>');
+                }
                 jQuery("#listingWrap").html(recipes);
 
                 setTimeout(
@@ -353,12 +362,16 @@ var init = {
             jQuery(this).html('<i class="fa fa-spinner fa-spin"></i>');
             if(jQuery('.modal a').hasClass("clicked")) {
                 var categories = [];
+                var catNames = [];
                 jQuery('.modal[data-modal="category"] a.clicked').each(function(){
                     categories.push(jQuery(this).attr("data-term"));
+                    catNames.push(jQuery(this).text());
                 });
                 var ingredients = [];
+                var tagNames = [];
                 jQuery('.modal[data-modal="ingredients"] a.clicked').each(function(){
                     ingredients.push(jQuery(this).parent().attr("data-term"));
+                    tagNames.push(jQuery(this).text());
                 });
                 if(categories.length !== 0 && ingredients.length !== 0) {
                     var termName = 'Categories / Ingredients';
@@ -379,7 +392,7 @@ var init = {
                 var termType = "recipes";
                 var urlPath = siteurl;
             }
-            init.filterAjax(categories, ingredients, termName, urlPath);
+            init.filterAjax(categories, catNames, ingredients, tagNames, termName, urlPath);
             setTimeout(
                 function(){
                     jQuery('.btn-filter').html("Filter");

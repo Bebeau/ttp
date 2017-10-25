@@ -296,8 +296,20 @@ a {
 		font-family: 'LiSong Pro', serif;
 		font-size: 36pt;
 		font-weight: normal;
-		margin: 0 0 0 20px;
+		margin: 0 0 15px 20px;
 		color: $light;
+		span {
+			box-sizing: border-box;
+			padding-left: 10px;
+			display: block;
+			text-transform: lowercase;
+			font-size: 12pt;
+			color: lighten($light,15%);
+			line-height: 14pt;
+			&:first-child {
+				margin-top: 5px;
+			}
+		}
 	}
 	#filter {
 		text-align: right;
