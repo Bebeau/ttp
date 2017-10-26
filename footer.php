@@ -17,7 +17,11 @@
 				echo '<div class="inner">';
 					echo '<form method="GET" id="contactForm">';
 						echo '<h3 class="modalTitle">Let&#39;s Chat</h3>';
-						echo '<p>Our purpose is to Feed The People. Feed the people both literally and figuratively with food and knowledge to create a community of optimal health. And that means sharing, uniting, and working together! So if you want to tell your story, collaborate on a project or just send us some feedback, don’t be shy...</p>';
+						if(!is_smartphone()) {
+							echo '<p>Our purpose is to Feed The People. Feed the people both literally and figuratively with food and knowledge to create a community of optimal health. And that means sharing, uniting, and working together! So if you want to tell your story, collaborate on a project or just send us some feedback, don’t be shy...</p>';
+						} else {
+							echo '<p>If you want to tell your story, collaborate on a project or just send us some feedback, don’t be shy...</p>';
+						}
 						echo '<div class="field">';
 							echo '<label for="firstname">First Name</label>';
 							echo '<input type="text" name="firstname" id="firstname" placeholder="Jane" />';
@@ -34,7 +38,7 @@
 							echo '<label for="message">Friendly Message</label>';
 							echo '<textarea type="text" placeholder="What&#39;s up?"></textarea>';
 						echo '</div>';
-						echo '<button type="submit">Send Message</button>';
+						echo '<button type="submit">Send</button>';
 					echo '</form>';
 				echo '</div>';
 			echo '</div>';
@@ -52,8 +56,8 @@
 						echo '<h3 class="modalTitle">Ingredients</h3>';
 						echo '<p>Select the ingredients you wish to cook with from the listing below and click filter to see what recipes we have for you.</p>';
 						$args = array(
-							'smallest'                  => 12, 
-							'largest'                   => 36,
+							'smallest'                  => 10, 
+							'largest'                   => 18,
 							'unit'                      => 'pt', 
 							'number'                    => 45,  
 							'format'                    => 'array',
@@ -90,7 +94,7 @@
 				echo '<div class="inner">';
 					echo '<div class="modalCopy">';
 						echo '<h3 class="modalTitle">Categories</h3>';
-						echo '<p>Select a category below to view specific types of recipes.</p>';
+						echo '<p>Select categories below and click filter to view those specific type of recipes.</p>';
 						$args = array(
 						    'taxonomy' => 'category',
 						    'post_type' => 'recipes',
@@ -140,7 +144,9 @@
 		                    }
 		                    $count++;
 		                }
-		                relatedRecipe();
+		                if(!is_smartphone()) {
+		                    relatedRecipe();
+		                }
 		            echo '</div>';
 
 		            echo '<div id="recipeCopy">';
@@ -157,12 +163,15 @@
 		                recipe_rating();
 		                
 		                echo '<div class="copy">';
-		                    the_content();
 		                    listIngredients($post->ID);
 		                    listInstructions($post->ID);
+		                    the_content();
 		                    socialShare();
 		                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
 		                    echo '<div id="dishpics"></div>';
+		                    if(is_smartphone()) {
+			                    relatedRecipe();
+			                }
 		                echo '</div>';
 
 		            echo '</div>';

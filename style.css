@@ -237,7 +237,7 @@ a {
     position: relative;
     width: auto;
     display: inline-block;
-    margin-bottom: 150px; }
+    margin-bottom: 125px; }
     #about #introVideo i {
       position: absolute;
       top: 50%;
@@ -307,13 +307,15 @@ a {
   top: 0;
   left: 0;
   z-index: 1;
-  width: 100%; }
+  width: 100%;
+  background: white;
+  padding-top: 5px; }
   .line span {
     width: 10%;
     height: 3px;
     box-sizing: border-box;
     display: inline-block;
-    vertical-align: top; }
+    vertical-align: bottom; }
     .line span:first-child {
       background: #7C9972; }
     .line span:nth-child(2) {
@@ -351,15 +353,10 @@ a {
     #listing .statsWrap .stats {
       background: white;
       box-sizing: border-box;
-      padding: 0 25px;
+      padding: 10px 15px 0;
       display: inline-block;
       position: relative;
-      z-index: 2;
-      -webkit-transform: translate(0, -20px);
-      -moz-transform: translate(0, -20px);
-      -ms-transform: translate(0, -20px);
-      -o-transform: translate(0, -20px);
-      transform: translate(0, -20px); }
+      z-index: 2; }
   #listing #listingTitle {
     float: left;
     font-family: 'LiSong Pro', serif;
@@ -369,7 +366,7 @@ a {
     color: #8482A1; }
     #listing #listingTitle span {
       box-sizing: border-box;
-      padding-left: 10px;
+      padding-left: 5px;
       display: block;
       text-transform: lowercase;
       font-size: 12pt;
@@ -413,6 +410,7 @@ a {
         position: relative;
         z-index: 9;
         color: white;
+        white-space: nowrap;
         -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -518,6 +516,7 @@ a {
     -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     .modal.in .fa-close {
+      opacity: 1;
       -webkit-transform: rotate(180deg);
       -moz-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
@@ -527,6 +526,7 @@ a {
       -moz-transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
       transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1); }
   .modal .fa-close {
+    opacity: 0;
     color: white;
     font-size: 24pt;
     color: rgba(0, 0, 0, 0.25);
@@ -570,9 +570,10 @@ a {
       color: #e6e5e5; }
   .modal[data-modal="category"] span {
     display: inline-block;
-    font-size: 21pt;
+    font-size: 18pt;
     text-align: left;
     color: #79404E;
+    padding: 0 5px;
     -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -591,7 +592,7 @@ a {
         -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .modal[data-modal="category"] .half.image {
-    background: url("assets/images/tiki2.jpg") no-repeat scroll top right/cover; }
+    background: url("assets/images/tiki2.jpg") no-repeat scroll center/cover; }
   .modal[data-modal="ingredients"] .half.image {
     background: url("assets/images/tiki3.jpg") no-repeat scroll center/cover; }
   .modal[data-modal="ingredients"] span {
@@ -629,7 +630,8 @@ a {
       cursor: pointer; }
   .modal[data-modal="contact"] {
     background: #8482A1;
-    text-align: left; }
+    text-align: left;
+    z-index: 99999; }
     .modal[data-modal="contact"] .half.image {
       background: url("assets/images/tiki.jpg") no-repeat scroll center/cover; }
     .modal[data-modal="contact"] form {
@@ -735,35 +737,6 @@ a {
         padding: 0 10px; }
         #recipeWrap #recipeImages article:first-child img {
           max-width: 100%; }
-    #recipeWrap #recipeImages #relatedRecipes {
-      font-family: 'LiSong Pro', serif;
-      margin-top: 50px; }
-      #recipeWrap #recipeImages #relatedRecipes h2 {
-        font-family: 'LiSong Pro', serif;
-        font-size: 28pt;
-        font-weight: normal;
-        color: #8482A1;
-        margin: 0;
-        line-height: 80px; }
-      #recipeWrap #recipeImages #relatedRecipes h3 {
-        margin: 0 auto;
-        font-family: 'LiSong Pro', serif;
-        color: #8482A1;
-        font-size: 14pt;
-        line-height: 40px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-weight: lighter;
-        letter-spacing: 1px;
-        position: relative;
-        z-index: 9;
-        box-sizing: border-box;
-        -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-      #recipeWrap #recipeImages #relatedRecipes img {
-        max-width: 100%; }
   #recipeWrap #recipeCopy {
     width: 60%;
     box-sizing: border-box;
@@ -780,7 +753,7 @@ a {
       font-size: 36pt;
       margin: 0 0 15px;
       box-sizing: border-box;
-      padding-right: 50px;
+      padding-right: 60px;
       color: #485069; }
     #recipeWrap #recipeCopy .line {
       position: relative; }
@@ -816,8 +789,10 @@ a {
       font-size: 16pt; }
       #recipeWrap #recipeCopy .instruction-listing h3, #recipeWrap #recipeCopy .ingredient-listing h3 {
         letter-spacing: 1px; }
-      #recipeWrap #recipeCopy .instruction-listing ul li, #recipeWrap #recipeCopy .instruction-listing ol li, #recipeWrap #recipeCopy .ingredient-listing ul li, #recipeWrap #recipeCopy .ingredient-listing ol li {
-        margin: 10px 0; }
+      #recipeWrap #recipeCopy .instruction-listing ul, #recipeWrap #recipeCopy .instruction-listing ol, #recipeWrap #recipeCopy .ingredient-listing ul, #recipeWrap #recipeCopy .ingredient-listing ol {
+        margin: 10px 0 25px; }
+        #recipeWrap #recipeCopy .instruction-listing ul li, #recipeWrap #recipeCopy .instruction-listing ol li, #recipeWrap #recipeCopy .ingredient-listing ul li, #recipeWrap #recipeCopy .ingredient-listing ol li {
+          line-height: 30px; }
     #recipeWrap #recipeCopy h4 {
       font-family: 'LiSong Pro', serif;
       font-size: 21pt;
@@ -825,7 +800,8 @@ a {
       font-weight: normal;
       margin: 0; }
       #recipeWrap #recipeCopy h4#dishpicsTitle {
-        margin-top: 50px; }
+        margin-top: 50px;
+        padding-left: 10px; }
     #recipeWrap #recipeCopy #socialShare {
       text-align: center;
       margin-top: 50px; }
@@ -859,6 +835,52 @@ a {
           -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    #recipeWrap #recipeCopy #relatedRecipes h3 {
+      margin: 0 auto;
+      font-family: 'LiSong Pro', serif;
+      color: #8482A1;
+      font-size: 14pt;
+      line-height: 40px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: lighter;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 9;
+      box-sizing: border-box;
+      -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  #recipeWrap #relatedRecipes {
+    font-family: 'LiSong Pro', serif;
+    margin-top: 50px; }
+    #recipeWrap #relatedRecipes h2 {
+      font-family: 'LiSong Pro', serif;
+      font-size: 28pt;
+      font-weight: normal;
+      color: #8482A1;
+      margin: 0;
+      line-height: 80px; }
+    #recipeWrap #relatedRecipes h3 {
+      margin: 0 auto;
+      font-family: 'LiSong Pro', serif;
+      color: #8482A1;
+      font-size: 14pt;
+      line-height: 40px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: lighter;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 9;
+      box-sizing: border-box;
+      -webkit-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    #recipeWrap #relatedRecipes img {
+      max-width: 100%; }
 
 #contact {
   position: fixed;
@@ -870,7 +892,7 @@ a {
   border-top-right-radius: 50%;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  z-index: 9999;
+  z-index: 99999;
   background: white;
   border: 1px solid #8482A1;
   color: #8482A1;
@@ -889,3 +911,192 @@ a {
  * <!--[if IE]>
  *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
  * <![endif]--> */
+@media (max-width: 1024px) {
+  .wrap {
+    width: 100%; }
+    .wrap .half article {
+      width: auto; }
+  #about #introVideo {
+    margin-bottom: 50px; }
+    #about #introVideo video {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 25px; }
+  #listing .statsWrap {
+    font-size: 16pt;
+    margin-bottom: 25px; }
+  #listing #filter {
+    box-sizing: border-box;
+    padding: 0 20px; }
+    #listing #filter .btn-modal {
+      font-size: 12pt;
+      margin-bottom: 20px; }
+  #listing #listingTitle {
+    font-size: 24pt;
+    margin-top: 15px; }
+  #listing #listingWrap {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px; }
+    #listing #listingWrap .recipe {
+      padding: 0 10px 10px; }
+      #listing #listingWrap .recipe article {
+        line-height: 200px;
+        height: 200px; }
+      #listing #listingWrap .recipe h3 {
+        font-size: 10pt;
+        line-height: 30px; }
+        #listing #listingWrap .recipe h3 span {
+          letter-spacing: 1px; }
+  .modal .half {
+    width: 60%; }
+    .modal .half.image {
+      width: 40%; }
+  .modal .modalCopy {
+    width: auto;
+    box-sizing: border-box;
+    padding: 0 50px; }
+  .modal .modalTitle {
+    font-size: 24pt; }
+  .modal.modal[data-modal="contact"] form {
+    width: auto;
+    box-sizing: border-box;
+    padding: 0 50px; }
+  #recipeWrap {
+    margin: 25px auto; }
+    #recipeWrap #recipeImages {
+      padding-left: 25px; }
+      #recipeWrap #recipeImages article {
+        padding: 5px;
+        height: auto; }
+        #recipeWrap #recipeImages article:first-child {
+          padding: 0 5px; }
+        #recipeWrap #recipeImages article.thumbnail span {
+          height: 100px; }
+      #recipeWrap #recipeImages #relatedRecipes {
+        margin-top: 0; }
+        #recipeWrap #recipeImages #relatedRecipes h2 {
+          font-size: 21pt; }
+    #recipeWrap #recipeCopy {
+      padding-left: 25px; }
+      #recipeWrap #recipeCopy h1 {
+        font-size: 24pt; }
+      #recipeWrap #recipeCopy #starRating {
+        margin-bottom: 10px; }
+        #recipeWrap #recipeCopy #starRating i {
+          font-size: 18pt; }
+      #recipeWrap #recipeCopy .copy {
+        padding-right: 25px; }
+        #recipeWrap #recipeCopy .copy p {
+          font-size: 12pt;
+          line-height: 18pt; }
+        #recipeWrap #recipeCopy .copy h3 {
+          margin-top: 25px;
+          font-size: 16pt; }
+      #recipeWrap #recipeCopy #socialShare {
+        margin-top: 25px; }
+      #recipeWrap #recipeCopy h4#dishpicsTitle {
+        margin-top: 25px; }
+    #recipeWrap #dishpics .pic {
+      height: 175px; } }
+
+@media (max-width: 768px) {
+  #top {
+    height: 50vh; }
+    #top img {
+      width: 200px; }
+  .tagline {
+    font-size: 21pt;
+    line-height: 80px; }
+  #recipeWrap #recipeImages article.thumbnail span {
+    height: 75px; }
+  #dishpics .pic {
+    width: 50%; } }
+
+@media (max-width: 414px) {
+  .tagline {
+    font-size: 21pt;
+    line-height: 36px;
+    padding: 20px; }
+  .wrap .half article {
+    padding: 0; }
+  #listing .statsWrap {
+    text-align: center; }
+  #listing #listingTitle {
+    display: none; }
+  #listing #filter {
+    text-align: center;
+    margin-bottom: 20px; }
+    #listing #filter .btn-modal {
+      text-align: center;
+      width: 50%;
+      margin: 0;
+      padding: 0; }
+  #listing #listingWrap .recipe {
+    width: 50%; }
+    #listing #listingWrap .recipe article {
+      height: 150px; }
+  #recipeWrap {
+    box-sizing: border-box;
+    padding: 25px;
+    margin-top: 35px; }
+    #recipeWrap #recipeImages, #recipeWrap #recipeCopy {
+      width: 100%;
+      padding: 0; }
+    #recipeWrap #relatedRecipes {
+      text-align: center;
+      margin-top: 0; }
+      #recipeWrap #relatedRecipes h2 {
+        margin-top: 0;
+        font-size: 21pt;
+        line-height: 60px; }
+    #recipeWrap #recipeCopy .line span {
+      vertical-align: top; }
+    #recipeWrap #recipeCopy .copy {
+      padding: 0; }
+    #recipeWrap #recipeCopy .ingredient-listing, #recipeWrap #recipeCopy .instruction-listing {
+      padding: 0; }
+    #recipeWrap #recipeCopy h1, #recipeWrap #recipeCopy #starRating {
+      text-align: center;
+      padding: 0; }
+    #recipeWrap #recipeCopy h1 {
+      margin-top: 25px; }
+    #recipeWrap #recipeCopy #starRating {
+      margin-bottom: 35px; }
+  .modal .modalCopy {
+    padding: 0 25px; }
+  .modal .fa-close {
+    top: 15px;
+    right: 15px; }
+  .modal.single-recipes .fa-close {
+    top: 15px;
+    right: 50%;
+    font-size: 24pt;
+    margin-right: -13px; }
+  .modal.modal[data-modal="contact"] form {
+    padding: 0 25px; }
+    .modal.modal[data-modal="contact"] form .field {
+      margin-bottom: 5px; }
+    .modal.modal[data-modal="contact"] form p {
+      font-size: 11pt; }
+    .modal.modal[data-modal="contact"] form input {
+      line-height: 30px;
+      font-size: 12pt; }
+    .modal.modal[data-modal="contact"] form textarea {
+      min-height: 100px;
+      font-size: 12pt; }
+    .modal.modal[data-modal="contact"] form button {
+      width: 100%; } }
+
+@media (max-width: 320px) {
+  .tagline {
+    font-size: 18pt;
+    line-height: 32px; }
+  #listing #filter {
+    padding: 0 15px; }
+  #listing #listingWrap .recipe {
+    padding: 0 5px; }
+  .modal .half {
+    width: 100%; }
+    .modal .half.image {
+      display: none; } }

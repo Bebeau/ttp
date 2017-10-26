@@ -96,6 +96,20 @@ function remove_head_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
 
+function is_smartphone() {
+    $iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+    $android = strpos($_SERVER['HTTP_USER_AGENT'],"Android");
+    $palmpre = strpos($_SERVER['HTTP_USER_AGENT'],"webOS");
+    $berry = strpos($_SERVER['HTTP_USER_AGENT'],"BlackBerry");
+    $ipod = strpos($_SERVER['HTTP_USER_AGENT'],"iPod");
+
+    if($iphone || $android || $palmpre || $ipod || $berry == true) { 
+       return true;
+    } else {
+        return false;
+    }
+}
+
 include(TEMPLATEPATH.'/partials/functions/recipes.php');
 
 // add random string generator

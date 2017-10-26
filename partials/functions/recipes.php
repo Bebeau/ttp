@@ -466,12 +466,14 @@ function loadRecipe() {
                     }
                     $count++;
                 }
-                relatedRecipe();
-                $recipe->reset_postdata();
+                if(!is_smartphone()) {
+                    relatedRecipe();
+                    $recipe->reset_postdata();
+                }
             echo '</div>';
 
             echo '<div id="recipeCopy">';
-
+                
                 the_title('<h1>','</h1>');
                 echo '<span class="line">';
                     echo '<span></span>';
@@ -484,13 +486,18 @@ function loadRecipe() {
                 recipe_rating();
                 
                 echo '<div class="copy">';
-                    the_content();
                     listIngredients($post->ID);
                     listInstructions($post->ID);
+                    the_content();
                     socialShare();
                     echo '<h4 id="dishpicsTitle">#dishpics</h4>';
                     echo '<div id="dishpics"></div>';
                 echo '</div>';
+
+                if(is_smartphone()) {
+                    relatedRecipe();
+                    $recipe->reset_postdata();
+                }
 
             echo '</div>';
         

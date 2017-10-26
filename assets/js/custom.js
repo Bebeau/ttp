@@ -181,7 +181,12 @@ var init = {
         });
         jQuery('.modal .fa-close').click(function(e){
             e.preventDefault();
-            init.closeModal();
+            jQuery(this).parent().removeClass('in');
+            jQuery('#bodyWrap').removeClass("out");
+            if(!jQuery('.modal').hasClass("in")) {
+                jQuery('body').removeClass("stop");
+            }
+            window.history.pushState({path:siteurl},'',siteurl);
         });
     },
     recipeAjax: function(postID, urlPath) {
@@ -313,14 +318,20 @@ var init = {
                 jQuery("#listingWrap").attr("data-tag", ingredients);
 
                 jQuery('#listingTitle').html(termName);
-                if(catNames.length !== 0 && termName === "Categories") {
-                    jQuery('#listingTitle').append('<span class="catNames">( '+catNames+' )</span>');
+                if(catNames !== undefined) {
+                    if(catNames.length !== 0 && termName === "Categories") {
+                        jQuery('#listingTitle').append('<span class="catNames">( '+catNames+' )</span>');
+                    }
                 }
-                if(tagNames.length !== 0 && termName === "Ingredients") {
-                    jQuery('#listingTitle').append('<span class="tagNames">( '+tagNames+' )</span>');
+                if(tagNames !== undefined) {
+                    if(tagNames.length !== 0 && termName === "Ingredients") {
+                        jQuery('#listingTitle').append('<span class="tagNames">( '+tagNames+' )</span>');
+                    }
                 }
-                if(tagNames.length !== 0 && catNames.length !== 0) {
-                    jQuery('#listingTitle').append('<span class="catNames">categories&bull;'+catNames+'</span><span class="tagNames">ingredients&bull;'+tagNames+'</span>');
+                if(tagNames !== undefined && catNames !== undefined) {
+                    if(tagNames.length !== 0 && catNames.length !== 0) {
+                        jQuery('#listingTitle').append('<span class="catNames">categories&bull;'+catNames+'</span><span class="tagNames">ingredients&bull;'+tagNames+'</span>');
+                    }
                 }
                 jQuery("#listingWrap").html(recipes);
 
