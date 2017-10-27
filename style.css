@@ -6,7 +6,7 @@ Version: 1.0
 Author: Kyle Bebeau
 Author URI: http://theinitgroup.com
 */
-@import url("https://fonts.googleapis.com/css?family=Arsenal");
+@import url(https://fonts.googleapis.com/css?family=Arsenal);
 [data-animation="slideUp"] {
   display: block;
   position: relative;
