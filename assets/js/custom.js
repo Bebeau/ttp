@@ -149,9 +149,9 @@ var init = {
             complete: function() {
                 init.ctaClick();
             },
-            error : function(jqXHR, textStatus, errorThrown, data) {
+            error : function(jqXHR, textStatus, errorThrown) {
                 jQuery("#ajaxLoad").remove();
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown + data);
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
             }
         });
     },
@@ -221,9 +221,9 @@ var init = {
                 jQuery('.single-recipes').addClass("in");
                 jQuery(".recipeLoad").remove();
             },
-            error : function(jqXHR, textStatus, errorThrown, data) {
+            error : function(data) {
                 jQuery(".recipeLoad").remove();
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown + data);
+                alert(data.status);
             }
         });
     },
