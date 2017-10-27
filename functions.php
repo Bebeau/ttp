@@ -21,6 +21,7 @@ if (!function_exists( 'load_custom_scripts' ) ) {
           'ajaxurl' => admin_url('admin-ajax.php'),
           'siteurl' => site_url(),
           'page' => 2,
+          'trigger' => 0,
           'loading' => false,
           'email_nonce' => wp_create_nonce('ttp_email_ajax_nonce')
         )

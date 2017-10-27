@@ -57,6 +57,8 @@ var init = {
         init.recipeModal();
         init.categoryClick();
         init.videoClick();
+        init.ctaClick();
+        init.contactSubmit();
         if(window.location.href.indexOf("recipes") > -1) {
             jQuery('#bodyWrap').addClass("out");
             jQuery('body').addClass("stop");
@@ -65,13 +67,14 @@ var init = {
         }
 	},
     videoClick: function() {
-        jQuery('#introVideo video').click(function(){
+        jQuery('#introVideo video, #introVideo i').on("click",function(){
+            var video = jQuery('#introVideo video');
             if(jQuery('#introVideo').hasClass("playing")) {
                 jQuery('#introVideo').removeClass("playing");
-                jQuery(this)[0].pause();
+                video[0].pause();
             } else {
                 jQuery('#introVideo').addClass("playing");
-                jQuery(this)[0].play();
+                video[0].play();
             }
         });
     },
@@ -111,6 +114,7 @@ var init = {
                 categories: categories,
                 ingredients: ingredients,
                 count: count,
+                trigger: ttp.trigger,
                 pageNumber: ttp.page
             },
             dataType: "html",
@@ -121,6 +125,7 @@ var init = {
                 var recipes = jQuery(data);
                 // add counts
                 ttp.page++;
+                ttp.trigger++;
                 if(recipes.length >= 1) {
                     jQuery("#ajaxLoad").remove();
                     jQuery("#listingWrap").append(recipes);
@@ -140,6 +145,9 @@ var init = {
                     ttp.loading = true;
                 }
             },
+            complete: function() {
+                init.ctaClick();
+            },
             error : function(jqXHR, textStatus, errorThrown) {
                 jQuery("#ajaxLoad").remove();
                 window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
@@ -155,7 +163,7 @@ var init = {
                 var categories = jQuery('#listingWrap').attr('data-cat');
                 var ingredients = jQuery('#listingWrap').attr('data-tag');
                 var perPage = jQuery('#listingWrap').attr('data-perPage');
-                var count = jQuery('#listingWrap a:last-child').attr("data-color").replace('color','');
+                var count = jQuery('#listingWrap .recipe').last().attr("data-color").replace('color','');
                 init.listingAjax(categories, ingredients, perPage, count);
             }
         });
@@ -409,6 +417,135 @@ var init = {
                     jQuery('.btn-filter').html("Filter");
                 }, 500
             );
+        });
+    },
+    mailChimpAjax: function(list,userIP,fname,lname,email,button) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "GET",
+            data: {
+                userIP: userIP,
+                fname: fname,
+                lname: lname,
+                email: email,
+                list: list,
+                action: 'mailchimpSubscribe'
+            },
+            dataType: 'html',
+            success: function(response) {
+                if(response === "success") {
+                    jQuery('input').val("");
+                    button.addClass('success');
+                    button.html('<fa class="fa fa-check"></i>');
+                    setTimeout(
+                        function(){
+                            button.removeClass('success').html('Join Us');
+                        }, 1000
+                    );
+                }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+    },
+    ctaClick: function() {
+        jQuery('.btn-newsletter').click(function(e){
+            e.preventDefault();
+            var button = jQuery(this);
+            button.html('<i class="fa fa-spinner fa-spin"></i>');
+            var list = button.parent().attr('data-list');
+            var fname = button.parent().find('input[name="fname"]').val();
+            var lname = button.parent().find('input[name="lname"]').val();
+            var email = button.parent().find('input[name="email"]').val();
+            if(fname && lname && email) {
+                jQuery.get("https://ipinfo.io/json", function(response) {
+                    init.mailChimpAjax(list,response['ip'],fname,lname,email,button);
+                });
+            } else {
+                if(!fname) {
+                    button.parent().find('input[name="fname"]').addClass('error');
+                }
+                if(!lname) {
+                    button.parent().find('input[name="lname"]').addClass('error');
+                }
+                if(!email) {
+                    button.parent().find('input[name="email"]').addClass('error');
+                }
+                button.addClass('error').html('<i class="fa fa-ban"></i>');
+                setTimeout(
+                    function(){
+                        button.removeClass('error').html('Join Us');
+                        jQuery('input').removeClass('error');
+                    }, 1000
+                );
+            }
+        });
+    },
+    contactAjax: function(userIP,fname,lname,email,message) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "GET",
+            data: {
+                userIP: userIP,
+                fname: fname,
+                lname: lname,
+                email: email,
+                message: message,
+                action: 'contactEmail'
+            },
+            dataType: 'html',
+            success: function(response) {
+                if(response === "success") {
+                    jQuery('input, textarea').val("");
+                    button.addClass('success');
+                    button.html('<fa class="fa fa-check"></i>');
+                    setTimeout(
+                        function(){
+                            button.removeClass('success').html('Join Us');
+                        }, 1000
+                    );
+                }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            }
+        });
+    },
+    contactSubmit: function() {
+        jQuery('.btn-contact').click(function(e){
+            e.preventDefault();
+            var button = jQuery(this);
+            var fname = button.parent().find('input[name="fname"]').val();
+            var lname = button.parent().find('input[name="lname"]').val();
+            var email = button.parent().find('input[name="email"]').val();
+            var message = button.parent().find('textarea').val();
+            if(fname && lname && email && message) {
+                jQuery.get("https://ipinfo.io/json", function(response) {
+                    init.contactAjax(response['ip'],fname,lname,email,message);
+                });
+            } else {
+                if(!fname) {
+                    button.parent().find('input[name="fname"]').addClass('error');
+                }
+                if(!lname) {
+                    button.parent().find('input[name="lname"]').addClass('error');
+                }
+                if(!email) {
+                    button.parent().find('input[name="email"]').addClass('error');
+                }
+                if(!message) {
+                    button.parent().find('textarea').addClass('error');
+                }
+                button.addClass('error').html('<i class="fa fa-ban"></i>');
+                setTimeout(
+                    function(){
+                        button.removeClass('error').html('Send');
+                        jQuery('input').removeClass('error');
+                        jQuery('textarea').removeClass('error');
+                    }, 1000
+                );
+            }
         });
     }
 };

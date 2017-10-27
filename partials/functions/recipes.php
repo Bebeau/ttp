@@ -61,6 +61,91 @@ function init_ingredients() {
         )
     );
 }
+// MailChimp call
+function ttp_mailchimp_curl_connect($url, $request_type, $api_key, $data = array()) {
+    if( $request_type == 'GET' ) {
+        $url .= '?' . http_build_query($data);
+    }
+ 
+    $mch = curl_init();
+    $headers = array(
+        'Content-Type: application/json',
+        'Authorization: Basic '.base64_encode( 'user:'. $api_key )
+    );
+    curl_setopt($mch, CURLOPT_URL, $url );
+    curl_setopt($mch, CURLOPT_HTTPHEADER, $headers);
+    //curl_setopt($mch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+    curl_setopt($mch, CURLOPT_RETURNTRANSFER, true); // do not echo the result, write it into variable
+    curl_setopt($mch, CURLOPT_CUSTOMREQUEST, $request_type); // according to MailChimp API: POST/GET/PATCH/PUT/DELETE
+    curl_setopt($mch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($mch, CURLOPT_SSL_VERIFYPEER, false); // certificate verification for TLS/SSL connection
+ 
+    if( $request_type != 'GET' ) {
+        curl_setopt($mch, CURLOPT_POST, true);
+        curl_setopt($mch, CURLOPT_POSTFIELDS, json_encode($data) ); // send data in json
+    }
+
+    return curl_exec($mch);
+}
+// sync submissions to MailChimp list
+add_action('wp_ajax_mailchimpSubscribe', 'mailchimpSubscribe');
+add_action('wp_ajax_nopriv_mailchimpSubscribe', 'mailchimpSubscribe');
+function mailchimpSubscribe() {
+
+    $userIP = (isset($_GET['userIP'])) ? $_GET['userIP'] : 0;
+    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
+    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
+    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
+    
+    // get ping info
+    $location = json_decode(file_get_contents('http://freegeoip.net/json/'.$userIP));
+    $ipAddress = $location->ip;
+    $city = $location->city;
+    $state = $location->region_code;
+    $country = $location->country_name;
+    $countryCode = $location->country_code;
+    $zip = $location->zip_code;
+    $lat = $location->latitude;
+    $lng = $location->longitude;
+    $timezone = $location->time_zone;
+
+    // MailChimp Data
+    $key = '8e804320c1aae0fd9b332942214bcdeb-us17';
+    $list = (isset($_GET['list'])) ? $_GET['list'] : 0;
+    $data = array(
+        'apikey'        => $key,
+        'email_address' => $emailaddress,
+        'email_type'    => "html",
+        'status'        => 'subscribed',
+        'merge_fields'  => array(
+            'FNAME' => $firstname,
+            'LNAME' => $lastname
+        ),
+        'ip_signup' => $ipAddress,
+        'timestamp_signup' => date("D M d, Y G:i"),
+        'location' => array(
+            'latitude' => $lat,
+            'longitude' => $lng,
+            'gmtoff' => 0,
+            'dstoff' => 0,
+            'country_code' => $countryCode,
+            'timezone' => $timezone
+        )
+    );
+    // MailChimp API URL
+    $url = 'https://'.substr($key, strpos($key,'-')+1).'.api.mailchimp.com/3.0/lists/'.$list.'/members/';
+    // Send data to MailChimp
+    $success = json_decode( ttp_mailchimp_curl_connect($url, 'POST', $key, $data) );
+
+    if($success) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+
+    exit;
+
+}
 // Add custom meta boxes to display recipe specs
 add_action( 'add_meta_boxes', 'recipe_meta_box', 1 );
 function recipe_meta_box( $post ) {
@@ -236,11 +321,13 @@ function removeItem() {
 add_action('wp_ajax_loadListing', 'loadListing');
 add_action('wp_ajax_nopriv_loadListing', 'loadListing');
 function loadListing() {
+    
     $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
     $catArray = explode( ',', $categories );
     $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : "";
     $tagArray = explode( ',', $ingredients );
     $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
+    $trigger = (isset($_GET['trigger'])) ? $_GET['trigger'] : 0;
     $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
 
     if(empty(array_filter($catArray)) && empty(array_filter($tagArray)) ) {
@@ -314,23 +401,93 @@ function loadListing() {
 
     $recipes = new WP_Query($args);
 
-    if ($recipes->have_posts()) :
-    $count++;
-    while ($recipes->have_posts()) : $recipes->the_post();
-
-        global $post;
-        echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
-            $images = get_post_meta($post->ID,'recipe_images',true);
-            if(!empty($images)) {
-                echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+    if($recipes->have_posts()) :
+        $count++;
+        
+        while ($recipes->have_posts()) : 
+            $recipes->the_post();
+            global $post;
+            echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
+                $images = get_post_meta($post->ID,'recipe_images',true);
+                if(!empty($images)) {
+                    echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+                }
+                the_title("<h3>&bull; <span>","</span> &bull;</h3>");
+            echo '</a>';
+            if($count > 5) {
+                $count = 1;
             }
-            the_title("<h3>&bull; <span>","</span> &bull;</h3>");
-        echo '</a>';
-        if($count > 5) {
-            $count = 1;
-        }
-    endwhile;
+        
+        endwhile;
+
     endif;
+
+    if($pageNumber === "2" || $pageNumber % 3 == 0) {
+        if($trigger % 2 == 0) {
+            echo '<section class="cta" data-animation="slideUp">';
+                if(is_smartphone()) {
+                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+                }
+                echo '<article class="half">';
+                    echo '<div class="outer">';
+                        echo '<div class="inner">';
+                            echo '<form id="wishlistForm" data-list="bc9392d4ad">';
+                                echo '<h3>Are You Totes Cool, or What?</h3>';
+                                echo '<p>Fill out the form below to join our wishlist and be the first to get your hands on The Toasted Post products while feeding our ever growing hunger to cook and create.</p>';
+                                echo '<div class="field">';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">First Name</label>';
+                                        echo '<input type="text" name="fname" placeholder="jane" />';
+                                    echo '</div>';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">Last Name</label>';
+                                        echo '<input type="text" name="lname" placeholder="doe" />';
+                                    echo '</div>';
+                                echo '</div>';
+                                echo '<div class="field">';
+                                    echo '<label for="fname">Email</label>';
+                                    echo '<input type="email" name="email" placeholder="email@address..." />';
+                                echo '</div>';
+                                echo '<button class="btn btn-newsletter">Join Us</button>';
+                            echo '</form>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</article>';
+                if(!is_smartphone()) {
+                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+                }
+            echo '</section>';
+        } else {
+            echo '<section class="cta" data-animation="slideUp">';
+                echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/email.jpg) no-repeat scroll top left / cover"></article>';
+                echo '<article class="half">';
+                    echo '<div class="outer">';
+                        echo '<div class="inner">';
+                            echo '<form id="newsletterForm" data-list="74c64c90b0">';
+                                echo '<h3>Hungry for more?</h3>';
+                                echo '<p>Fill out the form below to join our newsletter and be automatically emailed new recipes fresh out the kitchen.</p>';
+                                echo '<div class="field">';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">First Name</label>';
+                                        echo '<input type="text" name="fname" placeholder="jane" />';
+                                    echo '</div>';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">Last Name</label>';
+                                        echo '<input type="text" name="lname" placeholder="doe" />';
+                                    echo '</div>';
+                                echo '</div>';
+                                echo '<div class="field">';
+                                    echo '<label for="fname">Email</label>';
+                                    echo '<input type="email" name="email" placeholder="email@address..." />';
+                                echo '</div>';
+                                echo '<button class="btn btn-newsletter">Join Us</button>';
+                            echo '</form>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</article>';
+            echo '</section>';
+        }
+    }
 
     wp_reset_query();
 
@@ -531,6 +688,62 @@ function setRating() {
     }
 
     exit;
+}
+// Set content type of email
+function set_html_content_type() {
+    return 'text/html';
+}
+// Set from name of email sent
+add_filter( 'wp_mail_from_name', 'custom_wp_mail_from_name' );
+function custom_wp_mail_from_name( $original_email_from ) {
+    $blog_title = htmlspecialchars_decode(get_bloginfo('name'));
+    return $blog_title;
+}
+// Set from email of email sent
+add_filter('wp_mail_from', 'custom_wp_mail_from_email');
+function custom_wp_mail_from_email( $email_address ) {
+    if($email_address === "wordpress@giv.deals") {
+        return 'tiki@thetoastedpost.com';
+    } else {
+        return $email_address;
+    }
+}
+// sync submissions to MailChimp list
+add_action('wp_ajax_contactEmail', 'contactEmail');
+add_action('wp_ajax_nopriv_contactEmail', 'contactEmail');
+function contactEmail() {
+
+    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
+    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
+    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
+    $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
+
+    $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
+
+    add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+
+    // structure autoresponder
+    ob_start();
+    $subject = "The Toasted Post Contact Form";
+    require("includes/emails/contact.php");
+    $body = ob_get_clean();
+
+    // construct email header.
+    $headers = array(
+        'From' => $emailaddress. "\r\n",
+        'To' => 'The Toasted Post <kyle@thetoastedpost.com>'. "\r\n",
+        'MIME-Version'  => '1.0\r\n'."\r\n",
+        'Content-Type'  => 'text/html'."\r\n",
+        'charset'       => 'UTF-8'."\r\n"
+    );
+
+    // send email
+    $success = wp_mail( $emailaddress, $subject, $body, $headers );
+
+    remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+
+    exit;
+
 }
 // add function to save recipe meta on post save
 add_action( 'save_post', 'save_recipe' );

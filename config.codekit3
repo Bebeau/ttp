@@ -61,6 +61,16 @@
 		"opt": 1,
 		"q": 100
 		},
+	"\/assets\/images\/email.jpg": {
+		"ft": 16384,
+		"iS": 121579,
+		"oA": 0,
+		"oAP": "\/assets\/images\/email.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/assets\/images\/logo.svg": {
 		"ft": 2097152,
 		"miP": 0,
@@ -117,6 +127,16 @@
 		"iS": 764682,
 		"oA": 0,
 		"oAP": "\/assets\/images\/tiki3.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/assets\/images\/tote.jpg": {
+		"ft": 16384,
+		"iS": 940248,
+		"oA": 0,
+		"oAP": "\/assets\/images\/tote.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1336,6 +1356,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/header.php",
+		"oF": 0
+		},
+	"\/includes\/emails\/contact.html": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/emails\/contact.html",
 		"oF": 0
 		},
 	"\/index.php": {

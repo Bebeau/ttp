@@ -1,5 +1,4 @@
 @media(max-width:1024px) {
-	
 	.wrap {
 		width: 100%;
 		.half {
@@ -166,6 +165,9 @@
 			width: 50%;
 		}
 	}
+	#Newsletter {
+		height: 600px;
+	}
 }
 @media(max-width:414px) {
 	.tagline {
@@ -177,6 +179,17 @@
 		.half {
 			article {
 				padding: 0;
+			}
+		}
+	}
+	#about {
+		#introVideo {
+			i {
+				width: 50px;
+				height: 50px;
+				line-height: 46px;
+				margin: -25px 0 0 -25px;
+				font-size: 14pt;
 			}
 		}
 	}
@@ -224,11 +237,6 @@
 			}
 		}
 		#recipeCopy {
-			.line {
-				span {
-					vertical-align: top;
-				}
-			}
 			.copy {
 				padding: 0;
 			}
@@ -281,6 +289,38 @@
 					font-size: 12pt;
 				}
 				button {
+					width: 100%;
+				}
+			}
+		}
+	}
+	.cta {
+		height: auto;
+		margin: 5px -11px 20px;
+		.half {
+			width: 100%;
+			display: block;
+			&:first-child {
+				height: 300px;
+			}
+			form {
+				padding: 25px;
+				.half {
+					height: auto;
+				}
+				h3 {
+					font-size: 21pt;
+				}
+				p {
+					font-size: 14pt;
+				}
+				.field {
+					input {
+						line-height: 40px;
+					}
+				}
+				button {
+					float: none;
 					width: 100%;
 				}
 			}
