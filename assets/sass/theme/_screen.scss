@@ -644,6 +644,9 @@ a {
 				@include transition(all 0.3s $authenticMotion);
 			}
 			input,textarea {
+				box-shadow: none;
+				@include border-top-radius(0);
+				@include border-bottom-radius(0);
 				&:focus {
 					outline: none;
 					border: 1px solid darken($light,10%);
@@ -805,6 +808,15 @@ a {
 				margin: 10px 0 25px;
 				li {
 					line-height: 30px;
+					color: $dark;
+					.single-measurement {
+						color: $light;
+						text-transform: lowercase;
+					}
+					.single-ingredient {
+						color: $dark;
+						text-transform: capitalize;
+					}
 				}
 			}
 		}

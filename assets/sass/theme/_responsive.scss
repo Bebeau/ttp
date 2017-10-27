@@ -263,6 +263,12 @@
 			top: 15px;
 			right: 15px;
 		}
+		.half {
+			width: 80%;
+			&.image {
+				width: 20%;
+			}
+		}
 		&.single-recipes {
 			.fa-close {
 				top: 15px;

@@ -677,16 +677,22 @@ a {
         -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-      .modal[data-modal="contact"] form input:focus, .modal[data-modal="contact"] form textarea:focus {
-        outline: none;
-        border: 1px solid #696789;
-        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-      .modal[data-modal="contact"] form input::placeholder, .modal[data-modal="contact"] form textarea::placeholder {
-        color: #9291ac; }
-      .modal[data-modal="contact"] form input.error, .modal[data-modal="contact"] form textarea.error {
-        border: 1px solid #79404E; }
+      .modal[data-modal="contact"] form input, .modal[data-modal="contact"] form textarea {
+        box-shadow: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0; }
+        .modal[data-modal="contact"] form input:focus, .modal[data-modal="contact"] form textarea:focus {
+          outline: none;
+          border: 1px solid #696789;
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .modal[data-modal="contact"] form input::placeholder, .modal[data-modal="contact"] form textarea::placeholder {
+          color: #9291ac; }
+        .modal[data-modal="contact"] form input.error, .modal[data-modal="contact"] form textarea.error {
+          border: 1px solid #79404E; }
       .modal[data-modal="contact"] form button {
         background: #7C9972;
         color: white;
@@ -822,7 +828,14 @@ a {
       #recipeWrap #recipeCopy .instruction-listing ul, #recipeWrap #recipeCopy .instruction-listing ol, #recipeWrap #recipeCopy .ingredient-listing ul, #recipeWrap #recipeCopy .ingredient-listing ol {
         margin: 10px 0 25px; }
         #recipeWrap #recipeCopy .instruction-listing ul li, #recipeWrap #recipeCopy .instruction-listing ol li, #recipeWrap #recipeCopy .ingredient-listing ul li, #recipeWrap #recipeCopy .ingredient-listing ol li {
-          line-height: 30px; }
+          line-height: 30px;
+          color: #485069; }
+          #recipeWrap #recipeCopy .instruction-listing ul li .single-measurement, #recipeWrap #recipeCopy .instruction-listing ol li .single-measurement, #recipeWrap #recipeCopy .ingredient-listing ul li .single-measurement, #recipeWrap #recipeCopy .ingredient-listing ol li .single-measurement {
+            color: #8482A1;
+            text-transform: lowercase; }
+          #recipeWrap #recipeCopy .instruction-listing ul li .single-ingredient, #recipeWrap #recipeCopy .instruction-listing ol li .single-ingredient, #recipeWrap #recipeCopy .ingredient-listing ul li .single-ingredient, #recipeWrap #recipeCopy .ingredient-listing ol li .single-ingredient {
+            color: #485069;
+            text-transform: capitalize; }
     #recipeWrap #recipeCopy h4 {
       font-family: 'LiSong Pro', serif;
       font-size: 21pt;
@@ -1196,6 +1209,10 @@ a {
   .modal .fa-close {
     top: 15px;
     right: 15px; }
+  .modal .half {
+    width: 80%; }
+    .modal .half.image {
+      width: 20%; }
   .modal.single-recipes .fa-close {
     top: 15px;
     right: 50%;
