@@ -7,7 +7,6 @@ if (!/wp-admin/.test(window.location.href)) {
 
 var ajaxurl = ttp.ajaxurl;
 var siteurl = ttp.siteurl;
-var history = false;
 
 var move = {
     onMove: function() {
