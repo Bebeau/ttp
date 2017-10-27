@@ -60,7 +60,7 @@ function remove_menus(){
 add_action( 'admin_menu', 'remove_menus' );
 
 // Thumbnail Support
-add_theme_support( 'post-thumbnails', array('post', 'page', 'recipes') );
+add_theme_support( 'post-thumbnails', array('post', 'page') );
 
 // Load widget areas
 if ( function_exists('register_sidebar') ) {
