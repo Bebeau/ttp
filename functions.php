@@ -19,7 +19,7 @@ if (!function_exists( 'load_custom_scripts' ) ) {
     wp_localize_script('custom', 'ttp',
         array(
           'ajaxurl' => admin_url('admin-ajax.php'),
-          'siteurl' => site_url(),
+          'siteurl' => get_site_url(),
           'page' => 2,
           'trigger' => 0,
           'loading' => false,
@@ -101,6 +101,14 @@ function remove_head_scripts() {
    add_action('wp_footer', 'wp_print_head_scripts', 5);
 }
 add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
+
+// access-control-allow-origin of site url
+add_filter( 'allowed_http_origins', 'add_allowed_origins' );
+function add_allowed_origins( $origins ) {
+    $origins[] = get_site_url();
+    $origins[] = admin_url('admin-ajax.php');
+    return $origins;
+}
 
 function is_smartphone() {
     $iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
