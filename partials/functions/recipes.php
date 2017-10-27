@@ -673,7 +673,9 @@ function loadRecipe() {
 
     endif;
 
-    die;
+    wp_reset_query();
+
+    die();
 }
 // ajax response to save download track
 add_action('wp_ajax_setRating', 'setRating');
@@ -729,16 +731,15 @@ function contactEmail() {
     $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
     $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
     $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
-    $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
-
-    $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
 
     add_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
     // structure autoresponder
     ob_start();
+    $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
+    $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
     $subject = "The Toasted Post Contact Form";
-    require("includes/emails/contact.php");
+    require(get_bloginfo('template_directory')."/includes/emails/contact.php");
     $body = ob_get_clean();
 
     // construct email header.
@@ -761,7 +762,7 @@ function contactEmail() {
         echo 'error';
     }
 
-    die();
+    exit;
 
 }
 // add function to save recipe meta on post save

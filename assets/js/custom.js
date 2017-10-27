@@ -208,10 +208,8 @@ var init = {
                 action: 'loadRecipe'
             },
             dataType: "html",
-            beforeSend: function() {
-                jQuery('#recipeWrap').remove();
-            },
             success : function(data){
+                jQuery('#recipeWrap').remove();
                 window.history.pushState({path:urlPath},'',urlPath);
                 jQuery('.recipe').removeClass("clicked");
                 jQuery('.modal.single-recipes').append(data);

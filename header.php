@@ -29,13 +29,7 @@
 	
 	<!-- Facebook open graph tags -->
 	<meta property="og:title" content="<?php the_title(); ?>"/>
-	<meta property="og:description" content="<?php
-	  if ( function_exists('WPSEO_Meta::get_value()') ) {
-	    echo WPSEO_Meta::get_value('metadesc');
-	  } else {
-	    echo $post->post_excerpt;
-	  }
-	?>"/>
+	<meta property="og:description" content="<?php the_excerpt(); ?>"/>
 
 	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?>
 		<meta property="fb:app_id" content="496408310403833" />
