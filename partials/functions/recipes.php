@@ -110,7 +110,7 @@ function mailchimpSubscribe() {
     $timezone = $location->time_zone;
 
     // MailChimp Data
-    $key = '8e804320c1aae0fd9b332942214bcdeb-us17';
+    require('MailChimpConfig.php');
     $list = (isset($_GET['list'])) ? $_GET['list'] : 0;
     $data = array(
         'apikey'        => $key,
