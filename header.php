@@ -8,7 +8,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<meta name="google-site-verification" content="" />
-	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; script-src 'self' https://code.jquery.com; style-src 'self'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self';">
 	
 	<title><?php wp_title(); ?></title>
 	<meta name="keywords" content="" />
