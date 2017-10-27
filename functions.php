@@ -34,9 +34,6 @@ function load_custom_scripts() {
 // Add admin styles for login page customization
 add_action( 'admin_enqueue_scripts', 'load_admin_scripts' );
 function load_admin_scripts() {
-    // Load fontawesome
-    wp_enqueue_script('fontawesome', 'https://use.fontawesome.com/771a83773c.js', array('jquery'), null, true);
-    wp_enqueue_script('jquery-ui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', array('jquery'), null, true);
     // load custom admin recipe styles
     wp_enqueue_style( 'admin-styles', get_bloginfo( 'template_url' ) . '/assets/css/recipes.css', false, '', 'all' );
     // Registers and enqueues the required javascript.
