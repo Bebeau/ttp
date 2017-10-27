@@ -9,6 +9,18 @@ $facebook: #3b5998;
 $twitter: #00aced;
 $pinterest: #C92228;
 
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+
+@font-face {
+    font-family: "Arsenal";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Arsenal"), 
+    local("Arsenal"),  
+    url("https://fonts.googleapis.com/css?family=Arsenal") format("woff2"), 
+    url("https://fonts.googleapis.com/css?family=Arsenal") format("woff");
+}
+
 html, body {
 	margin: 0;
 	padding: 0;

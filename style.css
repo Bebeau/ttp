@@ -6,7 +6,7 @@ Version: 1.0
 Author: Kyle Bebeau
 Author URI: http://theinitgroup.com
 */
-@import url(https://fonts.googleapis.com/css?family=Arsenal);
+@import url("https://fonts.googleapis.com/css?family=Arsenal");
 [data-animation="slideUp"] {
   display: block;
   position: relative;
@@ -77,6 +77,12 @@ Author URI: http://theinitgroup.com
     -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: -moz-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); } }
+
+@font-face {
+  font-family: "Arsenal";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Arsenal"), local("Arsenal"), url("https://fonts.googleapis.com/css?family=Arsenal") format("woff2"), url("https://fonts.googleapis.com/css?family=Arsenal") format("woff"); }
 
 html, body {
   margin: 0;
