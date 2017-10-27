@@ -16,7 +16,7 @@ var move = {
     },
     isOnScreen: function(elem) {
         var item = jQuery(elem);
-        var win = $(window);
+        var win = jQuery(window);
         var viewport = {
             top : win.scrollTop(),
             left : win.scrollLeft()
