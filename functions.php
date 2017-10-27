@@ -19,7 +19,7 @@ if (!function_exists( 'load_custom_scripts' ) ) {
     wp_localize_script('custom', 'ttp',
         array(
           'ajaxurl' => admin_url('admin-ajax.php'),
-          'siteurl' => get_site_url(),
+          'siteurl' => get_bloginfo('template_directory'),
           'page' => 2,
           'trigger' => 0,
           'loading' => false,
