@@ -739,7 +739,7 @@ function contactEmail() {
     $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
     $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
     $subject = "The Toasted Post Contact Form";
-    require(get_bloginfo('template_directory')."/includes/emails/contact.php");
+    require("../../../includes/emails/contact.php");
     $body = ob_get_clean();
 
     // construct email header.
