@@ -126,7 +126,7 @@ a {
 	position: relative;
 	z-index: 1;
 	img {
-		width: 400px;
+		width: 600px;
 		height: auto;
 		margin: 0 auto;
 		display: block;
@@ -939,13 +939,18 @@ a {
 	border: 1px solid $light;
 	color: $light;
 	text-align: center;
-	&:hover {
-		cursor: pointer;
-	}
+	@include transition(all 0.5s $authenticMotion);
 	i {
 		line-height: 45px;
-		font-size: 18pt;
-
+		font-size: 16pt;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	&:hover {
+		cursor: pointer;
+		background: lighten($light,40%);
+		@include transition(all 0.5s $authenticMotion);
 	}
 }
 .cta {
@@ -958,6 +963,14 @@ a {
 		display: inline-block;
 		box-sizing: border-box;
 		vertical-align: top;
+		h3 {
+			font-family: 'LiSong Pro', serif;
+			font-size: 24pt;
+			line-height: 32px;
+			font-weight: normal;
+			color: $dark;
+			margin: 0;
+		}
 		form {
 			box-sizing: border-box;
 			padding: 0 50px;
@@ -965,13 +978,6 @@ a {
 				content: "";
 				clear: both;
 				display: block;
-			}
-			h3 {
-				font-family: 'LiSong Pro', serif;
-				font-size: 24pt;
-				font-weight: normal;
-				color: $dark;
-				margin: 0;
 			}
 			p {
 				font-size: 16pt;
@@ -1045,6 +1051,43 @@ a {
 			    	@include transition(all 0.3s $authenticMotion);
 			    	background: $green;
 			    }
+			}
+		}
+		.socialLinks {
+			text-align: center;
+			h3 {
+				margin: 25px 0;
+				font-size: 21pt;
+			}
+			a {
+				width: 50px;
+				height: 50px;
+				line-height: 45px;
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 5px;
+				@include border-top-radius(50%);
+				@include border-bottom-radius(50%);
+				border: 1px solid $light;
+				@include transition(all 0.5s $authenticMotion);
+				i {
+					font-size: 18pt;
+					color: $light;
+					vertical-align: middle;
+					&.fa-facebook {
+						color: $facebook;
+					}
+					&.fa-twitter {
+						color: $twitter;
+					}
+					&.fa-pinterest {
+						color: $pinterest;
+					}
+				}
+				&:hover {
+					background: darken(white,3%);
+					@include transition(all 0.5s $authenticMotion);
+				}
 			}
 		}
 	}

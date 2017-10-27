@@ -163,9 +163,9 @@
 		                recipe_rating();
 		                
 		                echo '<div class="copy">';
+		                	the_content();
 		                    listIngredients($post->ID);
 		                    listInstructions($post->ID);
-		                    the_content();
 		                    socialShare();
 		                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
 		                    echo '<div id="dishpics"></div>';

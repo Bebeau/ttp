@@ -2,6 +2,7 @@ var ajaxurl = ttp.ajaxurl;
 
 var recipes = {
 	onReady: function() {
+        recipes.filterImages();
         recipes.addInputs();
         recipes.imageUploader();
         recipes.ordering();
@@ -31,7 +32,7 @@ var recipes = {
 	        var key = jQuery('.photoWrap').children().length;
 	        // Sets up the media library frame
 	        meta_image_frame = wp.media.frames.meta_image_frame = wp.media({
-	            library: { type: 'image' },
+	            library: { type: 'image', uploadedTo : wp.media.view.settings.post.id },
 	            multiple: false
 	        });
 	        // Opens the media library frame.
@@ -129,6 +130,12 @@ var recipes = {
     starRating: function() {
         var rating = jQuery('#recipe_rating').val();
         jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
+    },
+    filterImages: function() {
+        jQuery(document).on("DOMNodeInserted", function(){
+            // Lock uploads to "Uploaded to this post"
+            jQuery('select.attachment-filters [value="uploaded"]').attr( 'selected', true ).parent().trigger('change');
+        });
     }
 };
 jQuery(document).ready(function($) {

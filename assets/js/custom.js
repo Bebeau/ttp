@@ -306,7 +306,7 @@ var init = {
             init.saveRating(postID,rating);
         });
     },
-    filterAjax: function(categories, catNames, ingredients, tagNames, termName, urlPath) {
+    filterAjax: function(categories, catNames, ingredients, tagNames, termName) {
         jQuery.ajax({
             url: ajaxurl,
             type: "POST",
@@ -323,7 +323,6 @@ var init = {
                 jQuery('.modal').removeClass('in');
                 jQuery('#bodyWrap').removeClass("out");
                 jQuery('body').removeClass("stop");
-                window.history.replaceState('','','/'+urlPath.replace(siteurl,""));
 
                 jQuery("#listingWrap a").removeClass("slideIn");
                 jQuery("#listingWrap").attr("data-cat", categories);
@@ -407,7 +406,6 @@ var init = {
                     }
                 }
                 var termType = "category";
-                var urlPath = jQuery(this).attr("href");
             } else {
                 var categories = 0;
                 var ingredients = 0;
@@ -415,7 +413,7 @@ var init = {
                 var termType = "recipes";
                 var urlPath = siteurl;
             }
-            init.filterAjax(categories, catNames, ingredients, tagNames, termName, urlPath);
+            init.filterAjax(categories, catNames, ingredients, tagNames, termName);
             setTimeout(
                 function(){
                     jQuery('.btn-filter').html("Filter");
