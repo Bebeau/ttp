@@ -71,7 +71,7 @@ var init = {
         setTimeout(
             function(){
                 jQuery("#loader").fadeOut();
-            }, 750
+            }, 700
         );
     },
     videoClick: function() {

@@ -493,6 +493,12 @@ function loadListing() {
                                 echo '</div>';
                                 echo '<button class="btn btn-newsletter">Join Us</button>';
                             echo '</form>';
+                            echo '<div class="socialLinks">';
+                                echo '<h3>Or, follow...</h3>';
+                                echo '<a href="https://facebook.com/thetoastedpost" target="_blank"><i class="fa fa-facebook"></i></a>';
+                                echo '<a href="https://twitter.com/thetoastedpost" target="_blank"><i class="fa fa-twitter"></i></a>';
+                                echo '<a href="https://pinterest.com/thetoastedpost" target="_blank"><i class="fa fa-pinterest"></i></a>';
+                            echo '</div>';
                         echo '</div>';
                     echo '</div>';
                 echo '</article>';
