@@ -11,8 +11,6 @@ function load_custom_scripts() {
   wp_deregister_script('jquery');
   wp_register_script('jquery', ("https://code.jquery.com/jquery-3.2.1.min.js"), false, '', false);
   wp_enqueue_script('jquery');
-  // Load fontawesome
-  wp_enqueue_script('fontawesome', 'https://use.fontawesome.com/771a83773c.js', array('jquery'), null, true);
   // Registers and enqueues the required javascript.
   wp_enqueue_media();
   wp_enqueue_script('custom', get_bloginfo( 'template_url' ).'/assets/js/custom.min.js', array('jquery'), null, true);
