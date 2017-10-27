@@ -1358,10 +1358,10 @@
 		"oAP": "\/header.php",
 		"oF": 0
 		},
-	"\/includes\/emails\/contact.html": {
+	"\/includes\/emails\/contact.php": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/includes\/emails\/contact.html",
+		"oAP": "\/includes\/emails\/contact.php",
 		"oF": 0
 		},
 	"\/index.php": {
@@ -1374,6 +1374,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/page.php",
+		"oF": 0
+		},
+	"\/partials\/functions\/MailChimpConfig.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/partials\/functions\/MailChimpConfig.php",
 		"oF": 0
 		},
 	"\/partials\/functions\/recipes.php": {

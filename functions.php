@@ -23,7 +23,12 @@ if (!function_exists( 'load_custom_scripts' ) ) {
           'page' => 2,
           'trigger' => 0,
           'loading' => false,
-          'email_nonce' => wp_create_nonce('ttp_email_ajax_nonce')
+          'contact_nonce' => wp_create_nonce('contact_ajax_nonce'),
+          'subscribe_nonce' => wp_create_nonce('subscribe_ajax_nonce'),
+          'listing_nonce' => wp_create_nonce('listing_ajax_nonce'),
+          'recipe_nonce' => wp_create_nonce('recipe_ajax_nonce'),
+          'filter_nonce' => wp_create_nonce('filter_ajax_nonce'),
+          'rating_nonce' => wp_create_nonce('rating_ajax_nonce')
         )
     );
     wp_enqueue_script('custom');

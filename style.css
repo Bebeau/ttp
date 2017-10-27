@@ -568,54 +568,58 @@ a {
       letter-spacing: 0.5px;
       line-height: 16pt;
       color: #e6e5e5; }
-  .modal[data-modal="category"] span {
-    display: inline-block;
-    font-size: 18pt;
-    text-align: left;
-    color: #79404E;
-    padding: 0 5px;
-    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .modal[data-modal="category"] span a {
-      color: #40513b; }
-      .modal[data-modal="category"] span a.clicked {
+  .modal[data-modal="category"] {
+    z-index: 99998; }
+    .modal[data-modal="category"] span {
+      display: inline-block;
+      font-size: 18pt;
+      text-align: left;
+      color: #79404E;
+      padding: 0 5px;
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      .modal[data-modal="category"] span a {
+        color: #40513b; }
+        .modal[data-modal="category"] span a.clicked {
+          color: #E9F4FF;
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+          .modal[data-modal="category"] span a.clicked:hover {
+            color: #E9F4FF; }
+        .modal[data-modal="category"] span a:hover {
+          color: #586f50;
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .modal[data-modal="category"] .half.image {
+      background: url("assets/images/tiki2.jpg") no-repeat scroll center/cover; }
+  .modal[data-modal="ingredients"] {
+    z-index: 99998; }
+    .modal[data-modal="ingredients"] .half.image {
+      background: url("assets/images/tiki3.jpg") no-repeat scroll center/cover; }
+    .modal[data-modal="ingredients"] span {
+      color: #79404E;
+      display: inline-block;
+      padding: 0 5px; }
+    .modal[data-modal="ingredients"] a {
+      color: #40513b;
+      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+      .modal[data-modal="ingredients"] a.clicked {
         color: #E9F4FF;
         -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .modal[data-modal="category"] span a.clicked:hover {
+        .modal[data-modal="ingredients"] a.clicked:hover {
           color: #E9F4FF; }
-      .modal[data-modal="category"] span a:hover {
+      .modal[data-modal="ingredients"] a:hover {
         color: #586f50;
         -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-  .modal[data-modal="category"] .half.image {
-    background: url("assets/images/tiki2.jpg") no-repeat scroll center/cover; }
-  .modal[data-modal="ingredients"] .half.image {
-    background: url("assets/images/tiki3.jpg") no-repeat scroll center/cover; }
-  .modal[data-modal="ingredients"] span {
-    color: #79404E;
-    display: inline-block;
-    padding: 0 5px; }
-  .modal[data-modal="ingredients"] a {
-    color: #40513b;
-    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .modal[data-modal="ingredients"] a.clicked {
-      color: #E9F4FF;
-      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-      .modal[data-modal="ingredients"] a.clicked:hover {
-        color: #E9F4FF; }
-    .modal[data-modal="ingredients"] a:hover {
-      color: #586f50;
-      -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .modal .btn-filter {
     display: block;
     border: none;
@@ -713,7 +717,8 @@ a {
     -ms-transform: translate(0, 100%);
     -o-transform: translate(0, 100%);
     transform: translate(0, 100%);
-    background: white; }
+    background: white;
+    z-index: 9999; }
     .modal.single-recipes.in {
       -webkit-transform: translate(0, 0);
       -moz-transform: translate(0, 0);
@@ -915,7 +920,7 @@ a {
   border-top-right-radius: 50%;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  z-index: 99999;
+  z-index: 99997;
   background: white;
   border: 1px solid #8482A1;
   color: #8482A1;

@@ -115,6 +115,7 @@ var init = {
                 ingredients: ingredients,
                 count: count,
                 trigger: ttp.trigger,
+                security: ttp.listing_nonce,
                 pageNumber: ttp.page
             },
             dataType: "html",
@@ -203,6 +204,7 @@ var init = {
             type: "GET",
             data: {
                 postID: postID,
+                security: ttp.recipe_nonce,
                 action: 'loadRecipe'
             },
             dataType: "html",
@@ -280,6 +282,7 @@ var init = {
             data: {
                 action: 'setRating',
                 postID: postID,
+                security: ttp.rating_nonce,
                 rating: rating
             },
             dataType: 'html',
@@ -310,6 +313,7 @@ var init = {
             data: {
                 categories: categories,
                 ingredients: ingredients,
+                security: ttp.filter_nonce,
                 action: 'loadFilter'
             },
             dataType: "html",
@@ -429,6 +433,7 @@ var init = {
                 lname: lname,
                 email: email,
                 list: list,
+                security: ttp.subscribe_nonce,
                 action: 'mailchimpSubscribe'
             },
             dataType: 'html',
@@ -492,6 +497,7 @@ var init = {
                 lname: lname,
                 email: email,
                 message: message,
+                security: ttp.contact_nonce,
                 action: 'contactEmail'
             },
             dataType: 'html',
@@ -503,6 +509,15 @@ var init = {
                     setTimeout(
                         function(){
                             button.removeClass('success').html('Join Us');
+                        }, 1000
+                    );
+                } else {
+                    button.addClass('error').html('<i class="fa fa-ban"></i>');
+                    setTimeout(
+                        function(){
+                            button.removeClass('error').html('Send');
+                            jQuery('input').removeClass('error');
+                            jQuery('textarea').removeClass('error');
                         }, 1000
                     );
                 }

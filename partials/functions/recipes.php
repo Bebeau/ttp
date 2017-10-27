@@ -92,6 +92,8 @@ add_action('wp_ajax_mailchimpSubscribe', 'mailchimpSubscribe');
 add_action('wp_ajax_nopriv_mailchimpSubscribe', 'mailchimpSubscribe');
 function mailchimpSubscribe() {
 
+    check_ajax_referer('subscribe_ajax_nonce','security');
+
     $userIP = (isset($_GET['userIP'])) ? $_GET['userIP'] : 0;
     $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
     $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
@@ -258,7 +260,7 @@ function recipe_rating() {
     echo '</article>';
     echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.round($averageRating, 0, PHP_ROUND_HALF_UP).'" />';
 }
-// ajax response to save download track
+// ajax response to save recipe image
 add_action('wp_ajax_setImage', 'setImage');
 add_action('wp_ajax_nopriv_setImage', 'setImage');
 function setImage() {
@@ -321,6 +323,8 @@ function removeItem() {
 add_action('wp_ajax_loadListing', 'loadListing');
 add_action('wp_ajax_nopriv_loadListing', 'loadListing');
 function loadListing() {
+
+    check_ajax_referer('listing_ajax_nonce','security');
     
     $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
     $catArray = explode( ',', $categories );
@@ -497,6 +501,9 @@ function loadListing() {
 add_action('wp_ajax_loadFilter', 'loadFilter');
 add_action('wp_ajax_nopriv_loadFilter', 'loadFilter');
 function loadFilter() {
+
+    check_ajax_referer('filter_ajax_nonce','security');
+
     $categories = (isset($_GET['categories'])) ? $_GET['categories'] : 0;
     $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : 0;
 
@@ -594,6 +601,8 @@ add_action('wp_ajax_loadRecipe', 'loadRecipe');
 add_action('wp_ajax_nopriv_loadRecipe', 'loadRecipe');
 function loadRecipe() {
 
+    check_ajax_referer('recipe_ajax_nonce','security');
+
     $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
 
     $args = array(
@@ -670,6 +679,8 @@ function loadRecipe() {
 add_action('wp_ajax_setRating', 'setRating');
 add_action('wp_ajax_nopriv_setRating', 'setRating');
 function setRating() {
+
+    check_ajax_referer('rating_ajax_nonce','security');
     // get response variables
     $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
     $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
@@ -702,7 +713,7 @@ function custom_wp_mail_from_name( $original_email_from ) {
 // Set from email of email sent
 add_filter('wp_mail_from', 'custom_wp_mail_from_email');
 function custom_wp_mail_from_email( $email_address ) {
-    if($email_address === "wordpress@giv.deals") {
+    if($email_address === "wordpress@thetoastedpost.com") {
         return 'tiki@thetoastedpost.com';
     } else {
         return $email_address;
@@ -712,6 +723,8 @@ function custom_wp_mail_from_email( $email_address ) {
 add_action('wp_ajax_contactEmail', 'contactEmail');
 add_action('wp_ajax_nopriv_contactEmail', 'contactEmail');
 function contactEmail() {
+
+    check_ajax_referer('contact_ajax_nonce','security');
 
     $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
     $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
@@ -738,11 +751,17 @@ function contactEmail() {
     );
 
     // send email
-    $success = wp_mail( $emailaddress, $subject, $body, $headers );
+    $success = wp_mail( 'kyle@thetoastedpost.com', $subject, $body, $headers );
 
     remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
-    exit;
+    if($success) {
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+
+    die();
 
 }
 // add function to save recipe meta on post save

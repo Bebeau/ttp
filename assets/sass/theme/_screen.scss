@@ -524,6 +524,7 @@ a {
 		}
 	}
 	&[data-modal="category"] {
+		z-index: 99998;
 		span {
 			display: inline-block;
 			font-size: 18pt;
@@ -553,6 +554,7 @@ a {
 		}
 	}
 	&[data-modal="ingredients"] {
+		z-index: 99998;
 		.half {
 			&.image {
 				background: url('assets/images/tiki3.jpg') no-repeat scroll center / cover;
@@ -682,6 +684,7 @@ a {
 		text-align: left;
 		@include transform(translate(0,100%));
 		background: white;
+		z-index: 9999;
 		&.in {
 			@include transform(translate(0,0));
 			.fa-close {
@@ -906,7 +909,7 @@ a {
 	height: 50px;
 	@include border-top-radius(50%);
 	@include border-bottom-radius(50%);
-	z-index: 99999;
+	z-index: 99997;
 	background: white;
 	border: 1px solid $light;
 	color: $light;
