@@ -1178,7 +1178,8 @@ a {
   #listing #listingWrap .recipe {
     width: 50%; }
     #listing #listingWrap .recipe article {
-      height: 150px; }
+      height: 150px;
+      line-height: 150px; }
   #recipeWrap {
     box-sizing: border-box;
     padding: 25px;

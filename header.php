@@ -29,7 +29,7 @@
 	
 	<!-- Facebook open graph tags -->
 	<meta property="og:title" content="<?php the_title(); ?>"/>
-	<meta property="og:description" content="<?php the_excerpt(); ?>"/>
+	<meta property="og:description" content="Good Food = Good Mood. Gotta Feed The People."/>
 
 	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?>
 		<meta property="fb:app_id" content="496408310403833" />

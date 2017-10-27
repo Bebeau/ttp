@@ -145,7 +145,7 @@ function mailchimpSubscribe() {
         echo "error";
     }
 
-    exit;
+    exit();
 
 }
 // Add custom meta boxes to display recipe specs
@@ -280,6 +280,7 @@ function setImage() {
             update_post_meta( $postID, 'recipe_images', $new);
         } 
     }
+    exit();
 }
 // ajax response to set order
 add_action('wp_ajax_setOrder', 'setOrder');
@@ -298,7 +299,7 @@ function setOrder() {
     } else {
        update_post_meta($postID, $type, $order); 
     }
-    exit;
+    exit();
 }
 // ajax response to save download track
 add_action('wp_ajax_removeItem', 'removeItem');
@@ -317,7 +318,7 @@ function removeItem() {
             update_post_meta($postID, $type, "");
         }
     }
-    exit;
+    exit();
 }
 // ajax response to save download track
 add_action('wp_ajax_loadListing', 'loadListing');
@@ -493,9 +494,7 @@ function loadListing() {
         }
     }
 
-    wp_reset_query();
-
-    exit;
+    exit();
 }
 // ajax response to save download track
 add_action('wp_ajax_loadFilter', 'loadFilter');
@@ -594,7 +593,7 @@ function loadFilter() {
 
     wp_reset_query();
 
-    exit;
+    exit();
 }
 // ajax response to save download track
 add_action('wp_ajax_loadRecipe', 'loadRecipe');
@@ -675,7 +674,7 @@ function loadRecipe() {
 
     wp_reset_query();
 
-    die();
+    exit();
 }
 // ajax response to save download track
 add_action('wp_ajax_setRating', 'setRating');
@@ -700,7 +699,7 @@ function setRating() {
         }
     }
 
-    exit;
+    exit();
 }
 // Set content type of email
 function set_html_content_type() {
@@ -762,7 +761,7 @@ function contactEmail() {
         echo 'error';
     }
 
-    exit;
+    exit();
 
 }
 // add function to save recipe meta on post save
