@@ -676,6 +676,9 @@ a {
 			    	background: $red;
 			    	@include transition(all 0.3s $authenticMotion);
 			    }
+			    &:hover {
+			    	cursor: pointer;
+			    }
 			}
 		}
 	}

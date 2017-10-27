@@ -485,7 +485,7 @@ var init = {
             }
         });
     },
-    contactAjax: function(userIP,fname,lname,email,message) {
+    contactAjax: function(userIP,fname,lname,email,message,button) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
@@ -529,13 +529,14 @@ var init = {
         jQuery('.btn-contact').click(function(e){
             e.preventDefault();
             var button = jQuery(this);
+            button.html('<i class="fa fa-spinner fa-spin></i>"');
             var fname = button.parent().find('input[name="fname"]').val();
             var lname = button.parent().find('input[name="lname"]').val();
             var email = button.parent().find('input[name="email"]').val();
             var message = button.parent().find('textarea').val();
             if(fname && lname && email && message) {
                 jQuery.get("https://ipinfo.io/json", function(response) {
-                    init.contactAjax(response['ip'],fname,lname,email,message);
+                    init.contactAjax(response['ip'],fname,lname,email,message,button);
                 });
             } else {
                 if(!fname) {
