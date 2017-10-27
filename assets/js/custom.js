@@ -149,9 +149,9 @@ var init = {
             complete: function() {
                 init.ctaClick();
             },
-            error : function(jqXHR, textStatus, errorThrown) {
+            error : function(xhr, status, error) {
                 jQuery("#ajaxLoad").remove();
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+                alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
         });
     },
@@ -221,9 +221,9 @@ var init = {
                 jQuery('.single-recipes').addClass("in");
                 jQuery(".recipeLoad").remove();
             },
-            error : function(data) {
+            error : function(xhr, status, error) {
                 jQuery(".recipeLoad").remove();
-                alert(data.status);
+                alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
         });
     },
@@ -363,9 +363,9 @@ var init = {
                     }, 500
                 );
             },
-            error : function(jqXHR, textStatus, errorThrown) {
+            error : function(xhr, status, error) {
                 jQuery(".recipeLoad").remove();
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+                alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
         });
     },
@@ -447,8 +447,8 @@ var init = {
                     );
                 }
             },
-            error : function(jqXHR, textStatus, errorThrown) {
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            error : function(xhr, status, error) {
+                alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
         });
     },
@@ -520,8 +520,8 @@ var init = {
                     );
                 }
             },
-            error : function(jqXHR, textStatus, errorThrown) {
-                window.alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+            error : function(xhr, status, error) {
+                alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
         });
     },
