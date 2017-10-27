@@ -8,7 +8,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<meta name="google-site-verification" content="" />
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' <?php echo site_url(); ?>;">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' <?php echo bloginfo('template_directory'); ?> https://use.fontawesome.com https://ajax.googleapis.com; style-src 'self' <?php echo site_url(); ?> https://fonts.googleapis.coml; image-src 'self';">
 	
 	<title><?php wp_title(); ?></title>
 	<meta name="keywords" content="" />
