@@ -86,7 +86,31 @@
     
 </head>
 
+<style>
+	#loader{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		z-index: 999999;
+		background: white;
+		top: 0;
+	}
+	#loader img {
+		display: block;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: 550px;
+		height: 550px;
+		margin: -350px 0 0 -275px;
+	}
+</style>
+
 <body <?php body_class();?>>
+
+<div id="loader">
+	<img src="<?php echo bloginfo('template_directory'); ?>/assets/images/loading.gif"></img>
+</div>
 
 <?php 
 

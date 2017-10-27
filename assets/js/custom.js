@@ -8,8 +8,6 @@ if (!/wp-admin/.test(window.location.href)) {
 var ajaxurl = ttp.ajaxurl;
 var siteurl = ttp.siteurl;
 
-console.log(siteurl);
-
 var move = {
     onMove: function() {
         move.slideUp();
@@ -61,6 +59,7 @@ var init = {
         init.videoClick();
         init.ctaClick();
         init.contactSubmit();
+        init.loadPage();
         if(window.location.href.indexOf("recipes") > -1) {
             jQuery('#bodyWrap').addClass("out");
             jQuery('body').addClass("stop");
@@ -68,6 +67,13 @@ var init = {
             init.dishPics();
         }
 	},
+    loadPage: function() {
+        setTimeout(
+            function(){
+                jQuery("#loader").fadeOut();
+            }, 750
+        );
+    },
     videoClick: function() {
         jQuery('#introVideo video, #introVideo i').on("click",function(){
             var video = jQuery('#introVideo video');

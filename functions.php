@@ -9,7 +9,7 @@ function load_custom_scripts() {
   wp_enqueue_style( 'Style CSS', get_bloginfo( 'template_url' ) . '/style.css', false, '', 'all' );
   // Load default Wordpress jQuery
   wp_deregister_script('jquery');
-  wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"), false, '', false);
+  wp_register_script('jquery', ("https://code.jquery.com/jquery-3.2.1.min.js"), false, '', false);
   wp_enqueue_script('jquery');
   // Load fontawesome
   wp_enqueue_script('fontawesome', 'https://use.fontawesome.com/771a83773c.js', array('jquery'), null, true);
