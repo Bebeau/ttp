@@ -173,7 +173,7 @@ var init = {
         jQuery('.modal').removeClass('in');
         jQuery('#bodyWrap').removeClass("out");
         jQuery('body').removeClass("stop");
-        window.history.pushState(siteurl,'',siteurl);
+        window.history.replaceState('','',siteurl);
         setTimeout(
             function(){
                 jQuery('.modal #recipeWrap').remove();
@@ -195,7 +195,7 @@ var init = {
             if(!jQuery('.modal').hasClass("in")) {
                 jQuery('body').removeClass("stop");
             }
-            window.history.pushState(siteurl,'',siteurl);
+            window.history.replaceState('','',siteurl);
         });
     },
     recipeAjax: function(postID, urlPath) {
@@ -210,7 +210,7 @@ var init = {
             dataType: "html",
             success : function(data){
                 jQuery('#recipeWrap').remove();
-                window.history.pushState(siteurl,'',siteurl+urlPath.replace(siteurl,""));
+                window.history.replaceState('','',urlPath);
                 jQuery('.recipe').removeClass("clicked");
                 jQuery('.modal.single-recipes').append(data);
                 init.starRating();
@@ -321,7 +321,7 @@ var init = {
                 jQuery('.modal').removeClass('in');
                 jQuery('#bodyWrap').removeClass("out");
                 jQuery('body').removeClass("stop");
-                window.history.pushState(siteurl,'',siteurl+urlPath.replace(siteurl,""));
+                window.history.replaceState('','',urlPath);
 
                 jQuery("#listingWrap a").removeClass("slideIn");
                 jQuery("#listingWrap").attr("data-cat", categories);
