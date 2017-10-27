@@ -108,7 +108,7 @@ var init = {
     listingAjax: function(categories, ingredients, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 action: 'loadListing',
                 categories: categories,
@@ -173,7 +173,7 @@ var init = {
         jQuery('.modal').removeClass('in');
         jQuery('#bodyWrap').removeClass("out");
         jQuery('body').removeClass("stop");
-        window.history.pushState({path:siteurl},'',siteurl);
+        history.pushState({path:siteurl},'',siteurl);
         setTimeout(
             function(){
                 jQuery('.modal #recipeWrap').remove();
@@ -195,13 +195,13 @@ var init = {
             if(!jQuery('.modal').hasClass("in")) {
                 jQuery('body').removeClass("stop");
             }
-            window.history.pushState({path:siteurl},'',siteurl);
+            history.pushState({path:siteurl},'',siteurl);
         });
     },
     recipeAjax: function(postID, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 postID: postID,
                 security: ttp.recipe_nonce,
@@ -210,7 +210,7 @@ var init = {
             dataType: "html",
             success : function(data){
                 jQuery('#recipeWrap').remove();
-                window.history.pushState({path:urlPath},'',urlPath);
+                history.pushState({path:urlPath},'',urlPath);
                 jQuery('.recipe').removeClass("clicked");
                 jQuery('.modal.single-recipes').append(data);
                 init.starRating();
@@ -307,7 +307,7 @@ var init = {
     filterAjax: function(categories, catNames, ingredients, tagNames, termName, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 categories: categories,
                 ingredients: ingredients,
@@ -321,7 +321,7 @@ var init = {
                 jQuery('.modal').removeClass('in');
                 jQuery('#bodyWrap').removeClass("out");
                 jQuery('body').removeClass("stop");
-                window.history.pushState({path:urlPath},'',urlPath);
+                history.pushState({path:urlPath},'',urlPath);
 
                 jQuery("#listingWrap a").removeClass("slideIn");
                 jQuery("#listingWrap").attr("data-cat", categories);
@@ -424,7 +424,7 @@ var init = {
     mailChimpAjax: function(list,userIP,fname,lname,email,button) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 userIP: userIP,
                 fname: fname,
@@ -488,7 +488,7 @@ var init = {
     contactAjax: function(userIP,fname,lname,email,message,button) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 userIP: userIP,
                 fname: fname,

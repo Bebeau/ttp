@@ -94,10 +94,10 @@ function mailchimpSubscribe() {
 
     check_ajax_referer('subscribe_ajax_nonce','security');
 
-    $userIP = (isset($_POST['userIP'])) ? $_POST['userIP'] : 0;
-    $firstname = (isset($_POST['fname'])) ? $_POST['fname'] : 0;
-    $lastname = (isset($_POST['lname'])) ? $_POST['lname'] : 0;
-    $emailaddress = (isset($_POST['email'])) ? $_POST['email'] : 0;
+    $userIP = (isset($_GET['userIP'])) ? $_GET['userIP'] : 0;
+    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
+    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
+    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
     
     // get ping info
     $location = json_decode(file_get_contents('http://freegeoip.net/json/'.$userIP));
@@ -113,7 +113,7 @@ function mailchimpSubscribe() {
 
     // MailChimp Data
     require('MailChimpConfig.php');
-    $list = (isset($_POST['list'])) ? $_POST['list'] : 0;
+    $list = (isset($_GET['list'])) ? $_GET['list'] : 0;
     $data = array(
         'apikey'        => $key,
         'email_address' => $emailaddress,
@@ -327,13 +327,13 @@ function loadListing() {
 
     check_ajax_referer('listing_ajax_nonce','security');
     
-    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : "";
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
     $catArray = explode( ',', $categories );
-    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : "";
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : "";
     $tagArray = explode( ',', $ingredients );
-    $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
-    $trigger = (isset($_POST['trigger'])) ? $_POST['trigger'] : 0;
-    $count = (isset($_POST['count'])) ? $_POST['count'] : 1;
+    $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
+    $trigger = (isset($_GET['trigger'])) ? $_GET['trigger'] : 0;
+    $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
 
     if(empty(array_filter($catArray)) && empty(array_filter($tagArray)) ) {
         $args = array(
@@ -505,8 +505,8 @@ function loadFilter() {
 
     check_ajax_referer('filter_ajax_nonce','security');
 
-    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : 0;
-    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : 0;
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : 0;
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : 0;
 
     if(empty($categories) && empty($ingredients)) {
         $args = array(
@@ -604,7 +604,7 @@ function loadRecipe() {
 
     check_ajax_referer('recipe_ajax_nonce','security');
 
-    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
 
     $args = array(
             'p' => $postID,
@@ -685,8 +685,8 @@ function setRating() {
 
     check_ajax_referer('rating_ajax_nonce','security');
     // get response variables
-    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
-    $rating = (isset($_POST['rating'])) ? $_POST['rating'] : 0;
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
 
     $ratings = get_post_meta($postID, 'recipe_rating', true);
 
@@ -729,15 +729,15 @@ function contactEmail() {
 
     check_ajax_referer('contact_ajax_nonce','security');
 
-    $firstname = (isset($_POST['fname'])) ? $_POST['fname'] : 0;
-    $lastname = (isset($_POST['lname'])) ? $_POST['lname'] : 0;
-    $emailaddress = (isset($_POST['email'])) ? $_POST['email'] : 0;
+    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
+    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
+    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
 
     add_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
     // structure autoresponder
     ob_start();
-    $message = (isset($_POST['message'])) ? $_POST['message'] : 0;
+    $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
     $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
     $subject = "The Toasted Post Contact Form";
     require("includes/emails/contact.php");
@@ -771,8 +771,8 @@ add_action( 'save_post', 'save_recipe' );
 function save_recipe( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
         return;
-    if(isset($_POST['ingredients'])) {
-        $cookinfo = $_POST['ingredients'];
+    if(isset($_GET['ingredients'])) {
+        $cookinfo = $_GET['ingredients'];
         $new = array();
         if (is_array($cookinfo)) {
             foreach( $cookinfo as $key => $ingredient ) {
@@ -782,8 +782,8 @@ function save_recipe( $post_id ) {
         wp_set_post_terms($post_id, $new, 'ingredients', false);
         update_post_meta($post_id,'ingredients',$cookinfo);
     }
-    if(isset($_POST['instructions'])) {
-        $instructions = $_POST['instructions'];
+    if(isset($_GET['instructions'])) {
+        $instructions = $_GET['instructions'];
         update_post_meta($post_id,'instructions',$instructions);
     }
 }
