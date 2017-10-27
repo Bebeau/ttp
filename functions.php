@@ -103,11 +103,9 @@ function remove_head_scripts() {
 add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
 
 // access-control-allow-origin of site url
-add_filter( 'allowed_http_origins', 'add_allowed_origins' );
+add_action( 'init', 'add_allowed_origins' );
 function add_allowed_origins( $origins ) {
-    $origins[] = get_site_url();
-    $origins[] = admin_url('admin-ajax.php');
-    return $origins;
+  header('Access-Control-Allow-Origin: *');
 }
 
 function is_smartphone() {
