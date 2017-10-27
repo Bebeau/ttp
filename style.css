@@ -1157,6 +1157,11 @@ a {
     height: 600px; } }
 
 @media (max-width: 414px) {
+  input, textarea {
+    box-shadow: inset 0px 0px 0px 0px; }
+    input::-moz-focus-inner, textarea::-moz-focus-inner {
+      border: 0;
+      padding: 0; }
   .tagline {
     font-size: 21pt;
     line-height: 36px;
