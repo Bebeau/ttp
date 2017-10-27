@@ -427,72 +427,74 @@ function loadListing() {
 
     endif;
 
-    if($pageNumber === "2" || $pageNumber % 3 == 0) {
-        if($trigger % 2 == 0) {
-            echo '<section class="cta" data-animation="slideUp">';
-                if(is_smartphone()) {
-                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
-                }
-                echo '<article class="half">';
-                    echo '<div class="outer">';
-                        echo '<div class="inner">';
-                            echo '<form id="wishlistForm" data-list="bc9392d4ad">';
-                                echo '<h3>Are You Totes Cool, or What?</h3>';
-                                echo '<p>Fill out the form below to join our wishlist and be the first to get your hands on The Toasted Post products while feeding our ever growing hunger to cook and create.</p>';
-                                echo '<div class="field">';
-                                    echo '<div class="half">';
-                                        echo '<label for="fname">First Name</label>';
-                                        echo '<input type="text" name="fname" placeholder="jane" />';
-                                    echo '</div>';
-                                    echo '<div class="half">';
-                                        echo '<label for="fname">Last Name</label>';
-                                        echo '<input type="text" name="lname" placeholder="doe" />';
-                                    echo '</div>';
-                                echo '</div>';
-                                echo '<div class="field">';
-                                    echo '<label for="fname">Email</label>';
-                                    echo '<input type="email" name="email" placeholder="email@address..." />';
-                                echo '</div>';
-                                echo '<button class="btn btn-newsletter">Join Us</button>';
-                            echo '</form>';
-                        echo '</div>';
-                    echo '</div>';
-                echo '</article>';
-                if(!is_smartphone()) {
-                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
-                }
-            echo '</section>';
-        } else {
-            echo '<section class="cta" data-animation="slideUp">';
-                echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/email.jpg) no-repeat scroll top left / cover"></article>';
-                echo '<article class="half">';
-                    echo '<div class="outer">';
-                        echo '<div class="inner">';
-                            echo '<form id="newsletterForm" data-list="74c64c90b0">';
-                                echo '<h3>Hungry for more?</h3>';
-                                echo '<p>Fill out the form below to join our newsletter and be automatically emailed new recipes fresh out the kitchen.</p>';
-                                echo '<div class="field">';
-                                    echo '<div class="half">';
-                                        echo '<label for="fname">First Name</label>';
-                                        echo '<input type="text" name="fname" placeholder="jane" />';
-                                    echo '</div>';
-                                    echo '<div class="half">';
-                                        echo '<label for="fname">Last Name</label>';
-                                        echo '<input type="text" name="lname" placeholder="doe" />';
-                                    echo '</div>';
-                                echo '</div>';
-                                echo '<div class="field">';
-                                    echo '<label for="fname">Email</label>';
-                                    echo '<input type="email" name="email" placeholder="email@address..." />';
-                                echo '</div>';
-                                echo '<button class="btn btn-newsletter">Join Us</button>';
-                            echo '</form>';
-                        echo '</div>';
-                    echo '</div>';
-                echo '</article>';
-            echo '</section>';
-        }
-    }
+    // if($pageNumber === "2" || $pageNumber % 3 == 0) {
+    //     if($trigger % 2 == 0) {
+    //         echo '<section class="cta" data-animation="slideUp">';
+    //             if(is_smartphone()) {
+    //                 echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+    //             }
+    //             echo '<article class="half">';
+    //                 echo '<div class="outer">';
+    //                     echo '<div class="inner">';
+    //                         echo '<form id="wishlistForm" data-list="bc9392d4ad">';
+    //                             echo '<h3>Are You Totes Cool, or What?</h3>';
+    //                             echo '<p>Fill out the form below to join our wishlist and be the first to get your hands on The Toasted Post products while feeding our ever growing hunger to cook and create.</p>';
+    //                             echo '<div class="field">';
+    //                                 echo '<div class="half">';
+    //                                     echo '<label for="fname">First Name</label>';
+    //                                     echo '<input type="text" name="fname" placeholder="jane" />';
+    //                                 echo '</div>';
+    //                                 echo '<div class="half">';
+    //                                     echo '<label for="fname">Last Name</label>';
+    //                                     echo '<input type="text" name="lname" placeholder="doe" />';
+    //                                 echo '</div>';
+    //                             echo '</div>';
+    //                             echo '<div class="field">';
+    //                                 echo '<label for="fname">Email</label>';
+    //                                 echo '<input type="email" name="email" placeholder="email@address..." />';
+    //                             echo '</div>';
+    //                             echo '<button class="btn btn-newsletter">Join Us</button>';
+    //                         echo '</form>';
+    //                     echo '</div>';
+    //                 echo '</div>';
+    //             echo '</article>';
+    //             if(!is_smartphone()) {
+    //                 echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+    //             }
+    //         echo '</section>';
+    //     } else {
+    //         echo '<section class="cta" data-animation="slideUp">';
+    //             echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/email.jpg) no-repeat scroll top left / cover"></article>';
+    //             echo '<article class="half">';
+    //                 echo '<div class="outer">';
+    //                     echo '<div class="inner">';
+    //                         echo '<form id="newsletterForm" data-list="74c64c90b0">';
+    //                             echo '<h3>Hungry for more?</h3>';
+    //                             echo '<p>Fill out the form below to join our newsletter and be automatically emailed new recipes fresh out the kitchen.</p>';
+    //                             echo '<div class="field">';
+    //                                 echo '<div class="half">';
+    //                                     echo '<label for="fname">First Name</label>';
+    //                                     echo '<input type="text" name="fname" placeholder="jane" />';
+    //                                 echo '</div>';
+    //                                 echo '<div class="half">';
+    //                                     echo '<label for="fname">Last Name</label>';
+    //                                     echo '<input type="text" name="lname" placeholder="doe" />';
+    //                                 echo '</div>';
+    //                             echo '</div>';
+    //                             echo '<div class="field">';
+    //                                 echo '<label for="fname">Email</label>';
+    //                                 echo '<input type="email" name="email" placeholder="email@address..." />';
+    //                             echo '</div>';
+    //                             echo '<button class="btn btn-newsletter">Join Us</button>';
+    //                         echo '</form>';
+    //                     echo '</div>';
+    //                 echo '</div>';
+    //             echo '</article>';
+    //         echo '</section>';
+    //     }
+    // }
+
+    // wp_reset_query();
 
     exit();
 }
@@ -672,7 +674,7 @@ function loadRecipe() {
 
     endif;
 
-    wp_reset_query();
+    // wp_reset_query();
 
     exit();
 }
