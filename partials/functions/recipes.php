@@ -750,14 +750,14 @@ function contactEmail() {
     // construct email header.
     $headers = array(
         'From' => $emailaddress. "\r\n",
-        'To' => 'The Toasted Post <kyle@thetoastedpost.com>'. "\r\n",
+        'To' => 'The Toasted Post <contact@thetoastedpost.com>'. "\r\n",
         'MIME-Version'  => '1.0\r\n'."\r\n",
         'Content-Type'  => 'text/html'."\r\n",
         'charset'       => 'UTF-8'."\r\n"
     );
 
     // send email
-    $success = wp_mail( 'kyle@thetoastedpost.com', $subject, $body, $headers );
+    $success = wp_mail( 'contact@thetoastedpost.com', $subject, $body, $headers );
 
     remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
