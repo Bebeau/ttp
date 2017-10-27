@@ -108,7 +108,7 @@ var init = {
     listingAjax: function(categories, ingredients, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 action: 'loadListing',
                 categories: categories,
@@ -201,7 +201,7 @@ var init = {
     recipeAjax: function(postID, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 postID: postID,
                 security: ttp.recipe_nonce,
@@ -276,7 +276,7 @@ var init = {
     saveRating: function(postID, rating) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 action: 'setRating',
                 postID: postID,
@@ -307,7 +307,7 @@ var init = {
     filterAjax: function(categories, catNames, ingredients, tagNames, termName, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 categories: categories,
                 ingredients: ingredients,
@@ -424,7 +424,7 @@ var init = {
     mailChimpAjax: function(list,userIP,fname,lname,email,button) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 userIP: userIP,
                 fname: fname,
@@ -488,7 +488,7 @@ var init = {
     contactAjax: function(userIP,fname,lname,email,message,button) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 userIP: userIP,
                 fname: fname,

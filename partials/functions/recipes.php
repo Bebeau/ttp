@@ -94,10 +94,10 @@ function mailchimpSubscribe() {
 
     check_ajax_referer('subscribe_ajax_nonce','security');
 
-    $userIP = (isset($_GET['userIP'])) ? $_GET['userIP'] : 0;
-    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
-    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
-    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
+    $userIP = (isset($_POST['userIP'])) ? $_POST['userIP'] : 0;
+    $firstname = (isset($_POST['fname'])) ? $_POST['fname'] : 0;
+    $lastname = (isset($_POST['lname'])) ? $_POST['lname'] : 0;
+    $emailaddress = (isset($_POST['email'])) ? $_POST['email'] : 0;
     
     // get ping info
     $location = json_decode(file_get_contents('http://freegeoip.net/json/'.$userIP));
@@ -113,7 +113,7 @@ function mailchimpSubscribe() {
 
     // MailChimp Data
     require('MailChimpConfig.php');
-    $list = (isset($_GET['list'])) ? $_GET['list'] : 0;
+    $list = (isset($_POST['list'])) ? $_POST['list'] : 0;
     $data = array(
         'apikey'        => $key,
         'email_address' => $emailaddress,
@@ -327,13 +327,13 @@ function loadListing() {
 
     check_ajax_referer('listing_ajax_nonce','security');
     
-    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
+    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : "";
     $catArray = explode( ',', $categories );
-    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : "";
+    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : "";
     $tagArray = explode( ',', $ingredients );
-    $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
-    $trigger = (isset($_GET['trigger'])) ? $_GET['trigger'] : 0;
-    $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
+    $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+    $trigger = (isset($_POST['trigger'])) ? $_POST['trigger'] : 0;
+    $count = (isset($_POST['count'])) ? $_POST['count'] : 1;
 
     if(empty(array_filter($catArray)) && empty(array_filter($tagArray)) ) {
         $args = array(
@@ -427,74 +427,74 @@ function loadListing() {
 
     endif;
 
-    // if($pageNumber === "2" || $pageNumber % 3 == 0) {
-    //     if($trigger % 2 == 0) {
-    //         echo '<section class="cta" data-animation="slideUp">';
-    //             if(is_smartphone()) {
-    //                 echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
-    //             }
-    //             echo '<article class="half">';
-    //                 echo '<div class="outer">';
-    //                     echo '<div class="inner">';
-    //                         echo '<form id="wishlistForm" data-list="bc9392d4ad">';
-    //                             echo '<h3>Are You Totes Cool, or What?</h3>';
-    //                             echo '<p>Fill out the form below to join our wishlist and be the first to get your hands on The Toasted Post products while feeding our ever growing hunger to cook and create.</p>';
-    //                             echo '<div class="field">';
-    //                                 echo '<div class="half">';
-    //                                     echo '<label for="fname">First Name</label>';
-    //                                     echo '<input type="text" name="fname" placeholder="jane" />';
-    //                                 echo '</div>';
-    //                                 echo '<div class="half">';
-    //                                     echo '<label for="fname">Last Name</label>';
-    //                                     echo '<input type="text" name="lname" placeholder="doe" />';
-    //                                 echo '</div>';
-    //                             echo '</div>';
-    //                             echo '<div class="field">';
-    //                                 echo '<label for="fname">Email</label>';
-    //                                 echo '<input type="email" name="email" placeholder="email@address..." />';
-    //                             echo '</div>';
-    //                             echo '<button class="btn btn-newsletter">Join Us</button>';
-    //                         echo '</form>';
-    //                     echo '</div>';
-    //                 echo '</div>';
-    //             echo '</article>';
-    //             if(!is_smartphone()) {
-    //                 echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
-    //             }
-    //         echo '</section>';
-    //     } else {
-    //         echo '<section class="cta" data-animation="slideUp">';
-    //             echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/email.jpg) no-repeat scroll top left / cover"></article>';
-    //             echo '<article class="half">';
-    //                 echo '<div class="outer">';
-    //                     echo '<div class="inner">';
-    //                         echo '<form id="newsletterForm" data-list="74c64c90b0">';
-    //                             echo '<h3>Hungry for more?</h3>';
-    //                             echo '<p>Fill out the form below to join our newsletter and be automatically emailed new recipes fresh out the kitchen.</p>';
-    //                             echo '<div class="field">';
-    //                                 echo '<div class="half">';
-    //                                     echo '<label for="fname">First Name</label>';
-    //                                     echo '<input type="text" name="fname" placeholder="jane" />';
-    //                                 echo '</div>';
-    //                                 echo '<div class="half">';
-    //                                     echo '<label for="fname">Last Name</label>';
-    //                                     echo '<input type="text" name="lname" placeholder="doe" />';
-    //                                 echo '</div>';
-    //                             echo '</div>';
-    //                             echo '<div class="field">';
-    //                                 echo '<label for="fname">Email</label>';
-    //                                 echo '<input type="email" name="email" placeholder="email@address..." />';
-    //                             echo '</div>';
-    //                             echo '<button class="btn btn-newsletter">Join Us</button>';
-    //                         echo '</form>';
-    //                     echo '</div>';
-    //                 echo '</div>';
-    //             echo '</article>';
-    //         echo '</section>';
-    //     }
-    // }
+    if($pageNumber === "2" || $pageNumber % 3 == 0) {
+        if($trigger % 2 == 0) {
+            echo '<section class="cta" data-animation="slideUp">';
+                if(is_smartphone()) {
+                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+                }
+                echo '<article class="half">';
+                    echo '<div class="outer">';
+                        echo '<div class="inner">';
+                            echo '<form id="wishlistForm" data-list="bc9392d4ad">';
+                                echo '<h3>Are You Totes Cool, or What?</h3>';
+                                echo '<p>Fill out the form below to join our wishlist and be the first to get your hands on The Toasted Post products while feeding our ever growing hunger to cook and create.</p>';
+                                echo '<div class="field">';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">First Name</label>';
+                                        echo '<input type="text" name="fname" placeholder="jane" />';
+                                    echo '</div>';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">Last Name</label>';
+                                        echo '<input type="text" name="lname" placeholder="doe" />';
+                                    echo '</div>';
+                                echo '</div>';
+                                echo '<div class="field">';
+                                    echo '<label for="fname">Email</label>';
+                                    echo '<input type="email" name="email" placeholder="email@address..." />';
+                                echo '</div>';
+                                echo '<button class="btn btn-newsletter">Join Us</button>';
+                            echo '</form>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</article>';
+                if(!is_smartphone()) {
+                    echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/tote.jpg) no-repeat scroll center / cover"></article>';
+                }
+            echo '</section>';
+        } else {
+            echo '<section class="cta" data-animation="slideUp">';
+                echo '<article class="half" style="background: url('.get_bloginfo('template_directory').'/assets/images/email.jpg) no-repeat scroll top left / cover"></article>';
+                echo '<article class="half">';
+                    echo '<div class="outer">';
+                        echo '<div class="inner">';
+                            echo '<form id="newsletterForm" data-list="74c64c90b0">';
+                                echo '<h3>Hungry for more?</h3>';
+                                echo '<p>Fill out the form below to join our newsletter and be automatically emailed new recipes fresh out the kitchen.</p>';
+                                echo '<div class="field">';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">First Name</label>';
+                                        echo '<input type="text" name="fname" placeholder="jane" />';
+                                    echo '</div>';
+                                    echo '<div class="half">';
+                                        echo '<label for="fname">Last Name</label>';
+                                        echo '<input type="text" name="lname" placeholder="doe" />';
+                                    echo '</div>';
+                                echo '</div>';
+                                echo '<div class="field">';
+                                    echo '<label for="fname">Email</label>';
+                                    echo '<input type="email" name="email" placeholder="email@address..." />';
+                                echo '</div>';
+                                echo '<button class="btn btn-newsletter">Join Us</button>';
+                            echo '</form>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</article>';
+            echo '</section>';
+        }
+    }
 
-    // wp_reset_query();
+    wp_reset_query();
 
     exit();
 }
@@ -505,8 +505,8 @@ function loadFilter() {
 
     check_ajax_referer('filter_ajax_nonce','security');
 
-    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : 0;
-    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : 0;
+    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : 0;
+    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : 0;
 
     if(empty($categories) && empty($ingredients)) {
         $args = array(
@@ -604,7 +604,7 @@ function loadRecipe() {
 
     check_ajax_referer('recipe_ajax_nonce','security');
 
-    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
+    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
 
     $args = array(
             'p' => $postID,
@@ -685,8 +685,8 @@ function setRating() {
 
     check_ajax_referer('rating_ajax_nonce','security');
     // get response variables
-    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
-    $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
+    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
+    $rating = (isset($_POST['rating'])) ? $_POST['rating'] : 0;
 
     $ratings = get_post_meta($postID, 'recipe_rating', true);
 
@@ -729,15 +729,15 @@ function contactEmail() {
 
     check_ajax_referer('contact_ajax_nonce','security');
 
-    $firstname = (isset($_GET['fname'])) ? $_GET['fname'] : 0;
-    $lastname = (isset($_GET['lname'])) ? $_GET['lname'] : 0;
-    $emailaddress = (isset($_GET['email'])) ? $_GET['email'] : 0;
+    $firstname = (isset($_POST['fname'])) ? $_POST['fname'] : 0;
+    $lastname = (isset($_POST['lname'])) ? $_POST['lname'] : 0;
+    $emailaddress = (isset($_POST['email'])) ? $_POST['email'] : 0;
 
     add_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
     // structure autoresponder
     ob_start();
-    $message = (isset($_GET['message'])) ? $_GET['message'] : 0;
+    $message = (isset($_POST['message'])) ? $_POST['message'] : 0;
     $person = '<a href="mailto:'.$emailaddress.'">'.$firstname.' '.$lastname.'</a>';
     $subject = "The Toasted Post Contact Form";
     require("includes/emails/contact.php");
