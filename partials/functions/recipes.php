@@ -781,8 +781,8 @@ add_action( 'save_post', 'save_recipe' );
 function save_recipe( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
         return;
-    if(isset($_GET['ingredients'])) {
-        $cookinfo = $_GET['ingredients'];
+    if(isset($_POST['ingredients'])) {
+        $cookinfo = $_POST['ingredients'];
         $new = array();
         if (is_array($cookinfo)) {
             foreach( $cookinfo as $key => $ingredient ) {
@@ -792,8 +792,8 @@ function save_recipe( $post_id ) {
         wp_set_post_terms($post_id, $new, 'ingredients', false);
         update_post_meta($post_id,'ingredients',$cookinfo);
     }
-    if(isset($_GET['instructions'])) {
-        $instructions = $_GET['instructions'];
+    if(isset($_POST['instructions'])) {
+        $instructions = $_POST['instructions'];
         update_post_meta($post_id,'instructions',$instructions);
     }
 }

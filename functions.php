@@ -50,7 +50,7 @@ function load_admin_scripts() {
 }
 // remove WordPress admin menu items
 function remove_menus(){
-  // remove_menu_page( 'edit.php' );
+  remove_menu_page( 'edit.php' );
   // remove_menu_page( 'edit.php?post_type=page' );
   remove_menu_page( 'edit-comments.php' );
   // remove_menu_page( 'tools.php' );
@@ -62,25 +62,13 @@ add_action( 'admin_menu', 'remove_menus' );
 // Thumbnail Support
 add_theme_support( 'post-thumbnails', array('post', 'page') );
 
-// Load widget areas
-if ( function_exists('register_sidebar') ) {
-	register_sidebar(array(
-		'id'	=> 'sidebar',
-		'name' 	=> 'sidebar',
-		'before_widget' => '<div class="widgetWrap">',
-		'after_widget' => '</div>',
-		'before_title' => '<h3 class="widgetTitle">',
-		'after_title' => '</h3>',
-	));
-}
-
 // Register Navigation Menu Areas
 add_action( 'INiT', 'register_my_menus' );
 function register_my_menu() {
   register_nav_menu( 'main', 'Main Menu' );
 }
-
 // Custom Scripting to Move JavaScript from the Head to the Footer
+add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
 function remove_head_scripts() { 
    remove_action('wp_head', 'wp_print_scripts'); 
    remove_action('wp_head', 'wp_print_head_scripts', 9); 
@@ -90,14 +78,12 @@ function remove_head_scripts() {
    add_action('wp_footer', 'wp_enqueue_scripts', 5);
    add_action('wp_footer', 'wp_print_head_scripts', 5);
 } 
-add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
-
 // access-control-allow-origin of site url
 add_action( 'init', 'add_allowed_origins' );
 function add_allowed_origins( $origins ) {
   header('Access-Control-Allow-Origin: *');
 }
-
+// php call to determine if view is mobile
 function is_smartphone() {
     $iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
     $android = strpos($_SERVER['HTTP_USER_AGENT'],"Android");
