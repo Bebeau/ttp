@@ -75,15 +75,18 @@ var init = {
         );
     },
     videoClick: function() {
-        jQuery('#introVideo video, #introVideo i').on("click",function(){
+        jQuery('#introVideo').on("click",function(){
             var video = jQuery('#introVideo video');
             if(jQuery('#introVideo').hasClass("playing")) {
-                jQuery('#introVideo').removeClass("playing");
                 video[0].pause();
+                jQuery('#introVideo').removeClass("playing");
             } else {
-                jQuery('#introVideo').addClass("playing");
                 video[0].play();
+                jQuery('#introVideo').addClass("playing");
             }
+        });
+        jQuery('#introVideo video').on('pause', function() {
+            jQuery('#introVideo').removeClass("playing");
         });
     },
     instafeed: function() {
