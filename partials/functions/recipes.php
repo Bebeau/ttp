@@ -695,8 +695,8 @@ function setRating() {
 
     check_ajax_referer('rating_ajax_nonce','security');
     // get response variables
-    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
-    $rating = (isset($_GET['rating'])) ? $_GET['rating'] : 0;
+    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
+    $rating = (isset($_POST['rating'])) ? $_POST['rating'] : 0;
 
     $ratings = get_post_meta($postID, 'recipe_rating', true);
 

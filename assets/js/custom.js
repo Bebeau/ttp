@@ -284,7 +284,7 @@ var init = {
     saveRating: function(postID, rating) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "GET",
+            type: "POST",
             data: {
                 action: 'setRating',
                 postID: postID,
