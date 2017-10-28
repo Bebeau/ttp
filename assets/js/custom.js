@@ -116,7 +116,7 @@ var init = {
     listingAjax: function(categories, ingredients, perPage, count) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 action: 'loadListing',
                 categories: categories,
@@ -209,7 +209,7 @@ var init = {
     recipeAjax: function(postID, urlPath) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 postID: postID,
                 security: ttp.recipe_nonce,
@@ -284,7 +284,7 @@ var init = {
     saveRating: function(postID, rating) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 action: 'setRating',
                 postID: postID,
@@ -315,7 +315,7 @@ var init = {
     filterAjax: function(categories, catNames, ingredients, tagNames, termName) {
         jQuery.ajax({
             url: ajaxurl,
-            type: "POST",
+            type: "GET",
             data: {
                 categories: categories,
                 ingredients: ingredients,

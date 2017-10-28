@@ -327,13 +327,13 @@ function loadListing() {
 
     check_ajax_referer('listing_ajax_nonce','security');
     
-    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : "";
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : "";
     $catArray = explode( ',', $categories );
-    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : "";
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : "";
     $tagArray = explode( ',', $ingredients );
-    $pageNumber = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
-    $trigger = (isset($_POST['trigger'])) ? $_POST['trigger'] : 0;
-    $count = (isset($_POST['count'])) ? $_POST['count'] : 1;
+    $pageNumber = (isset($_GET['pageNumber'])) ? $_GET['pageNumber'] : 0;
+    $trigger = (isset($_GET['trigger'])) ? $_GET['trigger'] : 0;
+    $count = (isset($_GET['count'])) ? $_GET['count'] : 1;
 
     if(empty(array_filter($catArray)) && empty(array_filter($tagArray)) ) {
         $args = array(
@@ -515,8 +515,8 @@ function loadFilter() {
 
     check_ajax_referer('filter_ajax_nonce','security');
 
-    $categories = (isset($_POST['categories'])) ? $_POST['categories'] : 0;
-    $ingredients = (isset($_POST['ingredients'])) ? $_POST['ingredients'] : 0;
+    $categories = (isset($_GET['categories'])) ? $_GET['categories'] : 0;
+    $ingredients = (isset($_GET['ingredients'])) ? $_GET['ingredients'] : 0;
 
     if(empty($categories) && empty($ingredients)) {
         $args = array(
@@ -614,7 +614,7 @@ function loadRecipe() {
 
     check_ajax_referer('recipe_ajax_nonce','security');
 
-    $postID = (isset($_POST['postID'])) ? $_POST['postID'] : 0;
+    $postID = (isset($_GET['postID'])) ? $_GET['postID'] : 0;
 
     $args = array(
             'p' => $postID,
