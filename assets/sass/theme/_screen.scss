@@ -636,6 +636,13 @@ a {
 		form {
 			width: 400px;
 			margin: 0 auto;
+			box-sizing: border-box;
+			padding: 25px 0;
+			&:after {
+				content: "";
+				clear: both;
+				display: block;
+			}
 			.field {
 				margin: 0 0 10px;
 			}
