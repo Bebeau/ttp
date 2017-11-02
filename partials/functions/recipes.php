@@ -295,9 +295,9 @@ function setOrder() {
         foreach($order as $item) {
             $reordered[$item] = $ingredients[$item];
         }
-        update_post_meta($postID, $type, $reordered);
+        update_post_meta($postID, $type, array_values($reordered));
     } else {
-       update_post_meta($postID, $type, $order); 
+       update_post_meta($postID, $type, array_values($order)); 
     }
     exit();
 }
@@ -799,6 +799,16 @@ function save_recipe( $post_id ) {
         $instructions = $_POST['instructions'];
         update_post_meta($post_id,'instructions',$instructions);
     }
+    $photos = get_post_meta($postID, 'recipe_images', true);
+    // save photos
+    if(!empty($photos)) {
+        $image[] = $imageURL;
+        $photos = array_merge($photos, $image);
+        update_post_meta( $postID, 'recipe_images', array_values($photos));
+    } else {
+        $new[] = $imageURL;
+        update_post_meta( $postID, 'recipe_images', array_values($new));
+    }
 }
 // list ingredients
 function listIngredients($pid) {
@@ -895,7 +905,7 @@ function relatedRecipe() {
             while ($related->have_posts()) { 
 
                 $related->the_post();
-                echo '<p>Hungry for more? Here is a related recipe for '.get_the_title().'.</p>';
+                echo '<p>Not satisfying your craving? Here is a related recipe for '.get_the_title().'.</p>';
                 echo '<a href="'.get_the_permalink().'" data-post="'.$post->ID.'" class="relatedRecipe">';
                     $images = get_post_meta($post->ID,'recipe_images',true);
                     if(!empty($images)) {
