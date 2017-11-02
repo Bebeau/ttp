@@ -232,7 +232,7 @@ function recipe_images() {
             echo '<section class="photoWrap sortable" data-post="'.$post->ID.'" data-type="recipe_images">';
                 foreach( $photos as $key => $photo ) {
                     echo '<article class="photo ui-state-default" data-order="'.$photo.'">';
-                        echo '<img src="'.$photo.'" alt="" />';
+                        echo '<img src="'.wp_get_attachment_image_src($photo, 'medium')[0].'" alt="" />';
                         echo '<div class="remove" data-key="'.$key.'"><i class="fa fa-close"></i></div>';
                     echo '</article>';
                 }
@@ -313,7 +313,7 @@ function removeItem() {
         $array = get_post_meta($postID, $type, true );
         if(count($array) > 1) {
             unset($array[$key]);
-            update_post_meta($postID, $type, $array);
+            update_post_meta($postID, $type, array_values($array));
         } else {
             update_post_meta($postID, $type, "");
         }
@@ -415,7 +415,7 @@ function loadListing() {
             echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
                 $images = get_post_meta($post->ID,'recipe_images',true);
                 if(!empty($images)) {
-                    echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+                    echo '<article class="image" style="background: url('.wp_get_attachment_image_src($images[0], 'listing')[0].') no-repeat scroll center / cover"></article>';
                 }
                 the_title("<h3>&bull; <span>","</span> &bull;</h3>");
             echo '</a>';
@@ -593,7 +593,7 @@ function loadFilter() {
         echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
             $images = get_post_meta($post->ID,'recipe_images',true);
             if(!empty($images)) {
-                echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+                echo '<article class="image" style="background: url('.wp_get_attachment_image_src($images[0], 'listing')[0].') no-repeat scroll center / cover"></article>';
             }
             the_title("<h3>&bull; <span>","</span> &bull;</h3>");
         echo '</a>';
@@ -637,9 +637,9 @@ function loadRecipe() {
             echo '<div id="recipeImages">';
                 foreach($images as $image) {
                     if($count === 0) {
-                        echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
+                        echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
                     } else {
-                        echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
+                        echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
                     }
                     $count++;
                 }
@@ -888,17 +888,15 @@ function relatedRecipe() {
         echo '<section id="relatedRecipes">';
             
             echo '<h2>Second Servings?</h2>';
-
             while ($related->have_posts()) { 
 
                 $related->the_post();
-
+                echo '<p>Click the image below to view a related recipe for '.get_the_title().'.</p>';
                 echo '<a href="'.get_the_permalink().'" data-post="'.$post->ID.'" class="relatedRecipe">';
                     $images = get_post_meta($post->ID,'recipe_images',true);
                     if(!empty($images)) {
-                        echo '<img class="image" src="'.$images[0].'" alt="" />';
+                        echo '<img class="image" src="'.wp_get_attachment_image_src($images[0], 'feature')[0].'" alt="" />';
                     }
-                    the_title("<h3>","</h3>");
                 echo '</a>'; 
 
             }

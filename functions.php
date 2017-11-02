@@ -61,6 +61,8 @@ add_action( 'admin_menu', 'remove_menus' );
 
 // Thumbnail Support
 add_theme_support( 'post-thumbnails', array('post', 'page') );
+add_image_size( 'listing', 427, 300 );
+add_image_size( 'feature', 955, 955 );
 
 // Register Navigation Menu Areas
 add_action( 'INiT', 'register_my_menus' );

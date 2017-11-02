@@ -50,7 +50,7 @@
 							echo '<a href="'.get_the_permalink().'" class="recipe" data-color="color'.$count++.'" data-post="'.$post->ID.'" data-animation="slideUp">';
 								$images = get_post_meta($post->ID,'recipe_images',true);
 								if(!empty($images)) {
-									echo '<article class="image" style="background: url('.$images[0].') no-repeat scroll center / cover"></article>';
+									echo '<article class="image" style="background: url('.wp_get_attachment_image_src($images[0], 'listing')[0].') no-repeat scroll center / cover"></article>';
 								}
 								the_title("<h3>&bull; <span>","</span> &bull;</h3>");
 							echo '</a>';
