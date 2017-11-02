@@ -181,11 +181,11 @@ a {
 	z-index: 999;
 	background: linear-gradient($blue, white);
 	text-align: center;
+	padding-top: 50px;
 	#introVideo {
 		position: relative;
 		width: auto;
 		display: inline-block;
-		margin-bottom: 125px;
 		i {
 			position: absolute;
 			top :50%;
@@ -231,6 +231,23 @@ a {
 					@include transform(scale(1));
 					@include transition(all 0.3s $authenticMotion);
 				}
+			}
+		}
+	}
+	#story {
+		text-align: left;
+		width: 800px;
+		margin: 0 auto 125px;
+		.signature {
+			width: 100px;
+			height: auto;
+		}
+		p {
+			font-size: 16pt;
+			line-height: 24pt;
+			color: $light;
+			&:first-child {
+				margin-top: 0;
 			}
 		}
 	}
@@ -285,7 +302,7 @@ a {
 	background: white;
 	position: relative;
 	z-index: 999;
-	padding: 0 0 50px 0;
+	padding: 0;
 	box-sizing: border-box;
 	.statsWrap {
 		color: $light;

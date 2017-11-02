@@ -132,10 +132,6 @@ echo '<header></header>';
 echo '<section id="about">';
 
 	echo '<div class="wrap">';
-	
-		echo '<div class="tagline">';
-			echo '"<span class="red">Good</span> <span class="green">food</span> = <span class="red">Good</span> <span class="green">mood</span>. Gotta feed the people."';
-		echo '</div>';
 
 		echo '<div id="introVideo">';
 			echo '<video preload poster="'.get_bloginfo('template_directory').'/assets/videos/poster.jpg">';
@@ -145,6 +141,17 @@ echo '<section id="about">';
 			echo '</video>';
 			echo '<i class="fa fa-play"></i>';
 			echo '<i class="fa fa-pause"></i>';
+		echo '</div>';
+
+		echo '<div class="tagline">';
+			echo '"<span class="red">Good</span> <span class="green">food</span> = <span class="red">Good</span> <span class="green">mood</span>. Gotta feed the people."';
+		echo '</div>';
+
+		echo '<div id="story">';
+			$page = get_page_by_title('About');
+			echo apply_filters('the_content', $page->post_content);
+			echo '<img class="signature" src="'.get_bloginfo('template_directory').'/assets/images/signature.svg" alt="Tiki Friedman" />';
+			echo '<p>Tiki Friedman</p>';
 		echo '</div>';
 
 	echo '</div>';
