@@ -32,13 +32,14 @@ var recipes = {
 	        var key = jQuery('.photoWrap').children().length;
 	        // Sets up the media library frame
 	        meta_image_frame = wp.media.frames.meta_image_frame = wp.media({
-	            library: { type: 'image', uploadedTo : wp.media.view.settings.post.id },
+                library: { type: 'image', uploadedTo : id },
 	            multiple: false
 	        });
 	        // Opens the media library frame.
 	        meta_image_frame.open();
 	        // Runs when an image is selected.
 	        meta_image_frame.on('select', function(){
+                console.log("selected");
 	            // Grabs the attachment selection and creates a JSON representation of the model.
 	            var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 	            // Append selected photo and save to post
