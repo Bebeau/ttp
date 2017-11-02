@@ -452,7 +452,7 @@ var init = {
                     setTimeout(
                         function(){
                             button.removeClass('success').html('Join Us');
-                        }, 1000
+                        }, 2500
                     );
                 }
             },
@@ -489,7 +489,7 @@ var init = {
                     function(){
                         button.removeClass('error').html('Join Us');
                         jQuery('input').removeClass('error');
-                    }, 1000
+                    }, 2500
                 );
             }
         });
@@ -516,7 +516,7 @@ var init = {
                     setTimeout(
                         function(){
                             button.removeClass('success').html('Join Us');
-                        }, 1000
+                        }, 2500
                     );
                 } else {
                     button.addClass('error').html('<i class="fa fa-ban"></i>');
@@ -525,7 +525,7 @@ var init = {
                             button.removeClass('error').html('Send');
                             jQuery('input').removeClass('error');
                             jQuery('textarea').removeClass('error');
-                        }, 1000
+                        }, 2500
                     );
                 }
             },
@@ -566,7 +566,7 @@ var init = {
                         button.removeClass('error').html('Send');
                         jQuery('input').removeClass('error');
                         jQuery('textarea').removeClass('error');
-                    }, 1000
+                    }, 2500
                 );
             }
         });
