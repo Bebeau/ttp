@@ -253,7 +253,7 @@ a {
 				@include transform(scale(0));
 				@include transition(all 0.3s $authenticMotion);
 			}
-			&:hover {
+			&:hover, &.mobile_hover {
 				i.fa-pause {
 					@include transform(scale(1));
 					@include transition(all 0.3s $authenticMotion);
@@ -495,7 +495,7 @@ a {
 					}
 				}
 			}
-			&:hover {
+			&:hover, &.mobile_hover {
 				color: $dark;
 				h3 {
 					@include transform(translate(0,0));
@@ -593,11 +593,11 @@ a {
 				&.clicked {
 					color: $blue;
 					@include transition(all 0.3s $authenticMotion);
-					&:hover {
+					&:hover, &.mobile_hover {
 						color: $blue;
 					}
 				}
-				&:hover {
+				&:hover, &.mobile_hover {
 					color: darken($green,15%);
 					@include transition(all 0.3s $authenticMotion);
 				}
@@ -627,11 +627,11 @@ a {
 			&.clicked {
 				color: $blue;
 				@include transition(all 0.3s $authenticMotion);
-				&:hover {
+				&:hover, &.mobile_hover {
 					color: $blue;
 				}
 			}
-			&:hover {
+			&:hover, &.mobile_hover {
 				color: darken($green,15%);
 				@include transition(all 0.3s $authenticMotion);
 			}
@@ -921,7 +921,7 @@ a {
 						color: $pinterest;
 					}
 				}
-				&:hover {
+				&:hover, &.mobile_hover {
 					background: darken(white,3%);
 					@include transition(all 0.5s $authenticMotion);
 				}
@@ -967,6 +967,7 @@ a {
 			line-height: 21pt;
 			color: $light;
 			margin-top: 0;
+			font-family: "Arsenal", 'helvetica';
 		}
 		img {
 			max-width: 100%;
@@ -994,7 +995,7 @@ a {
 			cursor: pointer;
 		}
 	}
-	&:hover {
+	&:hover, &.mobile_hover {
 		cursor: pointer;
 		background: lighten($light,40%);
 		@include transition(all 0.5s $authenticMotion);
@@ -1131,7 +1132,7 @@ a {
 						color: $pinterest;
 					}
 				}
-				&:hover {
+				&:hover, &.mobile_hover {
 					background: darken(white,3%);
 					@include transition(all 0.5s $authenticMotion);
 				}

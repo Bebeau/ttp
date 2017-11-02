@@ -112,7 +112,7 @@
 				}
 			}
 			#relatedRecipes {
-				margin-top: 0;
+				margin-top: 25px;
 				h2 {
 					font-size: 21pt;
 				}
@@ -216,11 +216,23 @@
 					}
 				}
 			}
+			#relatedRecipes {
+				padding: 15px;
+				h2 {
+					font-size: 18pt;
+					margin: 0;
+				}
+				p {
+					font-size: 11pt;
+					line-height: 14pt;
+					margin-top: 5px;
+				}
+			}
 		}
-	}
-	#dishpics {
-		.pic {
-			width: 50%;
+		#dishpics {
+			.pic {
+				width: 50%;
+			}
 		}
 	}
 	#Newsletter {
@@ -321,7 +333,7 @@
 	}
 	#recipeWrap {
 		box-sizing: border-box;
-		padding: 25px;
+		padding: 15px;
 		margin-top: 35px;
 		#recipeImages, #recipeCopy {
 			width: 100%;
@@ -329,30 +341,47 @@
 		}
 		#relatedRecipes {
 			text-align: center;
-			margin-top: 0;
-			h2 {
-				margin-top: 0;
-				font-size: 21pt;
-				line-height: 60px;
+			margin-top: 15px;
+			padding: 15px;
+			#relatedTitle {
+				h2 {
+					margin-top: 0;
+					font-size: 18pt;
+				}
 			}
 		}
 		#recipeCopy {
+			#starRating {
+				margin-bottom: 35px;
+				i {
+					font-size: 24pt;
+				}
+			}
 			.copy {
 				padding: 0;
 			}
 			.ingredient-listing, .instruction-listing {
 				padding: 0;
+				font-size: 14pt;
+				h3 {
+					font-size: 14pt;
+				}
 			}
 			h1, #starRating {
 				text-align: center;
 				padding: 0;
 			}
 			h1 {
-				margin-top: 25px;
+				margin-top: 15px;
+				font-size: 18pt;
+				line-height: 21pt;
 			}
-			#starRating {
-				margin-bottom: 35px;
+			h4 {
+				font-size: 18pt;
 			}
+		}
+		#dishpicsWrap {
+			margin-top: 15px;
 		}
 	}
 	.modal {
@@ -373,7 +402,7 @@
 			-webkit-overflow-scrolling: touch;
 			overflow-scrolling: touch;
 			.fa-close {
-				top: 15px;
+				top: 10px;
 				right: 50%;
 				font-size: 24pt;
 				margin-right: -13px;
