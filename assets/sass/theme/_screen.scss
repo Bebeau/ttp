@@ -160,19 +160,45 @@ a {
 		}
 	}
 }
-#dishpics {
-	.pic {
-		width: 33.3333%;
-		height: 300px;
-		display: inline-block;
-		margin: 0 0 -4px 0;
-		box-sizing: border-box;
-		padding: 10px;
-		@include transition(all 0.3s $authenticMotion);
-		a {
+#dishpicsWrap {
+	margin-top: 50px;
+	text-align: center;
+	#dishpicsTitle {
+		position: relative;
+		margin: 0 10px;
+		h4 {
+			display: inline-block;
+			position: relative;
+			z-index: 10;
+			box-sizing: border-box;
+			padding: 0 15px;
+			background: white;
+		}
+		&:after {
+			content: "";
 			width: 100%;
-			height: 100%;
-			display: block;
+			height: 1px;
+			background: darken($blue,5%);
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: 9;
+		}
+	}
+	#dishpics {
+		.pic {
+			width: 33.3333%;
+			height: 300px;
+			display: inline-block;
+			margin: 0 0 -4px 0;
+			box-sizing: border-box;
+			padding: 10px;
+			@include transition(all 0.3s $authenticMotion);
+			a {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
 		}
 	}
 }
@@ -738,6 +764,9 @@ a {
 		.fa-close {
 			position: fixed;
 		}
+		.line {
+			background: none;
+		}
 	}
 }
 #recipeWrap {
@@ -863,10 +892,6 @@ a {
 			line-height: 60px;
 			font-weight: normal;
 			margin: 0;
-			&#dishpicsTitle {
-				margin-top: 50px;
-				padding-left: 10px;
-			}
 		}
 		#socialShare {
 			text-align: center;
@@ -905,13 +930,37 @@ a {
 	}
 	#relatedRecipes {
 		font-family: 'LiSong Pro', serif;
-		margin-top: 150px;
-		h2 {
-			font-family: 'LiSong Pro', serif;
-			font-size: 28pt;
-			font-weight: normal;
-			color: $light;
-			margin: 0 0 10px;
+		margin-top: 50px;
+		background: linear-gradient(white, $blue);
+		border: 1px solid darken($blue,5%);
+		box-sizing: border-box;
+		padding: 15px 25px 25px;
+		#relatedTitle {
+			position: relative;
+			text-align: center;
+			h2 {
+				font-family: 'LiSong Pro', serif;
+				font-size: 28pt;
+				font-weight: normal;
+				color: $light;
+				margin: 0 0 10px;
+				display: inline-block;
+				background: white;
+				box-sizing: border-box;
+				padding: 0 15px;
+				position: relative;
+				z-index: 10;
+			}
+			&:after {
+				content: "";
+				width: 100%;
+				height: 1px;
+				background: darken($blue,5%);
+				position: absolute;
+				top: 50%;
+				left: 0;
+				z-index: 9;
+			}
 		}
 		p {
 			font-size: 14pt;

@@ -138,9 +138,9 @@
 		            echo '<div id="recipeImages">';
 		                foreach($images as $image) {
 		                    if($count === 0) {
-		                        echo '<article class="featureImage"><img src="'.$image.'" alt="'.get_the_title().'" /></article>';
+		                        echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
 		                    } else {
-		                        echo '<article class="thumbnail" data-image="'.$image.'"><span style="background:url('.$image.') no-repeat scroll center / cover"></span></article>';
+		                        echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
 		                    }
 		                    $count++;
 		                }
@@ -167,8 +167,12 @@
 		                    listIngredients($post->ID);
 		                    listInstructions($post->ID);
 		                    socialShare();
-		                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
-		                    echo '<div id="dishpics"></div>';
+		                    echo '<div id="dishpicsWrap">';
+			                    echo '<div id="dishpicsTitle">';
+			                    	echo '<h4>#dishpics</h4>';
+			                    echo '</div>';
+			                    echo '<div id="dishpics"></div>';
+			                echo '</div>';
 		                    if(is_smartphone()) {
 			                    relatedRecipe();
 			                }

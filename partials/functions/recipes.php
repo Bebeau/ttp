@@ -408,7 +408,6 @@ function loadListing() {
 
     if($recipes->have_posts()) :
         $count++;
-        
         while ($recipes->have_posts()) : 
             $recipes->the_post();
             global $post;
@@ -424,10 +423,10 @@ function loadListing() {
             }
         
         endwhile;
-
     endif;
+    
 
-    if($pageNumber === "2" || $pageNumber % 3 == 0) {
+    if($pageNumber % 3 == 0) {
         if($trigger % 2 == 0) {
             echo '<section class="cta" data-animation="slideUp">';
                 if(is_smartphone()) {
@@ -667,8 +666,12 @@ function loadRecipe() {
                     listIngredients($post->ID);
                     listInstructions($post->ID);
                     socialShare();
-                    echo '<h4 id="dishpicsTitle">#dishpics</h4>';
-                    echo '<div id="dishpics"></div>';
+                    echo '<div id="dishpicsWrap">';
+                        echo '<div id="dishpicsTitle">';
+                            echo '<h4>#dishpics</h4>';
+                        echo '</div>';
+                        echo '<div id="dishpics"></div>';
+                    echo '</div>';
                 echo '</div>';
 
                 if(is_smartphone()) {
@@ -886,12 +889,13 @@ function relatedRecipe() {
     if($related->have_posts()) {
 
         echo '<section id="relatedRecipes">';
-            
-            echo '<h2>Second Servings?</h2>';
+            echo '<div id="relatedTitle">';
+                echo '<h2>Second Servings</h2>';
+            echo '</div>';
             while ($related->have_posts()) { 
 
                 $related->the_post();
-                echo '<p>Click the image below to view a related recipe for '.get_the_title().'.</p>';
+                echo '<p>Hungry for more? Here is a related recipe for '.get_the_title().'.</p>';
                 echo '<a href="'.get_the_permalink().'" data-post="'.$post->ID.'" class="relatedRecipe">';
                     $images = get_post_meta($post->ID,'recipe_images',true);
                     if(!empty($images)) {
