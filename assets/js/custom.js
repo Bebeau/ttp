@@ -341,7 +341,7 @@ var init = {
             init.saveRating(postID,rating);
         });
         jQuery('.modal[data-modal="rating"] .fa-close').click(function(){
-            jQuery('#rateRecipe .fa-star').removeClass("active");
+            jQuery('#rateRecipe li').removeClass("active");
         });
     },
     filterAjax: function(categories, catNames, ingredients, tagNames, termName) {
