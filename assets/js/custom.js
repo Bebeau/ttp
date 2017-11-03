@@ -232,7 +232,7 @@ var init = {
             dataType: "html",
             success : function(data){
                 jQuery('#recipeWrap').remove();
-                window.history.replaceState('','','/'+urlPath.replace(siteurl,""));
+                window.history.replaceState('','',urlPath.replace(siteurl,""));
                 jQuery('.recipe').removeClass("clicked");
                 jQuery('.modal.single-recipes').append(data);
                 init.starRating();
