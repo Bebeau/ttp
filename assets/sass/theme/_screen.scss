@@ -365,6 +365,13 @@ a {
 			&:first-child {
 				margin-top: 5px;
 			}
+			i {
+				margin-right: 5px;
+				color: $red;
+				&:hover {
+					cursor: pointer;
+				}
+			}
 		}
 	}
 	#filter {
@@ -386,6 +393,8 @@ a {
 		width: 1400px;
 		margin: 0 auto;
 		display: block;
+		min-height: 362px;
+		@include transition(all 3s $authenticMotion);
 		&:before {
 			content: "";
 			display: block;
@@ -651,6 +660,37 @@ a {
 	    	cursor: pointer;
 	    }
 	}
+	&[data-modal="rating"] {
+		z-index: 99999;
+		background: linear-gradient($blue,white);
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				margin: 0;
+				padding: 0;
+				display: inline-block;
+				i.fa-star {
+					font-size: 72pt;
+					margin: 0 15px;
+					color: lighten($light, 35%);
+					&:hover {
+						cursor: pointer;
+					}
+				}
+				&:first-child {
+					i {
+						margin-left: 0;
+					}
+				}
+				&.active {
+					i {
+						color: $orange;
+					}
+				}
+			}
+		}
+	}
 	&[data-modal="contact"] {
 		background: $light;
 		text-align: left;
@@ -818,35 +858,78 @@ a {
 			font-family: 'LiSong Pro', serif;
 			font-weight: normal;
 			font-size: 36pt;
-			margin: 0 0 15px;
+			margin: 0 0 5px;
 			box-sizing: border-box;
 			padding-right: 60px;
 			color: $dark;
 		}
 		.line {
 			position: relative;
+			display: block;
+			height: 3px;
+			margin-bottom: 10px;
 			span {
 				width: 20%;
 				vertical-align: top;
 			}
 		}
 		#starRating {
-			margin-bottom: 35px;
+			margin-bottom: 0;
+			display: inline-block;
+			vertical-align: top;
+			text-align: center;
 			i {
 				font-size: 24pt;
 				margin: 0 5px;
-				&:hover {
-					cursor: pointer;
-				}
+				@include transition(all 0.3s $authenticMotion);
 				&:first-child {
 					margin-left: 0;
 				}
 				&.fa-star {
 					color: lighten($light, 35%);
-					&.active {
+				}
+				&.active {
+					color: $orange;
+					@include transition(all 0.3s $authenticMotion);
+				}
+			}
+			p {
+				margin: 2px 0 0;
+				color: $orange;
+				span {
+					color: lighten($light, 20%);
+					&#starNumber,&#ratingNumber {
 						color: $orange;
 					}
 				}
+			}
+		}
+		.btn-rate {
+			border: none;
+			background: none;
+			font-style: oblique;
+			color: $green;
+			vertical-align: top;
+			line-height: 30px;
+			text-transform: lowercase;
+			font-size: 10pt;
+			letter-spacing: -0.25px;
+			margin: 0;
+			padding: 0;
+			@include transition(all 0.3s $authenticMotion);
+			&:focus {
+				outline: none;
+			}
+			&:hover {
+				cursor: pointer;
+				color: $orange;
+				@include transition(all 0.3s $authenticMotion);
+			}
+			i {
+				margin: 0 5px 0 7px;
+				@include animation(bounce);
+				@include animation-duration(3s);
+    			@include animation-iteration-count(infinite);
 			}
 		}
 		.copy {

@@ -123,6 +123,23 @@
 		echo '</div>';
 	echo '</section>';
 
+	echo '<section class="modal" data-modal="rating">';
+		echo '<i class="fa fa-close"></i>';
+		echo '<div class="outer">';
+			echo '<div class="inner">';
+				echo '<article id="rateRecipe">';
+					echo '<ul>';
+			            echo '<li><i class="fa fa-star" data-star="1"></i></li>';
+			            echo '<li><i class="fa fa-star" data-star="2"></i></li>';
+			            echo '<li><i class="fa fa-star" data-star="3"></i></li>';
+			            echo '<li><i class="fa fa-star" data-star="4"></i></li>';
+			            echo '<li><i class="fa fa-star" data-star="5"></i></li>';
+			        echo '</ul>';
+				echo '</article>';
+			echo '</div>';
+		echo '</div>';
+	echo '</section>';
+
 	if(is_singular('recipes')) {
 		echo '<section class="modal single-recipes in">';
 			echo '<i class="fa fa-close"></i>';
@@ -139,7 +156,7 @@
 		                foreach($images as $image) {
 		                    if($count === 0) {
 		                        echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
-		                    } else {
+		                    } elseif($count < 4) {
 		                        echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
 		                    }
 		                    $count++;

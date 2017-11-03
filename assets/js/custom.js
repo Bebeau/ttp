@@ -73,7 +73,7 @@ var init = {
         }
 	},
     mobileHover: function() {
-        jQuery('.hover').on('touchstart touchend', function(e) {
+        jQuery(':hover').on('touchstart touchend', function(e) {
             e.preventDefault();
             jQuery(this).toggleClass('mobile_hover');
         });
@@ -86,7 +86,7 @@ var init = {
         );
     },
     videoClick: function() {
-        jQuery('#introVideo').on("click",function(){
+        jQuery('#introVideo').on("click touchend",function(){
             var video = jQuery('#introVideo video');
             if(jQuery('#introVideo').hasClass("playing")) {
                 video[0].pause();
@@ -195,7 +195,7 @@ var init = {
         jQuery('.modal').removeClass('in');
         jQuery('#bodyWrap').removeClass("out");
         jQuery('body').removeClass("stop");
-        window.history.replaceState('','','/');
+        window.history.replaceState('','',siteurl);
         setTimeout(
             function(){
                 jQuery('.modal #recipeWrap').remove();
@@ -217,7 +217,7 @@ var init = {
             if(!jQuery('.modal').hasClass("in")) {
                 jQuery('body').removeClass("stop");
             }
-            window.history.replaceState('','','/');
+            window.history.replaceState('','',siteurl);
         });
     },
     recipeAjax: function(postID, urlPath) {
@@ -232,10 +232,11 @@ var init = {
             dataType: "html",
             success : function(data){
                 jQuery('#recipeWrap').remove();
-                window.history.replaceState('','',urlPath.replace(siteurl,""));
+                window.history.replaceState('','',siteurl+urlPath.replace(siteurl,""));
                 jQuery('.recipe').removeClass("clicked");
                 jQuery('.modal.single-recipes').append(data);
                 init.starRating();
+                init.modal();
                 init.dishPics();
             },
             complete: function() {
@@ -306,6 +307,14 @@ var init = {
                 rating: rating
             },
             dataType: 'html',
+            success: function(response){
+                jQuery('#recipe_rating').val(response);
+                jQuery('#starNumber').html(response);
+                var ratings = jQuery('#ratingNumber').html();
+                console.log(ratings + 1);
+                jQuery('#ratingNumber').html(parseInt(ratings) + 1);
+                init.starRating();
+            },
             error : function(jqXHR, textStatus, errorThrown) {
                 jQuery(window).alert(jqXHR + " :: " + textStatus + " :: " + errorThrown);
             }
@@ -313,17 +322,26 @@ var init = {
     },
     starRating: function() {
         var rating = jQuery('#recipe_rating').val();
-        jQuery('#starRating i[data-star="'+rating+'"]').addClass("active").prevAll().addClass("active");
+        jQuery('#starRating i').removeClass("active fa-star-half");
+        jQuery('#starRating i[data-star="'+parseInt(rating)+'"]').addClass("active").prevAll().addClass("active");
+        if(rating % 1 !== 0) {
+            jQuery('#starRating i[data-star="'+parseInt(rating)+'"]').next().addClass("fa-star-half active");
+        }
     },
     starRatingClick: function() {
-        jQuery(document).on("click",'#starRating i',function(e){
+        jQuery('#rateRecipe li').on("mouseover touchstart",function(e){
+            jQuery('#rateRecipe li').removeClass("active");
+            jQuery(this).addClass("active").prevAll().addClass("active");
+        });
+        jQuery(document).on("click",'#rateRecipe i',function(e){
             e.preventDefault();
             var postID = jQuery('#starRating').attr("data-post");
             var rating = jQuery(this).attr("data-star");
-            jQuery('#starRating .fa-star').removeClass("active");
-            jQuery(this).addClass("active").prevAll().addClass("active");
-            jQuery('#recipe_rating').val(rating);
+            jQuery('.modal[data-modal="rating"]').removeClass('in');
             init.saveRating(postID,rating);
+        });
+        jQuery('.modal[data-modal="rating"] .fa-close').click(function(){
+            jQuery('#rateRecipe .fa-star').removeClass("active");
         });
     },
     filterAjax: function(categories, catNames, ingredients, tagNames, termName) {
@@ -351,17 +369,17 @@ var init = {
                 jQuery('#listingTitle').html(termName);
                 if(catNames !== undefined) {
                     if(catNames.length !== 0 && termName === "Categories") {
-                        jQuery('#listingTitle').append('<span class="catNames">( '+catNames+' )</span>');
+                        jQuery('#listingTitle').append('<span class="catNames"><i class="fa fa-close"></i>( '+catNames+' )</span>');
                     }
                 }
                 if(tagNames !== undefined) {
                     if(tagNames.length !== 0 && termName === "Ingredients") {
-                        jQuery('#listingTitle').append('<span class="tagNames">( '+tagNames+' )</span>');
+                        jQuery('#listingTitle').append('<span class="tagNames"><i class="fa fa-close"></i>( '+tagNames+' )</span>');
                     }
                 }
                 if(tagNames !== undefined && catNames !== undefined) {
                     if(tagNames.length !== 0 && catNames.length !== 0) {
-                        jQuery('#listingTitle').append('<span class="catNames">categories&bull;'+catNames+'</span><span class="tagNames">ingredients&bull;'+tagNames+'</span>');
+                        jQuery('#listingTitle').append('<span class="catNames"><i class="fa fa-close close-categories"></i> categories&bull;'+catNames+'</span><span class="tagNames"><i class="fa fa-close close-ingredients"></i> ingredients&bull;'+tagNames+'</span>');
                     }
                 }
                 jQuery("#listingWrap").html(recipes);
@@ -381,6 +399,7 @@ var init = {
                         ttp.page = 2;
                         ttp.loading = false;
                         init.loadListing();
+                        init.removeFilter();
                     }, 500
                 );
             },
@@ -388,6 +407,46 @@ var init = {
                 jQuery(".recipeLoad").remove();
                 alert("ERROR - xhr.status: " + xhr.status + '\nxhr.responseText: ' + xhr.responseText + '\nxhr.statusText: ' + xhr.statusText + '\nError: ' + error + '\nStatus: ' + status);
             }
+        });
+    },
+    removeFilter: function() {
+        jQuery('#listingTitle i').click(function(e){
+            e.preventDefault();
+            if(jQuery(this).parent().hasClass('catNames')) {
+                jQuery('.catNames').remove();
+                jQuery('.modal[data-modal="category"] a').removeClass("clicked");
+                var categories = 0;
+                var catNames = "";
+                var ingredients = [];
+                var tagNames = [];
+                jQuery('.modal[data-modal="ingredients"] a.clicked').each(function(){
+                    ingredients.push(jQuery(this).parent().attr("data-term"));
+                    tagNames.push(jQuery(this).text());
+                });
+                if(ingredients.length !== 0) {
+                    var termName = 'Ingredients';
+                } else {
+                    var termName = "All Recipes";
+                }
+            }
+            if(jQuery(this).parent().hasClass('tagNames')) {
+                jQuery('.tagNames').remove();
+                jQuery('.modal[data-modal="ingredients"] a').removeClass("clicked");
+                var ingredients = 0;
+                var tagNames = "";
+                var categories = [];
+                var catNames = [];
+                jQuery('.modal[data-modal="category"] a.clicked').each(function(){
+                    categories.push(jQuery(this).attr("data-term"));
+                    catNames.push(jQuery(this).text());
+                });
+                if(categories.length !== 0) {
+                    var termName = 'Categories';
+                } else {
+                    var termName = "All Recipes";
+                }
+            }
+            init.filterAjax(categories, catNames, ingredients, tagNames, termName);
         });
     },
     categoryClick: function() {
@@ -425,12 +484,10 @@ var init = {
                         var termName = 'Ingredients';
                     }
                 }
-                var termType = "category";
             } else {
                 var categories = 0;
                 var ingredients = 0;
                 var termName = "All Recipes";
-                var termType = "recipes";
                 var urlPath = siteurl;
             }
             init.filterAjax(categories, catNames, ingredients, tagNames, termName);

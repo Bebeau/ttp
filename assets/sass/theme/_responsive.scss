@@ -148,6 +148,9 @@
 					margin-top: 25px;
 				}
 			}
+			.btn-rate {
+				line-height: 18pt;
+			}
 		}
 		#dishpics {
 			.pic {
@@ -163,7 +166,7 @@
 	#top {
 		height: 50vh;
 		img {
-			width: 300px;
+			width: 250px;
 		}
 	}
 	.tagline {
@@ -262,7 +265,7 @@
 		}
 	}
 }
-@media(max-width:667px) and (max-height:414px) {
+@media(max-width:736px) and (max-height:414px) {
 	.modal {
 		height: auto;
 		.half {
@@ -277,6 +280,11 @@
 					padding: 25px 0;
 					box-sizing: border-box;
 				}
+			}
+		}
+		&.modal[data-modal="rating"] {
+			ul {
+				display: block;
 			}
 		}
 	}
@@ -352,9 +360,27 @@
 		}
 		#recipeCopy {
 			#starRating {
-				margin-bottom: 35px;
+				margin-bottom: 0;
+				display: block;
 				i {
 					font-size: 24pt;
+				}
+			}
+			.btn-rate {
+				display: block;
+				margin: 10px auto;
+				font-style: normal;
+				color: white;
+				background: $green;
+				text-transform: uppercase;
+				padding: 0 10px;
+				line-height: 30px;
+				letter-spacing: 1px;
+				i {
+					display: none;
+				}
+				&:hover {
+					color: white;
 				}
 			}
 			.copy {
@@ -428,6 +454,12 @@
 				button {
 					width: 100%;
 				}
+			}
+		}
+		&.modal[data-modal="rating"] {
+			ul {
+				display: flex; 
+				flex-direction: column-reverse;
 			}
 		}
 	}

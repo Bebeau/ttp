@@ -100,9 +100,9 @@
 		position: fixed;
 		top: 50%;
 		left: 50%;
-		width: 550px;
-		height: 550px;
-		margin: -350px 0 0 -275px;
+		width: 300px;
+		height: 300px;
+		margin: -200px 0 0 -150px;
 	}
 </style>
 

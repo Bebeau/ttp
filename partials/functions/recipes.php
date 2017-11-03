@@ -243,13 +243,19 @@ function recipe_images() {
         echo '<a href="#" class="button upload-image btn-photo">Add Recipe Image</a>';
     echo '</div>';
 }
+function roundDown($number, $nearest){
+    return $number - fmod($number, $nearest);
+}
 function recipe_rating() {
     global $post;
     $ratings = get_post_meta($post->ID,'recipe_rating',true);
-    if(!empty($ratings)) {
-        $averageRating = array_sum($ratings) / count($ratings);
+    if(!empty($ratings) && $ratings !== "") {
+        $average = array_sum($ratings) / count($ratings);
+        $rating = roundDown($average,.5);
+        $totalRatings = count($ratings);
     } else {
-        $averageRating = 0;
+        $rating = 0;
+        $totalRatings = 0;
     }
     echo '<article id="starRating" data-post="'.$post->ID.'">';
         echo '<i class="fa fa-star" data-star="1"></i>';
@@ -257,8 +263,10 @@ function recipe_rating() {
         echo '<i class="fa fa-star" data-star="3"></i>';
         echo '<i class="fa fa-star" data-star="4"></i>';
         echo '<i class="fa fa-star" data-star="5"></i>';
+        echo '<p><span>(</span> <span id="starNumber">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber">'.$totalRatings.'</span> ratings <span>)</span></p>';
     echo '</article>';
-    echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.round($averageRating, 0, PHP_ROUND_HALF_UP).'" />';
+    echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
+    echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.$rating.'" />';
 }
 // ajax response to save recipe image
 add_action('wp_ajax_setImage', 'setImage');
@@ -637,7 +645,7 @@ function loadRecipe() {
                 foreach($images as $image) {
                     if($count === 0) {
                         echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
-                    } else {
+                    } elseif($count < 4) {
                         echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
                     }
                     $count++;
@@ -712,6 +720,9 @@ function setRating() {
             $new[] = $rating;
             update_post_meta($postID,'recipe_rating',$new);
         }
+        $ratings = get_post_meta($postID,'recipe_rating',true);
+        $averageRating = array_sum($ratings) / count($ratings);
+        echo roundDown($averageRating,.5);
     }
 
     exit();
