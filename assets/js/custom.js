@@ -257,6 +257,7 @@ var init = {
             },
             dataType: "html",
             success : function(data){
+                fbq('track', 'ViewContent');
                 jQuery('#recipeWrap').remove();
                 window.history.replaceState('','',urlPath.replace(siteurl,""));
                 jQuery('.recipe').removeClass("clicked");
@@ -524,7 +525,7 @@ var init = {
             );
         });
     },
-    mailChimpAjax: function(list,userIP,fname,lname,email,button) {
+    mailChimpAjax: function(MClist,userIP,fname,lname,email,button) {
         jQuery.ajax({
             url: ajaxurl,
             type: "GET",
@@ -533,13 +534,14 @@ var init = {
                 fname: fname,
                 lname: lname,
                 email: email,
-                list: list,
+                list: MClist,
                 security: ttp.subscribe_nonce,
                 action: 'mailchimpSubscribe'
             },
             dataType: 'html',
             success: function(response) {
                 if(response === "success") {
+                    fbq('track', 'Lead');
                     jQuery('input').val("");
                     button.addClass('success');
                     button.html('<fa class="fa fa-check"></i>');
@@ -560,13 +562,13 @@ var init = {
             e.preventDefault();
             var button = jQuery(this);
             button.html('<i class="fa fa-spinner fa-spin"></i>');
-            var list = button.parent().attr('data-list');
+            var MClist = button.parent().attr('data-list');
             var fname = button.parent().find('input[name="fname"]').val();
             var lname = button.parent().find('input[name="lname"]').val();
             var email = button.parent().find('input[name="email"]').val();
             if(fname && lname && email) {
                 jQuery.get("https://ipinfo.io/json", function(response) {
-                    init.mailChimpAjax(list,response['ip'],fname,lname,email,button);
+                    init.mailChimpAjax(MClist,response['ip'],fname,lname,email,button);
                 });
             } else {
                 if(!fname) {

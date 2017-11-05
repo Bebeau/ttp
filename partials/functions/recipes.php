@@ -57,7 +57,7 @@ function init_ingredients() {
         array(
             'labels' => $labels,
             'rewrite' => array( 'slug' => 'ingredients' ),
-            'public' => false
+            'public' => true
         )
     );
 }

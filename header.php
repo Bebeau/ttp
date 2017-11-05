@@ -32,7 +32,7 @@
 	<meta property="og:description" content="Good Food = Good Mood. Gotta Feed The People."/>
 
 	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?>
-		<meta property="fb:app_id" content="496408310403833" />
+		<meta property="fb:app_id" content="505574093146847" />
 	<?php if (is_single()) { ?>
 		<!-- Open Graph -->
 		<meta property="og:url" content="<?php the_permalink(); ?>"/>
@@ -83,6 +83,22 @@
 	<!-- WP Generated Header
 	================================================== --> 
 	<?php wp_head(); ?>
+
+	<!-- Facebook Pixel Code -->
+	<script>
+	!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+	n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+	document,'script','https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '505574093146847'); // Insert your pixel ID here.
+	fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	src="https://www.facebook.com/tr?id=505574093146847&ev=PageView&noscript=1"
+	/></noscript>
+	<!-- DO NOT MODIFY -->
+	<!-- End Facebook Pixel Code -->
     
 </head>
 
