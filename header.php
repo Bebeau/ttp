@@ -150,8 +150,12 @@ echo '<section id="about">';
 		echo '<div id="story">';
 			$page = get_page_by_title('About');
 			echo apply_filters('the_content', $page->post_content);
-			echo '<img class="signature" src="'.get_bloginfo('template_directory').'/assets/images/signature.svg" alt="Tiki Friedman" />';
-			echo '<p>Tiki Friedman</p>';
+			echo '<div class="ending">';
+				echo '<p>Cheers,</p>';
+				echo '<img class="signature" src="'.get_bloginfo('template_directory').'/assets/images/signature.svg" alt="Tiki Friedman" />';
+				echo '<p>Tiki Friedman</p>';
+			echo '</div>';
+			echo '<div class="more"><i class="fa fa-angle-down"></i></div>';
 		echo '</div>';
 
 	echo '</div>';

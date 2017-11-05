@@ -264,7 +264,10 @@ a {
 	#story {
 		text-align: left;
 		width: 800px;
-		margin: 0 auto 125px;
+		height: inherit;
+		margin: 0 auto;
+		padding-bottom: 125px;
+		@include transition(all 0.5s $authenticMotion);
 		.signature {
 			width: 100px;
 			height: auto;
@@ -275,6 +278,40 @@ a {
 			color: $light;
 			&:first-child {
 				margin-top: 0;
+			}
+		}
+		.more {
+			position: absolute;
+			bottom: 75px;
+			left: 50%;
+			margin-left: -15px;
+			text-align: center;
+			font-size: 12pt;
+			color: lighten($light, 25%);
+			@include transform(scale(1));
+			@include transition(all 0.3s $authenticMotion);
+			border: 1px solid lighten($light, 35%);
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			@include border-top-radius(50%);
+			@include border-bottom-radius(50%);
+			i {
+				@include animation(bounceUp);
+				@include animation-duration(2s);
+				@include animation-iteration-count(infinite);
+			}
+			&:hover {
+				cursor: pointer;
+				color: $light;
+				@include transition(all 0.3s $authenticMotion);
+			}
+			&.hide {
+				i {
+					@include animation(none);
+				}
+				@include transform(scale(0));
+				@include transition(transform 0.3s $authenticMotion);
 			}
 		}
 	}

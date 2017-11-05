@@ -62,6 +62,7 @@ var init = {
         init.ctaClick();
         init.contactSubmit();
         init.loadPage();
+        init.aboutDisplay();
         if(window.location.href.indexOf("recipes") > -1) {
             jQuery('#bodyWrap').addClass("out");
             jQuery('body').addClass("stop");
@@ -72,6 +73,31 @@ var init = {
             init.mobileHover();
         }
 	},
+    aboutDisplay: function() {
+        jQuery('.ending').slideUp();
+        var c = 0;
+        jQuery('#story p').each(function(){
+            if(!jQuery(this).parent().hasClass('ending')) {
+                jQuery(this).attr("data-count", c++);
+                jQuery(this).slideUp();
+            } else {
+                total = c - 1;
+                return false;
+            }
+        });
+        jQuery('#story p[data-count="0"]').slideDown().addClass("show");
+        var count = 1;
+        jQuery('.more').click(function(){
+            if(total !== count) {
+                jQuery('#story p[data-count="'+count+'"]').slideDown().addClass('show');
+            } else {
+                jQuery('.more').addClass("hide");
+                jQuery('#story p[data-count="'+count+'"]').slideDown().addClass('show');
+                jQuery('.ending').slideDown();
+            }
+            count++;
+        });
+    },
     mobileHover: function() {
         jQuery(':hover').on('touchstart touchend', function(e) {
             e.preventDefault();
