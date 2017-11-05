@@ -13,7 +13,7 @@ function load_custom_scripts() {
   wp_enqueue_script('jquery');
   // Registers and enqueues the required javascript.
   wp_enqueue_media();
-  wp_enqueue_script('custom', get_bloginfo( 'template_url' ).'/assets/js/custom.js', array('jquery'), null, true);
+  wp_enqueue_script('custom', get_bloginfo( 'template_url' ).'/assets/js/custom.min.js', array('jquery'), null, true);
   wp_localize_script('custom', 'ttp',
       array(
         'ajaxurl' => admin_url('admin-ajax.php'),
