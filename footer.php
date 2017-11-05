@@ -184,15 +184,16 @@
 		                    listIngredients($post->ID);
 		                    listInstructions($post->ID);
 		                    socialShare();
+		                    if(is_smartphone()) {
+			                    relatedRecipe();
+			                }
 		                    echo '<div id="dishpicsWrap">';
 			                    echo '<div id="dishpicsTitle">';
 			                    	echo '<h4>#dishpics</h4>';
 			                    echo '</div>';
 			                    echo '<div id="dishpics"></div>';
 			                echo '</div>';
-		                    if(is_smartphone()) {
-			                    relatedRecipe();
-			                }
+		                    
 		                echo '</div>';
 
 		            echo '</div>';

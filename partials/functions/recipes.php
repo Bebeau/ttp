@@ -674,6 +674,10 @@ function loadRecipe() {
                     listIngredients($post->ID);
                     listInstructions($post->ID);
                     socialShare();
+                    if(is_smartphone()) {
+                        relatedRecipe();
+                        $recipe->reset_postdata();
+                    }
                     echo '<div id="dishpicsWrap">';
                         echo '<div id="dishpicsTitle">';
                             echo '<h4>#dishpics</h4>';
@@ -681,11 +685,6 @@ function loadRecipe() {
                         echo '<div id="dishpics"></div>';
                     echo '</div>';
                 echo '</div>';
-
-                if(is_smartphone()) {
-                    relatedRecipe();
-                    $recipe->reset_postdata();
-                }
 
             echo '</div>';
         
