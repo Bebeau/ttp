@@ -265,7 +265,9 @@ function recipe_rating() {
         echo '<i class="fa fa-star" data-star="5"></i>';
         echo '<p><span>(</span> <span id="starNumber">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber">'.$totalRatings.'</span> ratings <span>)</span></p>';
     echo '</article>';
-    echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
+    if(!is_admin()) {
+        echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
+    }
     echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.$rating.'" />';
 }
 // ajax response to save recipe image
@@ -429,12 +431,10 @@ function loadListing() {
             if($count > 5) {
                 $count = 1;
             }
-        
         endwhile;
     endif;
-    
 
-    if($pageNumber % 3 == 0) {
+    if($pageNumber % 3 == 0 || $pageNumber == 2) {
         if($trigger % 2 == 0) {
             echo '<section class="cta" data-animation="slideUp">';
                 if(is_smartphone()) {
@@ -798,12 +798,14 @@ function save_recipe( $post_id ) {
     if(isset($_POST['ingredients'])) {
         $cookinfo = $_POST['ingredients'];
         $new = array();
+        $tags = array();
         if (is_array($cookinfo)) {
             foreach( $cookinfo as $key => $ingredient ) {
                 $new[$key] = $ingredient['ingredient_title'];
+                $tags[$key] = current(explode(",", $ingredient['ingredient_title']));
             }
         }
-        wp_set_post_terms($post_id, $new, 'ingredients', false);
+        wp_set_post_terms($post_id, $tags, 'ingredients', false);
         update_post_meta($post_id,'ingredients',$cookinfo);
     }
     if(isset($_POST['instructions'])) {

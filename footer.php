@@ -106,7 +106,7 @@
 							$count = 1;
 							foreach($terms as $term) {
 								if($term->count > 0) { 
-									echo ' <span><a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a></span>';
+									echo ' <span><a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a>';
 									if($count !== $totalTerms) {
 										echo ' &bull;</span>';
 									} else {

@@ -284,7 +284,7 @@ a {
 			position: absolute;
 			bottom: 75px;
 			left: 50%;
-			margin-left: -15px;
+			margin-left: -30px;
 			text-align: center;
 			font-size: 12pt;
 			color: $light;
@@ -614,7 +614,7 @@ a {
 	    text-align: left;
 	}
 	.modalCopy {
-		width: 50%;
+		width: 75%;
 		margin: 0 auto;
 		p {
 			text-align: left;
@@ -983,7 +983,7 @@ a {
 			}
 		}
 		.instruction-listing,.ingredient-listing {
-			padding: 0 100px 0 0;
+			padding: 0;
 			box-sizing: border-box;
 			font-size: 16pt;
 			h3 {
