@@ -7,10 +7,8 @@
 	================================================== -->
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
-	<meta name="google-site-verification" content="" />
 
-	<title><?php wp_title(); ?></title>
-	<meta name="keywords" content="" />
+	<title><?php bloginfo('name'); ?></title>
 	<meta name="author" content="The INiT Group">
 	
 	<!-- Mobile Specific Metas
@@ -28,8 +26,8 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="<?php bloginfo('template_directory'); ?>/favicon/apple-touch-icon-114x114.png">
 	
 	<!-- Facebook open graph tags -->
-	<meta property="og:title" content="<?php the_title(); ?>"/>
-	<meta property="og:description" content="Good Food = Good Mood. Gotta Feed The People."/>
+	<meta property="og:title" content="<?php bloginfo('name'); ?>"/>
+	<meta property="og:description" content="<?php bloginfo('description'); ?>"/>
 
 	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?>
 		<meta property="fb:app_id" content="505574093146847" />
