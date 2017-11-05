@@ -265,10 +265,7 @@ function recipe_rating() {
         echo '<i class="fa fa-star" data-star="5"></i>';
         echo '<p><span>(</span> <span id="starNumber">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber">'.$totalRatings.'</span> ratings <span>)</span></p>';
     echo '</article>';
-    $screen = get_current_screen();
-    if ( $screen->parent_base == 'edit' ) {
-        echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
-    }
+    echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
     echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.$rating.'" />';
 }
 // ajax response to save recipe image
