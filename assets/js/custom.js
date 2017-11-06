@@ -147,7 +147,7 @@ var init = {
             clientId: 'b5a9123e62b24e26bc01dc76ec2b213d',
             accessToken: '1936919979.b5a9123.f4492fd6106043a5b33405791d8ff30e',
             resolution: 'standard_resolution',
-            template: '<div class="pic"><a href="{{link}}" style="background:url({{image}}) no-repeat scroll center / cover;"></a></div>',
+            template: '<div class="pic"><a href="{{link}}" target="_BLANK" style="background:url({{image}}) no-repeat scroll center / cover;"></a></div>',
             limit: 6,
             sortBy: 'random'
         });
