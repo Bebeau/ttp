@@ -835,12 +835,12 @@ a {
 		z-index: 9999;
 		&.in {
 			@include transform(translate(0,0));
-			.fa-close {
+			.close {
 				@include transform(rotate(-180deg));
 				@include transition(all 0.75s $authenticMotion);
 			}
 		}
-		.fa-close {
+		.close {
 			position: fixed;
 		}
 		.line {
