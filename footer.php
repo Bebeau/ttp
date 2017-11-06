@@ -9,7 +9,7 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="contact">';
-		echo '<i class="fa fa-close"></i>';
+		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
@@ -46,7 +46,7 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="ingredients">';
-		echo '<i class="fa fa-close"></i>';
+		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
@@ -86,7 +86,7 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="category">';
-		echo '<i class="fa fa-close"></i>';
+		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
@@ -124,7 +124,7 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="rating">';
-		echo '<i class="fa fa-close"></i>';
+		echo '<i class="close"></i>';
 		echo '<div class="outer">';
 			echo '<div class="inner">';
 				echo '<article id="rateRecipe">';
@@ -142,7 +142,7 @@
 
 	if(is_singular('recipes')) {
 		echo '<section class="modal single-recipes in">';
-			echo '<i class="fa fa-close"></i>';
+			echo '<i class="close"></i>';
 			
 			if (have_posts()) :
 
@@ -207,7 +207,7 @@
 		echo '</section>';
 	} else {
 		echo '<section class="modal single-recipes">';
-			echo '<i class="fa fa-close"></i>';
+			echo '<i class="close"></i>';
 		echo '</section>';
 	}
     

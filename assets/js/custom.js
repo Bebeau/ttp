@@ -236,7 +236,7 @@ var init = {
             jQuery('#bodyWrap').addClass("out");
             jQuery('.modal[data-modal="'+modal+'"]').addClass("in");
         });
-        jQuery('.modal .fa-close').click(function(e){
+        jQuery('.modal .close').click(function(e){
             e.preventDefault();
             jQuery(this).parent().removeClass('in');
             jQuery('#bodyWrap').removeClass("out");

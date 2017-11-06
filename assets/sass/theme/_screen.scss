@@ -573,13 +573,13 @@ a {
 	&.in {
 		@include transform(translate(0,0));
 		@include transition(all 0.5s $authenticMotion);
-		.fa-close {
-			opacity: 1;
-			@include transform(rotate(180deg));
+		.close {
+			opacity: 0.25;
+			@include transform(rotate(0deg));
 			@include transition(all 0.75s $authenticMotion);
 		}
 	}
-	.fa-close {
+	.close {
 		opacity: 0;
 		color: white;
 		font-size: 24pt;
@@ -587,8 +587,11 @@ a {
 		position: absolute;
 		top: 25px;
 		right: 25px;
+		width: 35px;
+		height: 35px;
+		background: url('assets/images/close.svg') no-repeat scroll center / contain;
 		z-index: 9999;
-		@include transform(rotate(0deg));
+		@include transform(rotate(180deg));
 		@include transition(all 0.75s $authenticMotion);
 		&:hover {
 			cursor: pointer;
