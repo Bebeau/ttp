@@ -108,10 +108,18 @@ function recipes_feed($content) {
     global $post;
     if(is_feed()) {
       $images = get_post_meta($post->ID, 'recipe_images', true);
+      $total = count($images);
+      $count = 1;
       if (!empty($images)) {
         $img = '<div>';
         foreach($images as $image) {
-          $img .= '<a href="'.get_the_permalink().'" target="_BLANK">'.wp_get_attachment_image($image, 'email').'</a><br />';
+          $img .= '<a href="'.get_the_permalink().'" target="_BLANK">'.wp_get_attachment_image($image, 'email').'</a>';
+          if($total == $count) {
+            $img .= '<br />';
+          } else {
+            $img .= '<br /><br />';
+          }
+          $count++;
         }
         $img .= '</div>';
       }
