@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" itemscope itemtype="http://schema.org/Article">
+<html <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
