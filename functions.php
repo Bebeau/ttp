@@ -121,7 +121,7 @@ function recipes_feed($content) {
         $ing .= "<ul>";
           foreach( $ingredients as $ingredient ) {
               $ing .= "<li>";
-                $ing .= $ingredient['measure']." - ".$ingredient['ingredient_title'];
+                $ing .= "<strong>".$ingredient['measure']."</strong> - ".$ingredient['ingredient_title'];
               $ing .= "</li>";
           }
         $ing .= "</ul>";
