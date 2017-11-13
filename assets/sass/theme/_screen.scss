@@ -11,7 +11,6 @@ $pinterest: #C92228;
 
 @import url('https://fonts.googleapis.com/css?family=Arsenal');
 @import url('https://use.fontawesome.com/771a83773c.css');
-
 @font-face {
     font-family: "Arsenal";
     font-style: normal;
@@ -21,7 +20,14 @@ $pinterest: #C92228;
     url("https://fonts.googleapis.com/css?family=Arsenal") format("ttf"), 
     url("https://fonts.googleapis.com/css?family=Arsenal") format("ttf");
 }
-
+@font-face {
+    font-family: "LiSong Pro";
+    font-style: normal;
+    font-weight: 400;
+    src: local("LiSong Pro"), 
+    local("lisong-pro.ttf"),  
+    url("assets/fonts/lisong-pro.ttf") format("ttf");
+}
 html, body {
 	margin: 0;
 	padding: 0;

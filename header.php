@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" hreflang="en-us">
 
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,7 +18,7 @@
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 
 	<title><?php bloginfo('name'); ?></title>
-	<meta name="author" content="The INiT Group">
+	<meta name="author" content="@theinitgroup">
 	
 	<!-- Mobile Specific Metas
   	================================================== -->
