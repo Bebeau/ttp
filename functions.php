@@ -111,7 +111,7 @@ function recipes_feed($content) {
       if (!empty($images)) {
         $img = '<div>';
         foreach($images as $image) {
-          $img .= wp_get_attachment_image($image, 'email').'<br />';
+          $img .= '<a href="'.get_the_permalink().'" target="_BLANK">'.wp_get_attachment_image($image, 'email').'</a><br /><br />';
         }
         $img .= '</div>';
       }
