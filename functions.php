@@ -128,7 +128,7 @@ function recipes_feed($content) {
       }
       $instructions = get_post_meta($post->ID,'instructions', true );
       if(!empty($instructions)) {
-        $ing = "<h3>Instructions</h3>";
+        $ins = "<h3>Instructions</h3>";
         $ins .= "<ol>";
           foreach( $instructions as $instruction ) {
               $ins .= "<li>";
