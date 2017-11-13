@@ -55,7 +55,7 @@ function remove_menus(){
   remove_menu_page( 'edit-comments.php' );
   // remove_menu_page( 'tools.php' );
   // remove_menu_page( 'users.php' );
-  remove_menu_page( 'plugins.php' );
+  // remove_menu_page( 'plugins.php' );
 }
 add_action( 'admin_menu', 'remove_menus' );
 
@@ -63,6 +63,7 @@ add_action( 'admin_menu', 'remove_menus' );
 add_theme_support( 'post-thumbnails', array('post', 'page') );
 add_image_size( 'listing', 427, 300 );
 add_image_size( 'feature', 955, 955 );
+add_image_size( 'email', 600, 600 );
 
 // Register Navigation Menu Areas
 add_action( 'INiT', 'register_my_menus' );
@@ -108,10 +109,15 @@ function recipes_feed($content) {
     if(is_feed()) {
       $images = get_post_meta($post->ID, 'recipe_images', true);
       if (!empty($images)) {
-        $image = wp_get_attachment_image($images[0], 'feature');
+        $img = '<div>';
+        foreach($images as $image) {
+          $img .= wp_get_attachment_image($image, 'email');
+        }
+        $img .= '</div>';
       }
       $ingredients = get_post_meta($post->ID,'ingredients', true );
       if(!empty($ingredients)) {
+        $ing = "<h3>Ingredients</h3>";
         $ing = "<ul>";
           foreach( $ingredients as $ingredient ) {
               $ing .= "<li>";
@@ -122,6 +128,7 @@ function recipes_feed($content) {
       }
       $instructions = get_post_meta($post->ID,'instructions', true );
       if(!empty($instructions)) {
+        $ing = "<h3>Instructions</h3>";
         $ins = "<ol>";
           foreach( $instructions as $instruction ) {
               $ins .= "<li>";
@@ -130,7 +137,7 @@ function recipes_feed($content) {
           }
         $ins .= "</ol>";
       }
-      $content = $image . $content . $ing . $ins;
+      $content = $img . $content . $ing . $ins;
     }
     return $content;
 }
