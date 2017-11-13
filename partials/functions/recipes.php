@@ -257,13 +257,13 @@ function recipe_rating() {
         $rating = 0;
         $totalRatings = 0;
     }
-    echo '<article itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating" id="starRating" data-post="'.$post->ID.'">';
+    echo '<article id="starRating" data-post="'.$post->ID.'">';
         echo '<i class="fa fa-star" data-star="1"></i>';
         echo '<i class="fa fa-star" data-star="2"></i>';
         echo '<i class="fa fa-star" data-star="3"></i>';
         echo '<i class="fa fa-star" data-star="4"></i>';
         echo '<i class="fa fa-star" data-star="5"></i>';
-        echo '<p><span>(</span> <span id="starNumber" itemprop="ratingValue">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber" itemprop="reviewCount">'.$totalRatings.'</span> ratings <span>)</span></p>';
+        echo '<p itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><span>(</span> <span id="starNumber" itemprop="ratingValue">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber" itemprop="reviewCount">'.$totalRatings.'</span> ratings <span>)</span></p>';
     echo '</article>';
     echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
     echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.$rating.'" />';
