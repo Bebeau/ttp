@@ -118,7 +118,7 @@ function recipes_feed($content) {
       $ingredients = get_post_meta($post->ID,'ingredients', true );
       if(!empty($ingredients)) {
         $ing = "<h3>Ingredients</h3>";
-        $ing = "<ul>";
+        $ing .= "<ul>";
           foreach( $ingredients as $ingredient ) {
               $ing .= "<li>";
                 $ing .= $ingredient['measure']." - ".$ingredient['ingredient_title'];
@@ -129,7 +129,7 @@ function recipes_feed($content) {
       $instructions = get_post_meta($post->ID,'instructions', true );
       if(!empty($instructions)) {
         $ing = "<h3>Instructions</h3>";
-        $ins = "<ol>";
+        $ins .= "<ol>";
           foreach( $instructions as $instruction ) {
               $ins .= "<li>";
                 $ins .= $instruction;
