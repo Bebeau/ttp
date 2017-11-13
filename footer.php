@@ -146,7 +146,7 @@
 			
 			if (have_posts()) :
 
-		        echo '<section id="recipeWrap">';
+		        echo '<section itemscope itemtype="http://schema.org/Recipe" id="recipeWrap">';
 
 		        while (have_posts()) : the_post();
 
@@ -155,7 +155,7 @@
 		            echo '<div id="recipeImages">';
 		                foreach($images as $image) {
 		                    if($count === 0) {
-		                        echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
+		                        echo '<article class="featureImage"><img itemprop="image" src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
 		                    } elseif($count < 4) {
 		                        echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
 		                    }
@@ -168,7 +168,7 @@
 
 		            echo '<div id="recipeCopy">';
 
-		                the_title('<h1>','</h1>');
+		                the_title('<h1 itemprop="name">','</h1>');
 		                echo '<span class="line">';
 		                    echo '<span></span>';
 		                    echo '<span></span>';
@@ -180,7 +180,9 @@
 		                recipe_rating();
 		                
 		                echo '<div class="copy">';
-		                	the_content();
+		                	echo '<div itemprop="description">';
+		                		the_content();
+		                	echo '</div>';
 		                    listIngredients($post->ID);
 		                    listInstructions($post->ID);
 		                    socialShare();

@@ -257,13 +257,13 @@ function recipe_rating() {
         $rating = 0;
         $totalRatings = 0;
     }
-    echo '<article id="starRating" data-post="'.$post->ID.'">';
+    echo '<article itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating" id="starRating" data-post="'.$post->ID.'">';
         echo '<i class="fa fa-star" data-star="1"></i>';
         echo '<i class="fa fa-star" data-star="2"></i>';
         echo '<i class="fa fa-star" data-star="3"></i>';
         echo '<i class="fa fa-star" data-star="4"></i>';
         echo '<i class="fa fa-star" data-star="5"></i>';
-        echo '<p><span>(</span> <span id="starNumber">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber">'.$totalRatings.'</span> ratings <span>)</span></p>';
+        echo '<p><span>(</span> <span id="starNumber" itemprop="ratingValue">'.$rating.'</span> stars <span>out of</span> <span id="ratingNumber" itemprop="reviewCount">'.$totalRatings.'</span> ratings <span>)</span></p>';
     echo '</article>';
     echo '<button class="btn-rate btn-modal" data-modal="rating"><i class="fa fa-angle-right"></i> Rate Recipe</button>';
     echo '<input type="hidden" name="recipe_rating[]" id="recipe_rating" value="'.$rating.'" />';
@@ -631,7 +631,7 @@ function loadRecipe() {
 
     if ($recipe->have_posts()) :
 
-        echo '<section id="recipeWrap">';
+        echo '<section id="recipeWrap" itemscope itemtype="http://schema.org/Recipe">';
 
         while ($recipe->have_posts()) : $recipe->the_post();
 
@@ -642,7 +642,7 @@ function loadRecipe() {
             echo '<div id="recipeImages">';
                 foreach($images as $image) {
                     if($count === 0) {
-                        echo '<article class="featureImage"><img src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
+                        echo '<article class="featureImage"><img itemprop="image" src="'.wp_get_attachment_image_src($image, 'feature')[0].'" alt="'.get_the_title().'" /></article>';
                     } elseif($count < 4) {
                         echo '<article class="thumbnail" data-image="'.wp_get_attachment_image_src($image, 'feature')[0].'"><span style="background:url('.wp_get_attachment_image_src($image, 'medium')[0].') no-repeat scroll center / cover"></span></article>';
                     }
@@ -656,7 +656,7 @@ function loadRecipe() {
 
             echo '<div id="recipeCopy">';
                 
-                the_title('<h1>','</h1>');
+                the_title('<h1 itemprop="name">','</h1>');
                 echo '<span class="line">';
                     echo '<span></span>';
                     echo '<span></span>';
@@ -668,7 +668,9 @@ function loadRecipe() {
                 recipe_rating();
                 
                 echo '<div class="copy">';
-                    the_content();
+                    echo '<div itemprop="description">';
+                        the_content();
+                    echo '</div>';
                     listIngredients($post->ID);
                     listInstructions($post->ID);
                     socialShare();
@@ -827,7 +829,7 @@ function listIngredients($pid) {
     echo '<div class="ingredient-listing">';
         echo '<h3>Ingredients</h3>';
         if(!empty($ingredients)) {
-            echo '<ul>';
+            echo '<ul itemprop="recipeIngredient">';
                 foreach( $ingredients as $ingredient ) {
                     echo '<li class="ingredient">';
                         echo '<span class="single-measurement">'.$ingredient['measure'].'</span>';
@@ -848,7 +850,7 @@ function listInstructions($pid) {
     echo '<div class="instruction-listing">';
         echo '<h3>Instructions</h3>';
         if(!empty($instructions)) {
-            echo '<ol>';
+            echo '<ol itemprop="recipeInstructions">';
                 foreach( $instructions as $instruction ) {
                     echo '<li class="instruction">';
                         echo '<span class="single-instruction">'.$instruction.'</span>';
