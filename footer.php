@@ -183,8 +183,8 @@
 		                	echo '<div itemprop="description">';
 		                		the_content();
 		                	echo '</div>';
-		                    listIngredients($post->ID);
-		                    listInstructions($post->ID);
+		                    listIngredients();
+		                    listInstructions();
 		                    socialShare();
 		                    if(is_smartphone()) {
 			                    relatedRecipe();

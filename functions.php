@@ -102,6 +102,39 @@ function is_smartphone() {
 
 include(TEMPLATEPATH.'/partials/functions/recipes.php');
 
+add_filter( 'the_content', 'recipes_feed' );
+function recipes_feed($content) {
+    global $post;
+    if(is_feed()) {
+      $images = get_post_meta($post->ID, 'recipe_images', true);
+      if (!empty($images)) {
+        $image = wp_get_attachment_image($images[0], 'feature');
+      }
+      $ingredients = get_post_meta($post->ID,'ingredients', true );
+      if(!empty($ingredients)) {
+        $ing = "<ul>";
+          foreach( $ingredients as $ingredient ) {
+              $ing .= "<li>";
+                $ing .= $ingredient['measure']." - ".$ingredient['ingredient_title'];
+              $ing .= "</li>";
+          }
+        $ing .= "</ul>";
+      }
+      $instructions = get_post_meta($post->ID,'instructions', true );
+      if(!empty($instructions)) {
+        $ins = "<ol>";
+          foreach( $instructions as $instruction ) {
+              $ins .= "<li>";
+                $ins .= $instruction;
+              $ins .= "</li>";
+          }
+        $ins .= "</ol>";
+      }
+      $content = $image . $content . $ing . $ins;
+    }
+    return $content;
+}
+
 // add random string generator
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

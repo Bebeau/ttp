@@ -57,7 +57,7 @@ function init_ingredients() {
         array(
             'labels' => $labels,
             'rewrite' => array( 'slug' => 'ingredients' ),
-            'public' => true
+            'public' => false
         )
     );
 }
@@ -671,8 +671,8 @@ function loadRecipe() {
                     echo '<div itemprop="description">';
                         the_content();
                     echo '</div>';
-                    listIngredients($post->ID);
-                    listInstructions($post->ID);
+                    listIngredients();
+                    listInstructions();
                     socialShare();
                     if(is_smartphone()) {
                         relatedRecipe();
@@ -823,7 +823,9 @@ function save_recipe( $post_id ) {
     }
 }
 // list ingredients
-function listIngredients($pid) {
+function listIngredients() {
+    global $post;
+    $pid = $post->ID;
     //get the saved meta as an arry
     $ingredients = get_post_meta($pid,'ingredients', true );
     echo '<div class="ingredient-listing">';
@@ -844,7 +846,9 @@ function listIngredients($pid) {
     echo '</div>';
 }
 // list instructions
-function listInstructions($pid) {
+function listInstructions() {
+    global $post;
+    $pid = $post->ID;
     //get the saved meta as an arry
     $instructions = get_post_meta($pid,'instructions', true);
     echo '<div class="instruction-listing">';
@@ -880,6 +884,7 @@ function socialShare() {
         echo '</a>';
     echo '</section>';
 }
+
 function relatedRecipe() {
     global $post;
 
