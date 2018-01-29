@@ -238,7 +238,7 @@ var init = {
         });
         jQuery('.modal .close').click(function(e){
             e.preventDefault();
-            jQuery(this).parent().removeClass('in');
+            jQuery(this).closest('.modal').removeClass('in');
             jQuery('#bodyWrap').removeClass("out");
             if(!jQuery('.modal').hasClass("in")) {
                 jQuery('body').removeClass("stop");
@@ -315,7 +315,7 @@ var init = {
         });
     },
     thumbnail: function() {
-        jQuery(document).on("click",'.thumbnail',function(){
+        jQuery(document).on("click touchmove",'.thumbnail',function(){
             var feature = jQuery('.featureImage img').attr("src");
             var image = jQuery(this).attr("data-image");
             jQuery('.featureImage img').attr("src", image);

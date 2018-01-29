@@ -9,13 +9,13 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="contact">';
-		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
+			echo '<i class="close"></i>';
 			echo '<div class="outer">';
 				echo '<div class="inner">';
-					echo '<form method="GET" id="contactForm">';
+					echo '<form method="GET" id="contactForm" class="modalCopy">';
 						echo '<h3 class="modalTitle">Let&#39;s Chat</h3>';
 						if(!is_smartphone()) {
 							echo '<p>Our purpose is to Feed The People. Feed the people both literally and figuratively with food and knowledge to create a community of optimal health. And that means sharing, uniting, and working together! So if you want to tell your story, collaborate on a project or just send us some feedback, don’t be shy...</p>';
@@ -46,10 +46,10 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="ingredients">';
-		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
+			echo '<i class="close"></i>';
 			echo '<div class="outer">';
 				echo '<div class="inner">';
 					echo '<div class="modalCopy">';
@@ -86,10 +86,10 @@
 	echo '</section>';
 
 	echo '<section class="modal" data-modal="category">';
-		echo '<i class="close"></i>';
 		echo '<div class="half image">';
 		echo '</div>';
 		echo '<div class="half">';
+			echo '<i class="close"></i>';
 			echo '<div class="outer">';
 				echo '<div class="inner">';
 					echo '<div class="modalCopy">';
@@ -106,12 +106,7 @@
 							$count = 1;
 							foreach($terms as $term) {
 								if($term->count > 0) { 
-									echo ' <span><a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a>';
-									if($count !== $totalTerms) {
-										echo ' &bull;</span>';
-									} else {
-										echo '</span>';
-									}
+									echo '<a href="'.get_term_link($term->term_taxonomy_id).'" data-term="'.$term->term_taxonomy_id.'" >'.$term->name.'</a>';
 									$count++;
 								}
 							}
@@ -167,6 +162,8 @@
 		            echo '</div>';
 
 		            echo '<div id="recipeCopy">';
+		            	
+		            	echo '<i class="close"></i>';
 
 		                the_title('<h1 itemprop="name">','</h1>');
 		                echo '<span class="line">';
@@ -209,7 +206,7 @@
 		echo '</section>';
 	} else {
 		echo '<section class="modal single-recipes">';
-			echo '<i class="close"></i>';
+			
 		echo '</section>';
 	}
     

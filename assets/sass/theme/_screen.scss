@@ -394,7 +394,8 @@ a {
 		font-family: 'LiSong Pro', serif;
 		font-size: 36pt;
 		font-weight: normal;
-		margin: 0 0 15px 20px;
+		margin: 0 0 30px 20px;
+		width: 70%;
 		color: $light;
 		span {
 			box-sizing: border-box;
@@ -569,7 +570,7 @@ a {
 	right: 0;
 	bottom: 0;
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	z-index: 9999;
 	background: $green;
 	color: white;
@@ -612,7 +613,7 @@ a {
 		height: 100%;
 		box-sizing: border-box;
 		vertical-align: top;
-		overflow-x: scroll;
+		position: relative;
 	}
 	.modalTitle {
 	    font-family: 'LiSong Pro', serif;
@@ -635,26 +636,30 @@ a {
 	}
 	&[data-modal="category"] {
 		z-index: 99998;
-		span {
+		a {
+			color: darken($green,25%);
 			display: inline-block;
 			font-size: 18pt;
 			text-align: left;
-			color: $red;
-			padding: 0 5px;
 			@include transition(all 0.3s $authenticMotion);
-			a {
-				color: darken($green,25%);
-				&.clicked {
-					color: $blue;
-					@include transition(all 0.3s $authenticMotion);
-					&:hover, &.mobile_hover {
-						color: $blue;
-					}
-				}
+			&.clicked {
+				color: $blue;
+				@include transition(all 0.3s $authenticMotion);
 				&:hover, &.mobile_hover {
-					color: darken($green,15%);
-					@include transition(all 0.3s $authenticMotion);
+					color: $blue;
 				}
+			}
+			&:hover, &.mobile_hover {
+				color: darken($green,15%);
+				@include transition(all 0.3s $authenticMotion);
+			}
+			&:after {
+				content: "•";
+				margin: 0 10px;
+				color: $red;
+			}
+			&.last {
+				display: none;
 			}
 		}
 		.half {
@@ -842,7 +847,6 @@ a {
 		&.in {
 			@include transform(translate(0,0));
 			.close {
-				@include transform(rotate(-180deg));
 				@include transition(all 0.75s $authenticMotion);
 			}
 		}
