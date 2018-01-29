@@ -137,7 +137,6 @@
 
 	if(is_singular('recipes')) {
 		echo '<section class="modal single-recipes in">';
-			echo '<i class="close"></i>';
 			
 			if (have_posts()) :
 
