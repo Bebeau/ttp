@@ -308,8 +308,7 @@ a {
   z-index: 999;
   background: linear-gradient(#E9F4FF, white);
   text-align: center;
-  padding-top: 50px;
-  display: none !important; }
+  padding-top: 50px; }
   #about #introVideo {
     position: relative;
     width: auto;
