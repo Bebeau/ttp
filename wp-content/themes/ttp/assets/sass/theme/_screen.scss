@@ -215,6 +215,7 @@ a {
 	background: linear-gradient($blue, white);
 	text-align: center;
 	padding-top: 50px;
+	display: none !important;
 	#introVideo {
 		position: relative;
 		width: auto;
@@ -744,6 +745,7 @@ a {
 		background: $light;
 		text-align: left;
 		z-index: 99999;
+		overflow: hidden;
 		.half {
 			&.image {
 				background: url('assets/images/tiki.jpg') no-repeat scroll center / cover;
@@ -759,9 +761,6 @@ a {
 				clear: both;
 				display: block;
 			}
-			.field {
-				margin: 0 0 10px;
-			}
 			label {
 				display: block;
 				text-transform: uppercase;
@@ -775,7 +774,7 @@ a {
 				border: 1px solid darken($light,5%);
 				background: darken($light,5%);
 				color: white;
-				line-height: 40px;
+				line-height: 30px;
 				padding: 0 10px;
 				font-size: 14pt;
 				box-sizing: border-box;
@@ -785,7 +784,7 @@ a {
 				font-size: 14pt;
 				display: block;
 				width: 100%;
-				min-height: 150px;
+				min-height: 100px;
 				max-width: 100%;
 				min-width: 100%;
 				border: 1px solid darken($light,5%);
