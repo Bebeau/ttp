@@ -1,0 +1,147 @@
+$orange: #AD5F57;
+$light: #8482A1;
+
+@import url('https://use.fontawesome.com/771a83773c.css');
+
+#ingredient-listing, #instruction-listing {
+	.inside {
+		margin: 10px 0 0;
+	}
+	.ui-state-highlight {
+		border: 1px dashed grey;
+		display: block;
+		width: 100%;
+		height: 32px;
+		margin: 5px 0;
+	}
+}
+#recipe-rating {
+	.inside {
+		margin: 10px 0 0;
+		text-align: center;
+	}
+	i {
+		font-size: 24pt;
+		margin: 0 5px;
+		&:first-child {
+			margin-left: 0;
+		}
+		&.fa-star {
+			color: lighten($light, 35%);
+			&.active {
+				color: $orange;
+			}
+		}
+	}
+}
+.btn-rate {
+	display: none;
+}
+.move {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: white;
+	background: lighten(black,75%);
+	text-align: center;
+	i {
+		font-size: 14pt;
+		line-height: 24pt;
+		vertical-align: top;
+	}
+	&:hover {
+		cursor: move;
+	}
+}
+.remove {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;
+	background: lighten(red,25%);
+	text-align: center;
+	i {
+		font-size: 14pt;
+		line-height: 24pt;
+		vertical-align: top;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+#ingredientListing {
+	input {
+		line-height: 30px;
+		box-shadow: none;
+		padding: 0 5px;
+		margin: 0;
+		box-sizing: border-box;
+		font-size: 10pt;
+		&.measurement {
+			width: 22%;
+			padding: 0 5px 0 37px;
+		}
+		&.ingredientTitle {
+			width: 75%;
+		}
+	}
+	span {
+		width: 3%;
+		box-sizing: border-box;
+		text-align: center;
+		display: inline-block;
+	}
+	.ingredient {
+		margin: 5px 0;
+		position: relative;
+	}
+}
+#instructionListing {
+	input {
+		line-height: 30px;
+		box-shadow: none;
+		width: 100%;
+		padding: 0 37px 0 37px;
+		margin: 0;
+		font-size: 10pt;
+	}
+	.instruction {
+		margin: 5px 0;
+		position: relative;
+	}
+}
+.btn-instruction, .btn-ingredient, .btn-photo {
+	margin-top: 5px !important;
+	width: 100%;
+	text-align: center;
+}
+#recipe-images {
+	.inside {
+		margin: 10px 0 0;
+	}
+	.ui-state-highlight {
+		border: 1px dashed grey;
+		display: block;
+		width: 100%;
+		height: 200px;
+		margin: 5px 0;
+	}
+}
+.photoWrap {
+	.photo {
+		position: relative;
+		max-width: 100%;
+		img {
+			max-width: 100%;
+			min-width: 100%;
+			height: auto;
+			&:hover {
+				cursor: move;
+			}
+		}
+	}
+}
