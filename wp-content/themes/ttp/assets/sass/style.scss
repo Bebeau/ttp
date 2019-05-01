@@ -1,0 +1,18 @@
+/*!
+Theme Name: The Toasted Post
+Theme URI: http://thetoastedpost.com
+Description: A custom WordPress theme for The Toasted Post
+Version: 1.0
+Author: Kyle Bebeau
+Author URI: http://theinitgroup.com
+*/
+
+// import all custom theme styles
+@import "bourbon/_bourbon.scss";
+@import "theme/_easing.scss";
+@import "theme/_animation.scss";
+
+@import "theme/_screen.scss";
+@import "theme/_print.scss";
+@import "theme/_ie.scss";
+@import "theme/_responsive.scss";
